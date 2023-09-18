@@ -21,9 +21,19 @@ exports.createSection = async (req, resp) => {
         if (!sectionName || !courseId) {
             return resp.status(200).json({
                 status: "Failed",
-                msg: "All fields required while creating section !"
+                msg: "All fields required while creating section ! sectionName or courseId"
             })
         }
+
+        //~ If the courseId is Incorrect we will give that msg
+        const courseIdCheck=await Course.findById(courseId);
+        if(!courseIdCheck){
+            return resp.status(200).json({
+                status:"Failed",
+                msg:"CourseId passed doesn't exists !"
+            })
+        }
+
 
         // entry in section db
         const newSection = await Section.create({ sectionName })
@@ -38,15 +48,20 @@ exports.createSection = async (req, resp) => {
                 }
             },
             { new: true }
-        )
+        
             //**  HW: use populate to replace sections/sub-sections both in the updatedCourseDetails
-
-            .populate({
-                path: "courseContent",
-                populate: {
-                    path: "subSection"
-                }
-            })
+            )
+            .populate(
+               {
+                path:"courseContent"
+               }
+            )
+            // .populate({
+            //     path: "courseContent",
+            //     populate: {
+            //         path: "subSection"
+            //     }
+            // })
             .exec()
 
         return resp.status(200).json({
@@ -81,8 +96,18 @@ exports.updateSection = async (req, resp) => {
             });
         }
 
+        //~ If the sectionId is Incorrect we will give that msg
+        const sectionIdCheck=await Section.findById(sectionId);
+        if(!sectionIdCheck){
+            return resp.status(200).json({
+                status:"Failed",
+                msg:"Section Id passed doesn't exists !"
+            })
+        }
+
+
         //update data
-        const section = await Section.findByIdAndUpdate(
+        const updatedSection = await Section.findByIdAndUpdate(
             { _id: sectionId },
             { sectionName },
             { new: true }
@@ -92,6 +117,7 @@ exports.updateSection = async (req, resp) => {
         return resp.status(200).json({
             success: "Success",
             message: 'Section Updated Successfully',
+            updatedSection:updatedSection
         });
 
     } catch (error) {
@@ -110,8 +136,14 @@ exports.updateSection = async (req, resp) => {
 exports.deleteSection = async (req, resp) => {
     try {
 
-        const { courseId, sectionId } = req.params
+        const { courseId, sectionId } = req.body
         const deletedDatafromSection = await Section.findByIdAndDelete({ _id: sectionId })
+        if(!deletedDatafromSection){
+            return resp.status(200).json({
+                success: "Failed",
+                message: "Unable to delete Section, or Id not found please try again later",
+            });
+        }
 
         //TODO[Testing]: do we need to delete the entry from the course schema ??
 
@@ -119,17 +151,19 @@ exports.deleteSection = async (req, resp) => {
         // We will need courseId if we want to delete section from course Schema
 
         //!! check below 
-        await Course.findByIdAndUpdate(
+        const updatedCourse=await Course.findByIdAndUpdate(
             { _id: courseId },
             {
                 $pull: {
-                    courseContent: {
-                        _id: courseId
-                    }
+                    courseContent: sectionId
                 }
+            },
+            {
+                new:true
             }
         )
 
+        console.log(updatedCourse)
 
         return resp.status(200).json({
             success: "Success",

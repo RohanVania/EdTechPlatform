@@ -11,6 +11,10 @@ const { auth } = require("../middlewares/auth")
 
 // User can login,signup and In front end we have Send OTP Page
 
+// ********************************************************************************************************
+//                                      Authentication routes
+// ********************************************************************************************************
+
 router.post("/login", login);
 router.post("/signup", signUp);
 router.post("/sendotp", sendOtp);

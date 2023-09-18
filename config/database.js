@@ -10,9 +10,6 @@ exports.databaseConnect = async () => {
     }).then(() => {
         console.log("Database Connected Successfully !");
     }).catch((error) => {
-        console.log("Error connecting to database !");
-        console.log(error)
-        process.exitCode = 1
+        console.log("Error connecting to database 💥",error);
     })
 }
-

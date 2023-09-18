@@ -10,7 +10,7 @@ const {
     updateProfile, deleteAccount, updateDisplayPicture, getAlluserDetails, getEnrolledCourses
 } = require("../controller/Profile")
 
-//  User can Edit Profile Info, delete Account, Update Profile Photo and see all Details
+//^  User can Edit Profile Info, delete Account, Update Profile Photo and see all Details
 
 router.put("/updateProfile", auth, updateProfile);
 router.put("/updateDisplayPicture", auth, updateDisplayPicture);

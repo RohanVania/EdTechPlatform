@@ -75,9 +75,8 @@ exports.createSubSection = async (req, resp) => {
 exports.updateSubSection = async (req, resp) => {
     try {
 
-        const { sectionId, title, description } = req.body;
-        const subSection = await SubSection.findById(sectionId);
-
+        const { subsectionId, title, description } = req.body;
+        const subSection = await SubSection.findById(subsectionId);
         if (!subSection) {
             return resp.status(200).json(
                 {
@@ -135,6 +134,13 @@ exports.deleteSubSection = async (req, resp) => {
                 },
             }
         )
+
+        if(!sectionUpdate){
+            return resp
+            .status(200)
+            .json({ status: "Failed", message: "Section not found" })
+        }
+
 
         const subSection = await SubSection.findByIdAndDelete({ _id: subSectionId })
 

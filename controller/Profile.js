@@ -1,7 +1,8 @@
 const User = require("../model/User");
 const Profile = require("../model/Profile")
 const { imageUploader } = require("../utils/imageUploader");
-const { default: mongoose } = require("mongoose");
+// const { default: mongoose } = require("mongoose");
+
 // Profile 
 // Update Profile
 // Delete Profile
@@ -21,8 +22,8 @@ const { default: mongoose } = require("mongoose");
 
 exports.updateProfile = async (req, resp) => {
     try {
-        const { about, dateOfBirth, contactNumber
-            , gender // Form Data
+        const { about="", dateOfBirth="", contactNumber=""
+            , gender="" // Form Data
         } = req.body;
         const id = req.user.id;
 
@@ -112,15 +113,6 @@ exports.getAlluserDetails = async (req, resp) => {
             .populate("additionalDetails")
             .exec()
 
-        if (!userDetails) {
-            return resp.status(200).json(
-                {
-                    status: "Failed",
-                    msg: "User dont exists/ Cannot be deleted"
-                }
-            )
-        }
-
         return resp.status(200).json(
             {
                 status: "Success",
@@ -151,8 +143,10 @@ exports.updateDisplayPicture = async (req, resp) => {
         const image = await imageUploader(
             displayPicture,
             process.env.FOLDER_NAME,
+            1000,
+            1000
         )
-        console.log(image);
+        console.log("Image =>",image);
         const updatedProfile = await User.findByIdAndUpdate(
             userId,
             {

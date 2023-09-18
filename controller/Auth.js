@@ -55,8 +55,8 @@ exports.sendOtp = async (req, resp) => {
             })
             result = await OTP.findOne({ otp: otp });
         }
-
-
+        
+        
         // Before this we call the pre save hook in Otp model to send email with otp
 
         // Save it Db
@@ -146,7 +146,7 @@ exports.signUp = async (req, resp) => {
         if (recentOtp.length == 0) {
             return resp.status(200).json({
                 status: "Failed",
-                msg: "Otp not Found !"
+                msg: "The Otp is not valid!"
             })
         }
         //?? recentotp return array ["{email,otp,createdAt}"]
@@ -196,6 +196,7 @@ exports.signUp = async (req, resp) => {
 
         return resp.status(200).json({
             status: "Success",
+            user:user,
             msg: "User is Registered successfully !"
         })
 
@@ -343,6 +344,7 @@ exports.changePassword = async (req, resp) => {
         // We have sent in auth middleware to next with req.user and user has {token} 
         const userDetails = await User.findById(req.user.id);
 
+        // Get old password, new password, and confirm new password from req.body
         const { oldPassword, newPassword, confirmNewPassword } = req.body;
 
         if (!oldPassword || !newPassword || !confirmNewPassword) {
@@ -372,7 +374,7 @@ exports.changePassword = async (req, resp) => {
         if (newPassword !== confirmNewPassword) {
             return resp.status(200).json({
                 status: "Failed",
-                msg: "NewPassword and ConfirmPassword don't match ! Try Again"
+                msg: "New Password and Confirm Password don't match ! Try Again"
             })
         }
 
@@ -385,6 +387,7 @@ exports.changePassword = async (req, resp) => {
             {
                 password: newHashedPassword
             },
+            // This Parameter is used so, we get the updated object and not the old object
             {
                 new: true
             })
@@ -394,6 +397,7 @@ exports.changePassword = async (req, resp) => {
         try {
             mailResponse = await mailSender(
                 updatedUserDetails.email,
+              //Change to Password Update Template Later
                 "Password Update",
                 "Your Password is Updated Successfully"
 
@@ -412,8 +416,7 @@ exports.changePassword = async (req, resp) => {
                 }
             )
         }
-
-
+        
         return resp.status(200).json({
             status: "Success",
             msg: "Password Updated Successfully !",

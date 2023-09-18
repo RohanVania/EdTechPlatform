@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
+        // unique:true
     },
     password: {
         type: String,
@@ -31,8 +32,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ["Student", "Instructor", "Admin"],
         required: true,
-    }
-    ,
+    },
 
     // Refer's to other document of other collection's
 
