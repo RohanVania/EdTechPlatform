@@ -9,6 +9,7 @@ const jwtToken = require("jsonwebtoken")
 
 exports.auth = async (req, resp, next) => {
     try {
+
         const token = req.cookies.token || req.body.token || req.header("Authorization").replace("Bearer ", "");
         if (!token) {
             return resp.status(200).json({
@@ -30,7 +31,7 @@ exports.auth = async (req, resp, next) => {
             //     email:user.email
             // }
 
-            console.log(decode)
+            console.log("Auth Token Data =>",decode)
             req.user = decode;
 
         } catch (error) {

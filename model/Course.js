@@ -65,8 +65,10 @@ const courseSchema = new mongoose.Schema({
         ref: "Category"
     },
 
+    //* Later we choose using tag or filter using tag
     tag: {
         type: [String],
+        required:true,
     },
 
     //??  Additional details will discover

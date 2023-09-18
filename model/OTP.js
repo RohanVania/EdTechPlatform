@@ -39,7 +39,6 @@ async function sendEmailVerification(email, otp) {
         console.log("Email sent successfully !", mailResponse);
     } catch (error) {
         console.log("Error occured while sending mails :", error)
-
         // Do not known reason 
         throw error;
     }

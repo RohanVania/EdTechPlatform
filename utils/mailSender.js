@@ -1,5 +1,6 @@
 const nodemailer = require("nodemailer");
 
+
 // Mail sending Configuration
 // Which we are defining in Function
 

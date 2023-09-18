@@ -4,6 +4,7 @@ const Category = require("../model/Category")
 
 // Create Category
 
+//TODO : CAN ADMIN ADD CATEGORY OF SAME NAME
 exports.createCategory = async (req, resp) => {
     try {
         const { name, description } = req.body;
@@ -49,6 +50,7 @@ exports.showAllCategories = async (req, resp) => {
     try {
         const allCategorys = await Category.find(
             {},
+            // In the Find what Data we want to see, we pass that in the second parameter
             {
                 name: true,
                 description: true
@@ -79,7 +81,7 @@ exports.categoryPageDetails = async (req, resp) => {
         const { categoryId } = req.body;
         //get courses for specified categoryId
         const selectedCategory = await Category.findById(categoryId)
-            .populate("courses")
+            .populate("courses",{_id:0})
             .exec();
         //validation
         if (!selectedCategory) {
@@ -95,8 +97,10 @@ exports.categoryPageDetails = async (req, resp) => {
             .populate("courses")
             .exec();
 
-        //get top 10 selling courses
-        //HW - write it on your own
+        //TODO get top 10 selling courses
+        //TODO HW - write it on your own
+
+        
 
         //return response
         return resp.status(200).json({

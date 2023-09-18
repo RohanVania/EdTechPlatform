@@ -1,16 +1,17 @@
 const User = require("../model/User");
 const Course = require("../model/Course")
+const Category=require("../model/Category");
 const { imageUploader } = require("../utils/imageUploader")
 
 
-// Create Course
+//* Create Course
 
 exports.createCourse = async (req, resp) => {
     try {
 
         const userId = req.user.id;
 
-        const {
+        let {
             courseName,
             courseDescription,
             whatYouWillLearn,
@@ -30,7 +31,7 @@ exports.createCourse = async (req, resp) => {
         if (!courseName || !courseDescription || !whatYouWillLearn || !price || !tag || !thumbnail || !category) {
             return resp.status(200).json({
                 status: "Failed",
-                msg: "All fields are required while creating course !"
+                msg: "Some fields that are missing are required while creating course !"
             })
         }
 
@@ -44,9 +45,10 @@ exports.createCourse = async (req, resp) => {
         const instructorDetails = await User.findById(userId,
             {
                 accountType: "Instructor"
-            });
+            }
+            );
 
-        console.log("Instructor Details: ", instructorDetails);
+        console.log("Instructor Details =>", instructorDetails);
 
         //TODO: Verify that userId and instructorDetails._id  are same or different ? (both are same)
 
@@ -56,19 +58,20 @@ exports.createCourse = async (req, resp) => {
                 message: 'Instructor Details not found !',
             });
         }
-
         // validate Category also
-        const categoryDetails = await Category.findById(category);
+
+        const categoryData=await Category.findOne({name:category});
+
+        const categoryDetails = await Category.findById(categoryData._id);
         if (!categoryDetails) {
             return resp.status(200).json({
                 status: "Failed",
-                msg: "Category details not found !"
+                msg: "Category details not found or is Invalid!"
             })
         }
-
         // If all good upload file to cloudinary
         const thumbnailImage = await imageUploader(thumbnail, process.env.FOLDER_NAME)
-        console.log(thumbnailImage);
+        console.log("ThumbNail Image =>",thumbnailImage);
 
         // add Entry in course
         const newCourse = await Course.create({
@@ -82,8 +85,6 @@ exports.createCourse = async (req, resp) => {
             thumbnail: thumbnailImage.secure_url,
             status: status,
             instructions: instructions
-
-
         })
 
         // add course in userSchema of instructor as well
@@ -102,7 +103,7 @@ exports.createCourse = async (req, resp) => {
 
         //update the TAG ka schema 
 
-        const updateCategoryDetails = await Category.findByIdAndUpdate({ _id: category },
+        const updateCategoryDetails = await Category.findByIdAndUpdate({ _id: categoryData._id },
             {
                 $push: {
                     courses: newCourse._id
@@ -112,7 +113,6 @@ exports.createCourse = async (req, resp) => {
                 new: true
             }
         )
-
 
         return resp.status(200).json({
             success: "Success",
