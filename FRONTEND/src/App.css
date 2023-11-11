@@ -1,0 +1,17 @@
+/* write your css here */
+
+.videohome{
+    /* box-shadow: 15px 15px 0px #FFD60A; */
+    box-shadow: 15px 15px 0px #FFF;
+
+
+}
+
+@media screen and (max-width:1080px) {
+    .videohome{
+        /* box-shadow: 9px 9px 0px #FFD60A; */
+        box-shadow: 9px 9px 0px #FFF;
+
+    }
+    
+}
