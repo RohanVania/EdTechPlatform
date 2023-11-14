@@ -8,7 +8,7 @@ function Buttons({extrasmall,text,active}) {
 
     return (
         <>
-            <div className={`${activestyle1} ${extrasmallstyle} tw-px-[7px] tw-py-[12px] tw-rounded-full btnalign:tw-rounded-md btn:tw-px-[18px] 2xs:tw-px-[22px] 2xs:tw-text-[14px] tw-font-semibold tw-shadow-m tw-shadow-[0_1px_1px_0px_rgba(255,255,255,0.3)]`}>
+            <div className={`${activestyle1} ${extrasmallstyle} tw-px-[7px] tw-py-[12px] tw-rounded-full btnalign:tw-rounded-md btn:tw-px-[18px] 2xs:tw-px-[22px] 2xs:tw-text-[12px] tw-font-semibold tw-shadow-m tw-shadow-[0_1px_1px_0px_rgba(255,255,255,0.3)]`}>
                 {text}
             </div>
             

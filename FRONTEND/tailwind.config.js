@@ -11,7 +11,7 @@ module.exports = {
         'videobanner':{'max':'340px'},
     },
     
-    extend: {
+    extend: { 
       colors: {
         white: "#fff",
         black: "#000",
