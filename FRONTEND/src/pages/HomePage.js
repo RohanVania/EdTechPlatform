@@ -1,3 +1,5 @@
+// TEST COMMENT
+
 import React from 'react'
 import { AiOutlineArrowRight } from 'react-icons/ai'
 import HighlightText from '../components/homePage/HighlightText'
