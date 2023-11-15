@@ -8,6 +8,10 @@ import Banner from "../assets/Images/banner.mp4"
 import CodeBlock from '../components/homePage/CodeBlock'
 import CardBlock from '../components/homePage/CardBlock'
 import Vector from "../assets/Images/bghome.svg"
+import Timeline from '../assets/Images/TimelineImage.png'
+import badge from "../assets/Images/fi-sr-badge.svg"
+import TimeLineSection from '../components/homePage/TimeLineSection'
+
 
 
 const btndata1 = {
@@ -41,7 +45,7 @@ export function HomePage() {
   return (
     <>
       {/* Section 1 */}
-      <div id='section1' className='tw-bg-red-20 tw-bg-richblue-800 '>
+      <div id='section1' className='tw-bg-red-20 tw-bg-richblack-900 '>
 
         <div className='tw-px-3 tw-w-11/12 tw-mx-auto '>
           {/* BUTTON */}
@@ -71,6 +75,7 @@ export function HomePage() {
           </div>
 
           {/* Video */}
+
           <div className='videobanner:tw-h-[175px] videobanner:tw-mt-6 tw-mt-9 tw-mb-6 sm:tw-max-w-[915px] tw-mx-auto tw-box videohome tw-relative tw-z-[2]'>
             <video src={Banner} muted autoPlay loop className='videobanner:tw-w-full videobanner:tw-h-full videobanner:tw-object-cover ' >
             </video>
@@ -91,32 +96,30 @@ export function HomePage() {
                 </linearGradient>
               </defs>
             </svg>
-
           </div>
 
           {/* Code Blocks */}
-          <div className='tw-mt-[15px] md:tw-mt-[70px] tw-flex tw-flex-col tw-gap-9 tw-pb-[40px] xs:tw-pb-[50px] md:tw-pb-[65px] '>
-            <CodeBlock
-              color="white"
-              btnobj={btndata1}
-              text='Our courses are designed and taught by industry experts who have years of experience in coding and are passionate about sharing their knowledge with you.'
-              heading1='Unlock your'
-              heading2='with our online courses'
-              highlight='coding potential'
-              code={`<!DOCTYPE html>\n<html>\n<head>Example</title>\n</head>\n<body>\n<h1><a href="/">Link</a><a href="/">Link</a>\n</h1>\n<nav>\n<a href="three">Three</a>\n</nav>\n</body>`}
-              codecolor='tw-text-cyan-300'
-            />
-            <CodeBlock
-              color="white"
-              btnobj={btndata2}
-              text="Go ahead, give it a try. Our hands-on learning environment means you'll be writing real code from your very first lesson."
-              heading1='Start'
-              highlight='Coding in seconds'
-              code={`<!DOCTYPE html>\n<html>\n<head>Example</title>\n</head>\n<body>\n<h1><a href="/">Link</a><a href="/">Link</a>\n</h1>\n<nav>\n<a href="three">Three</a>\n</nav>\n</body>`}
-              codecolor='tw-text-cyan-300'
-              reverse
-            />
-          </div>
+
+          <CodeBlock
+            color="white"
+            btnobj={btndata1}
+            text='Our courses are designed and taught by industry experts who have years of experience in coding and are passionate about sharing their knowledge with you.'
+            heading1='Unlock your'
+            heading2='with our online courses'
+            highlight='coding potential'
+            code={`<!DOCTYPE html>\n<html>\n<head>Example</title>\n</head>\n<body>\n<h1><a href="/">Link</a><a href="/">Link</a>\n</h1>\n<nav>\n<a href="three">Three</a>\n</nav>\n</body>`}
+            codecolor='tw-text-cyan-300'
+          />
+          <CodeBlock
+            color="white"
+            btnobj={btndata2}
+            text="Go ahead, give it a try. Our hands-on learning environment means you'll be writing real code from your very first lesson."
+            heading1='Start'
+            highlight='Coding in seconds'
+            code={`<!DOCTYPE html>\n<html>\n<head>Example</title>\n</head>\n<body>\n<h1><a href="/">Link</a><a href="/">Link</a>\n</h1>\n<nav>\n<a href="three">Three</a>\n</nav>\n</body>`}
+            codecolor='tw-text-cyan-300'
+            reverse
+          />
 
           {/* CARD BLOCK  */}
           <div className='tw-mx-auto'>
@@ -128,13 +131,11 @@ export function HomePage() {
               <div className=' tw-bg-red-300 tw-mt-4'>
                 buttons later
               </div>
-
               <div className='flex-area tw-mt-10 tw-flex tw-flex-wrap tw-gap-y-[40px] tw-justify-center tw-gap-x-[3.5rem] '>
                 <CardBlock active={true} heading="Learn HTML" level="Beginner" content="6 Lessons" para="This course covers the basic concepts of HTML including creating and structuring web pages, adding text, links, images, and more." />
                 <CardBlock heading="Learn CSS" level="Beginner" content="6 Lessons" para="This course explores advanced topics in HTML5 and CSS3, including animations, transitions, and layout techniques." />
                 <CardBlock heading="Responsive Web Design" level="Beginner" content="6 Lessons" para="This course teaches responsive web design techniques, allowing web pages to adapt to different devices and screen sizes." />
               </div>
-
             </div>
           </div>
 
@@ -154,7 +155,7 @@ export function HomePage() {
       </div>
 
       {/* Section 3 */}
-      <div id='section3' className='tw-mt-10'>
+      <div id='section3' className='tw-py-10 tw-bg-[#F9F9F9]'>
         <div className='tw-w-11/12 sm:tw-max-w-maxContent tw-mx-auto tw-py-6 sm:tw-py-10'>
 
           {/* Heading Para Section */}
@@ -169,11 +170,7 @@ export function HomePage() {
               </div>
             </div>
           </div>
-
-          {/*Text and Image Right Section */}
-          <div className='tw-bg-red-400 tw-mt-10 tw-py-10'>
-            ufhuquheuwheu
-          </div>
+          <TimeLineSection />
 
         </div>
       </div>
