@@ -146,7 +146,7 @@ export function HomePage() {
 
       <div id='section2' className=''>
         <div style={{ backgroundImage: `url(${Vector})`, objectFit: "cover" }} className='' >
-          <div className="tw-h-[260px] sm:tw-h-[300px] tw-max-w-maxContent tw-mx-auto tw-flex tw-justify-center tw-items-center tw-gap-12 ">
+          <div className="tw-h-[260px] sm:tw-h-[300px] tw-max-w-maxContent tw-mx-auto tw-flex tw-justify-center tw-items-center tw-gap-10 ">
             <Buttons active text="Explore Full Catalog ➡" extrasmall />
             <Buttons text="Learn More" extrasmall />
           </div>
@@ -156,9 +156,11 @@ export function HomePage() {
       {/* Section 3 */}
       <div id='section3' className='tw-mt-10'>
         <div className='tw-w-11/12 sm:tw-max-w-maxContent tw-mx-auto tw-py-6 sm:tw-py-10'>
+
+          {/* Heading Para Section */}
           <div className='tw-flex tw-flex-wrap  tw-gap-y-8 tw-justify-between'>
             <div className='xs:tw-max-w-[85%] tw-mx-auto lg:tw-max-w-[40%] tw-text-black'>
-              <HighlightText color="black" text="Get the skills you need for a " highlight="job that is in demand." />
+              <HighlightText color="black" text="Get the skills you need for a " highlight="clawclaws that is in demand." />
             </div>
             <div className='xs:tw-max-w-[85%] tw-mx-auto lg:tw-max-w-[50%] tw-flex tw-flex-col tw-gap-10'>
               <p className='tw-text-richblack-700 tw-text-[16px]'>The modern StudyNotion is the dictates its own terms. Today, to be a competitive specialist requires more than professional skills</p>
@@ -166,6 +168,11 @@ export function HomePage() {
                 <Buttons text="Learn More" extrasmall active />
               </div>
             </div>
+          </div>
+
+          {/*Text and Image Right Section */}
+          <div className='tw-bg-red-400 tw-mt-10 tw-py-10'>
+            ufhuquheuwheu
           </div>
 
         </div>
