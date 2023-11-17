@@ -11,6 +11,8 @@ import Vector from "../assets/Images/bghome.svg"
 import Timeline from '../assets/Images/TimelineImage.png'
 import badge from "../assets/Images/fi-sr-badge.svg"
 import TimeLineSection from '../components/homePage/TimeLineSection'
+import TimelineCard from '../components/homePage/TimelineCard'
+import Heading from '../components/homePage/Heading'
 
 
 
@@ -170,7 +172,10 @@ export function HomePage() {
               </div>
             </div>
           </div>
+
           <TimeLineSection />
+          <Heading className="tw-my-[40px] md:tw-mt-[100px] mb:tw-mb-[50px] tw-mt-5  tw-mx-auto" nobuttons color="tw-text-richblack-800" description="Using spin making learning multiple languages easy. with 20+ languages realistic voice-over, progress tracking, custom schedule and more. " text="Your swiss knife for" highlight="learning any language" />
+          <TimelineCard className="tw-my-[40px] md:tw-mt-[50px] mb:tw-mb-[50px]"  />
 
         </div>
       </div>
