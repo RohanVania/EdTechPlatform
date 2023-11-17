@@ -33,7 +33,7 @@ const timelinedata = [{
 
 function TimeLineSection() {
     return (
-        <div className='tw-mt-4 tw-py-10 tw-flex tw-flex-col md:tw-flex-row md:tw-justify-between tw-gap-y-[58px]'>
+        <div className='tw-mt-4 tw-py-6 tw-flex tw-flex-col md:tw-flex-row md:tw-justify-between tw-gap-y-[58px]'>
             <div className='tw-flex tw-flex-col tw-gap-[50px] tw-basis-[40%] tw-justify-center '>
                 {
                     timelinedata.map((el, indx) => {
