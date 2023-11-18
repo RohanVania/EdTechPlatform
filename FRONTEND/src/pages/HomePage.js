@@ -198,26 +198,26 @@ export function HomePage() {
         <div id='section4wrapper' className='tw-w-11/12 tw-mx-auto sm:tw-max-w-maxContent'>
 
           <div className='tw-flex tw-flex-col tw-gap-y-[20px] md:tw-flex-row tw-flex-wrap tw-py-[10px] tw-justify-around tw-items-center tw-pt-[40px] xs:tw-pt-[95px]'>
-              <div className='md:tw-basis-[45%]'>
-                <img src={InstructorImage} className='tw-w-full tw-h-full tw-object-cover shadowleft' alt='Instructorimage' />
+            <div className='md:tw-basis-[45%]'>
+              <img src={InstructorImage} className='tw-w-full tw-h-full tw-object-cover shadowleft' alt='Instructorimage' />
+            </div>
+            <div className=' md:tw-basis-[45%] '>
+              <div className='tw-flex tw-gap-x-1  tw-justify-start md:tw-flex-col md:tw-mt-0 tw-mt-[10px] tw-flex-wrap '>
+                <h1 className='tw-font-[600] tw-text-[17px] sm:tw-text-[29px]  lg:tw-text-[45px]   3xs:tw-text-[21px]  btnalign:tw-text-[26px] tw-text-white'>
+                  Become
+                </h1>
+                <h2 className='  tw-font-[600] tw-text-[17px] sm:tw-text-[29px] lg:tw-text-[45px]  3xs:tw-text-[21px]  btnalign:tw-text-[26px] tw-text-white '>
+                  an
+                  <span className='tw-bg-gradient-to-br tw-from-blue-500 tw-via-cyan-400 tw-to-green-200 tw-ml-2 tw-text-transparent tw-bg-clip-text'>
+                    instructor
+                  </span>
+                </h2>
               </div>
-              <div className=' md:tw-basis-[45%] '>
-                <div className='tw-flex tw-gap-x-1  tw-justify-start md:tw-flex-col md:tw-mt-0 tw-mt-[10px] tw-flex-wrap '>
-                  <h1 className='tw-font-[600] tw-text-[17px] sm:tw-text-[29px]  lg:tw-text-[45px]   3xs:tw-text-[21px]  btnalign:tw-text-[26px] tw-text-white'>
-                    Become
-                  </h1>
-                  <h2 className='  tw-font-[600] tw-text-[17px] sm:tw-text-[29px] lg:tw-text-[45px]  3xs:tw-text-[21px]  btnalign:tw-text-[26px] tw-text-white '>
-                    an
-                    <span className='tw-bg-gradient-to-br tw-from-blue-500 tw-via-cyan-400 tw-to-green-200 tw-ml-2 tw-text-transparent tw-bg-clip-text'>
-                      instructor
-                    </span>
-                  </h2>
-                </div>
-                <p className='tw-mt-3 tw-text-[17px] tw-text-richblack-300'>
-                  Instructors from around the world teach millions of students on StudyNotion. We provide the tools and skills to teach what you love.
-                </p>
-                <Buttons className="tw-w-fit tw-mt-12" text="Start Teaching Today ➡" active />
-              </div>
+              <p className='tw-mt-3 tw-text-[14.5px] 3xs:tw-text-[15px] 2xs:tw-text-[16px] tw-text-richblack-300'>
+                Instructors from around the world teach millions of students on StudyNotion. We provide the tools and skills to teach what you love.
+              </p>
+              <Buttons className="tw-w-fit tw-mt-12" text="Start Teaching Today ➡" active />
+            </div>
           </div>
 
         </div>
