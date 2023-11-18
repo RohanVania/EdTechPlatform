@@ -3,6 +3,7 @@ import { HiUsers } from "react-icons/hi2";
 
 
 function CardBlock({heading,para,level,content,active}) {
+    
     const activecard=active?"tw-bg-white shadow":"tw-bg-richblack-800";
     const activeheading=active?"tw-text-black":"tw-text-richblue-5";
     const activesymbol=active?"tw-text-[#0F7A9D] tw-border-t-2 tw-border-dashed tw-border-[#0F7A9D]":"tw-text-richblack-300 tw-border-t-2 tw-border-dashed tw-border-richblack-300";
