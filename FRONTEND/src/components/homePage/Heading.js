@@ -3,12 +3,12 @@ import React from 'react'
 import HighlightText from './HighlightText'
 import Buttons from '../core/Buttons'
 
-function Heading({ description, nobuttons,text,highlight,color,className}) {
-    const styles=className?className:'';
+function Heading({ description, nobuttons, text, highlight, color, className, btnobj }) {
+    const styles = className ? className : '';
 
-    const textcolor=color?color:'white'
+    const textcolor = color ? color : 'white'
     return (
-        <div className={`tw-mt-5  tw-mx-auto ${styles}`}>
+        <div className={` ${styles}`}>
             <div className='btnalign:tw-text-center'>
                 <HighlightText color={textcolor} text={text} highlight={highlight} />
             </div>
@@ -16,10 +16,10 @@ function Heading({ description, nobuttons,text,highlight,color,className}) {
                 <p className={`tnalign:tw-text-center btnalign:tw-text-[18px]  tw-text-[10px] 3xs:tw-text-[12px] btn:tw-text-[14.5px] sm:tw-text-[17px] sm:tw-text-center tw-text-richblack-300 ${color}`}>
                     {description}
                 </p>
-                { !nobuttons &&
+                {!nobuttons &&
                     <div className='tw-flex tw-gap-3 3xs:tw-gap-2 2xs:tw-gap-5 tw-mt-5 btnalign:tw-mx-auto'>
-                        <Buttons text="Learn More" active extrasmall />
-                        <Buttons text="Book a demo" extrasmall />
+                        <Buttons text={btnobj.btn1.text} active extrasmall />
+                        {btnobj.btn2 && <Buttons text={btnobj.btn2.text} extrasmall />}
                     </div>
                 }
             </div>
