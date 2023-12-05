@@ -4,15 +4,18 @@ import React from 'react'
 import { AiOutlineArrowRight } from 'react-icons/ai'
 import HighlightText from '../components/homePage/HighlightText'
 import Buttons from '../components/core/Buttons'
-import Banner from "../assets/Images/banner.mp4"
 import CodeBlock from '../components/homePage/CodeBlock'
 import CardBlock from '../components/homePage/CardBlock'
-import Vector from "../assets/Images/bghome.svg"
-import InstructorImage from "../assets/Images/Instructor.png"
 import TimeLineSection from '../components/homePage/TimeLineSection'
-import TimelineCard from '../components/homePage/TimelineCard'
-import Heading from '../components/homePage/Heading'
 import HeadingDescriptionBlock from '../components/homePage/HeadingDescriptionBlock'
+import Heading from '../components/homePage/Heading'
+import TimelineCard from '../components/homePage/TimelineCard'
+import Banner from "../assets/Images/banner.mp4"
+import Vector from "../assets/Images/bghome.svg"
+import LogoLight from "../assets/Logo/Logo-Full-Light.png"
+import InstructorImage from "../assets/Images/Instructor.png"
+import { FooterLink1 } from '../data/footer-links'
+import { FooterLink2 } from '../data/footer-links'
 
 
 const btndata1 = {
@@ -170,7 +173,6 @@ export function HomePage() {
       <div id='section3' className='tw-pt-10 tw-bg-[#F9F9F9]'>
         <div id="section3wrapper" className='tw-w-11/12 sm:tw-max-w-maxContent tw-mx-auto tw-pt-6 tw-pb-[50px] sm:tw-pt-[80px]'>
 
-          {/* Heading Para Section */}
           <div className='tw-flex tw-flex-wrap  tw-gap-y-8 tw-justify-between'>
             <div className='xs:tw-max-w-[85%] tw-mx-auto lg:tw-max-w-[40%] tw-text-black '>
               <HighlightText color="black" text="Get the skills you need for a " highlight="clawclaws that is in demand." />
@@ -194,35 +196,117 @@ export function HomePage() {
 
       {/* Section 4 */}
 
-      <div id='section4' className='tw-bg-richblack-900' >
-        <div id='section4wrapper' className='tw-w-11/12 tw-mx-auto sm:tw-max-w-maxContent'>
+      <div id='section4' className='tw-bg-richblack-900 tw-pb-[50px] sm:tw-pb-[80px]'>
+        <div id='section4wrapper' className='tw-w-11/12 tw-mx-auto sm:tw-max-w-maxContent '>
 
           <div className='tw-flex tw-flex-col tw-gap-y-[20px] md:tw-flex-row tw-flex-wrap tw-py-[10px] tw-justify-around tw-items-center tw-pt-[40px] xs:tw-pt-[95px]'>
-              <div className='md:tw-basis-[45%]'>
-                <img src={InstructorImage} className='tw-w-full tw-h-full tw-object-cover shadowleft' alt='Instructorimage' />
+            <div className='md:tw-basis-[45%]'>
+              <img src={InstructorImage} className='tw-w-full tw-h-full tw-object-cover shadowleft' alt='Instructorimage' />
+            </div>
+            <div className=' md:tw-basis-[45%]'>
+              <div className='tw-flex tw-gap-x-1  tw-justify-start md:tw-flex-col md:tw-mt-0 tw-mt-[10px] tw-flex-wrap '>
+                <h1 className='tw-font-[600] tw-text-[17px] sm:tw-text-[29px]  lg:tw-text-[45px]   3xs:tw-text-[21px]  btnalign:tw-text-[26px] tw-text-white'>
+                  Become
+                </h1>
+                <h2 className='  tw-font-[600] tw-text-[17px] sm:tw-text-[29px] lg:tw-text-[45px]  3xs:tw-text-[21px]  btnalign:tw-text-[26px] tw-text-white '>
+                  an
+                  <span className='tw-bg-gradient-to-br tw-from-blue-500 tw-via-cyan-400 tw-to-green-200 tw-ml-2 tw-text-transparent tw-bg-clip-text'>
+                    instructor
+                  </span>
+                </h2>
               </div>
-              <div className=' md:tw-basis-[45%] '>
-                <div className='tw-flex tw-gap-x-1  tw-justify-start md:tw-flex-col md:tw-mt-0 tw-mt-[10px] tw-flex-wrap '>
-                  <h1 className='tw-font-[600] tw-text-[17px] sm:tw-text-[29px]  lg:tw-text-[45px]   3xs:tw-text-[21px]  btnalign:tw-text-[26px] tw-text-white'>
-                    Become
-                  </h1>
-                  <h2 className='  tw-font-[600] tw-text-[17px] sm:tw-text-[29px] lg:tw-text-[45px]  3xs:tw-text-[21px]  btnalign:tw-text-[26px] tw-text-white '>
-                    an
-                    <span className='tw-bg-gradient-to-br tw-from-blue-500 tw-via-cyan-400 tw-to-green-200 tw-ml-2 tw-text-transparent tw-bg-clip-text'>
-                      instructor
-                    </span>
-                  </h2>
-                </div>
-                <p className='tw-mt-3 tw-text-[17px] tw-text-richblack-300'>
-                  Instructors from around the world teach millions of students on StudyNotion. We provide the tools and skills to teach what you love.
-                </p>
-                <Buttons className="tw-w-fit tw-mt-12" text="Start Teaching Today ➡" active />
-              </div>
+              <p className='tw-mt-3 tw-text-[14.5px] 3xs:tw-text-[15px] 2xs:tw-text-[16px] tw-text-richblack-300'>
+                Instructors from around the world teach millions of students on StudyNotion. We provide the tools and skills to teach what you love.
+              </p>
+              <Buttons className="tw-w-fit tw-mt-12" text="Start Teaching Today ➡" active />
+            </div>
           </div>
 
         </div>
       </div>
 
+      <section id='footer' className='tw-bg-richblack-800 tw-py-[10px] sm:tw-py-[30px]'>
+        <div id='footer-wrapper' className='tw-py-1 tw-w-11/12 tw-mx-auto sm:tw-max-w-maxContent  '>
+          <div className='tw-flex tw-flex-wrap tw-py-10'>
+            <div className=' tw-flex-1  tw-flex tw-justify-evenly tw-flex-wrap tw-gap-y-6 tw-gap-y-4'>
+             
+              <div className=' tw-flex tw-flex-col tw-gap-y-5 tw-px-3 tw-py-5 footerright:tw-basis-[200px] tw-basis-[90%]'>
+                <div className=' tw-w-[100%] '>
+                  <img src={LogoLight} alt='LogoImage' className='tw-w-full tw-h-full tw-object-cover' />
+                </div>
+                <div className='tw-flex tw-flex-col tw-gap-2'>
+                  <h1 className='tw-font-semibold tw-text-[17px] tw-text-richblack-100'>{FooterLink1[0].title}</h1>
+                  {
+                    FooterLink1[0].links.map((el, indx) => (
+                      <p key={indx} className='tw-text-richblack-400'>{el.title}</p>
+                    ))
+                  }
+
+                </div>
+              </div>
+
+              <div className='tw-flex tw-flex-col tw-gap-9  tw-px-3 tw-py-5  footerright:tw-basis-[200px] tw-basis-[90%] '>
+                <div className='tw-flex tw-flex-col tw-gap-2'>
+                  <h1 className='tw-font-semibold tw-text-[17px] tw-text-richblack-100'>{FooterLink1[1].title}</h1>
+                  {
+                    FooterLink1[1].links.map((el, indx) => (
+                      <p key={indx} className='tw-text-richblack-400'>{el.title}</p>
+                    ))
+                  }
+                </div>
+                <div className='tw-flex tw-flex-col tw-gap-2 '>
+                  <h1 className='tw-font-semibold tw-text-[17px] tw-text-richblack-100'>{FooterLink1[2].title}</h1>
+                  {
+                    FooterLink1[2].links.map((el, indx) => (
+                      <p key={indx} className='tw-text-richblack-400'>{el.title}</p>
+                    ))
+                  }
+                </div>
+              </div>
+
+              <div className='tw-flex tw-flex-col tw-gap-9  tw-px-3 tw-py-5 footerright:tw-basis-[200px] tw-basis-[90%] '>
+                <div className='tw-flex tw-flex-col tw-gap-2'>
+                  <h1 className='tw-font-semibold tw-text-[17px] tw-text-richblack-100'>{FooterLink1[3].title}</h1>
+                  {
+                    FooterLink1[3].links.map((el, indx) => (
+                      <p key={indx} className='tw-text-richblack-400'>{el.title}</p>
+                    ))
+                  }
+                </div>
+                <div className='tw-flex tw-flex-col tw-gap-2'>
+                  <h1 className='tw-font-semibold tw-text-[17px] tw-text-richblack-100'>{FooterLink1[2].title}</h1>
+                  {
+                    FooterLink1[4].links.map((el, indx) => (
+                      <p key={indx} className='tw-text-richblack-400'>{el.title}</p>
+                    ))
+                  }
+                </div>
+              </div>
+
+            </div>
+            <div className='tw-flex-1  tw-flex tw-gap-y-6 tw-flex-wrap tw-justify-evenly tw-justify-start footerright:tw-border-l-2 tw-border-richblack-700 lg:tw-pl-10'>
+              {
+                FooterLink2.map((el, indx) => (
+                  <div className='tw-flex tw-flex-col tw-gap-2 tw-px-3 tw-py-5 footerright:tw-basis-[200px] tw-basis-[90%]'>
+                    <h1 className='tw-font-semibold tw-text-[17px] tw-text-richblack-100'>
+                      {el.title}
+                    </h1>
+                    {
+                      el.links.map((el, indx) => (
+                        <p key={indx} className='tw-text-richblack-400'>{el.title}</p>
+                      ))
+                    }
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+          <div className='tw-border-t-2 tw-border-richblack-700'>
+            dsds
+          </div>
+        </div>
+
+      </section>
 
 
     </>
