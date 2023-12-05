@@ -136,9 +136,11 @@ module.exports = {
         '3xs':'225px',
         '2xs':'340px',
         'xs':'500px',
+        
 
         'codeblock':'1100px',
-
+        'footerright':"873px",
+        'aboutusfloatingsection':"1404px",
         // 'videobanner':{'max':'340px'},
 
         'sm': '640px',
