@@ -1,3 +1,4 @@
+// ABOUT US
 import React from 'react'
 import HighlightedText from '../components/core/HighlightedText'
 import img1 from "../assets/Images/aboutus1.webp"
