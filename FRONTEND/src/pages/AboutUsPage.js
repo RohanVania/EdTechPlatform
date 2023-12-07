@@ -205,14 +205,14 @@ function AboutUsPage() {
                     <div className='tw-bg-pink-20 tw-mt-[55px]'>
                         <div className='md:tw-w-[550px] tw-b-caribbeangreen-5 tw-mx-auto '>
                             <form id='about_contact_form' className='tw-flex tw-flex-col tw-justify-center tw-px-3 tw-gap-y-7'>
-                                <div className='tw-flex tw-gap-x-6 tw-justify-center'>
-                                    <div className='tw-flex tw-flex-col tw-gap-y-2 tw-flex-1'>
+                                <div className='tw-grid tw-grid-cols-1 btnalign:tw-grid-cols-2 tw-gap-y-6 tw-gap-x-6 tw-justify-center '>
+                                    <div className='tw-flex tw-flex-col tw-gap-y-2'>
                                         <label htmlFor='firstname' className='tw-text-richblack-5 tw-font-[400] tw-text-[15px]'>First Name</label>
                                         <input type='text' id='firstname' placeholder='Enter first name' />
                                     </div>
-                                    <div className='tw-flex tw-flex-col tw-gap-y-2 tw-flex-1'>
+                                    <div className='tw-flex tw-flex-col tw-gap-y-2'>
                                         <label htmlFor='lastname' className='tw-text-richblack-5 tw-font-[400] tw-text-[15px]'>Last Name</label>
-                                        <input type='text' id='lastname' placeholder='Enter last name' />
+                                        <input type='text' id='lastname' placeholder='Enter Last name' />
                                     </div>
                                 </div>
                                 <div className='tw-flex tw-flex-col tw-gap-y-2'>
@@ -240,7 +240,7 @@ function AboutUsPage() {
                                         placeholder='Enter '
                                         aria-placeholder="5-digit zipcode"
 
-                                        ></div>
+                                    ></div>
                                 </div>
 
                                 <Buttons text="Send Message" active className="tw-text-black tw-font-[500] tw-text-center tw-text-[18px]" />
