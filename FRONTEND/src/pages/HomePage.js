@@ -7,15 +7,13 @@ import Buttons from '../components/core/Buttons'
 import CodeBlock from '../components/homePage/CodeBlock'
 import CardBlock from '../components/homePage/CardBlock'
 import TimeLineSection from '../components/homePage/TimeLineSection'
-import HeadingDescriptionBlock from '../components/homePage/HeadingDescriptionBlock'
 import Heading from '../components/homePage/Heading'
 import TimelineCard from '../components/homePage/TimelineCard'
 import Banner from "../assets/Images/banner.mp4"
 import Vector from "../assets/Images/bghome.svg"
-import LogoLight from "../assets/Logo/Logo-Full-Light.png"
 import InstructorImage from "../assets/Images/Instructor.png"
-import { FooterLink1 } from '../data/footer-links'
-import { FooterLink2 } from '../data/footer-links'
+
+import Footer from '../components/core/Footer'
 
 
 const btndata1 = {
@@ -225,7 +223,8 @@ export function HomePage() {
         </div>
       </div>
 
-      <section id='footer' className='tw-bg-richblack-800 tw-py-[10px] sm:tw-py-[30px]'>
+      <Footer/>
+      {/* <section id='footer' className='tw-bg-richblack-800 tw-py-[10px] sm:tw-py-[30px]'>
         <div id='footer-wrapper' className='tw-py-1 tw-w-11/12 tw-mx-auto sm:tw-max-w-maxContent  '>
           <div className='tw-flex tw-flex-wrap tw-py-10'>
             <div className=' tw-flex-1  tw-flex tw-justify-evenly tw-flex-wrap tw-gap-y-6 tw-gap-y-4'>
@@ -306,7 +305,7 @@ export function HomePage() {
           </div>
         </div>
 
-      </section>
+      </section> */}
 
 
     </>
