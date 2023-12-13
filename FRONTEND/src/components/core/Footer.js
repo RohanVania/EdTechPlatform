@@ -69,8 +69,8 @@ function Footer() {
           </div>
           <div className='tw-flex-1  tw-flex tw-gap-y-6 tw-flex-wrap tw-justify-evenly tw-justify-start footerright:tw-border-l-2 tw-border-richblack-700 lg:tw-pl-10'>
             {
-              FooterLink2.map((el, indx) => (
-                <div className='tw-flex tw-flex-col tw-gap-2 tw-px-3 tw-py-5 footerright:tw-basis-[200px] tw-basis-[90%]'>
+              FooterLink2.map((el, index) => (
+                <div key={index} className='tw-flex tw-flex-col tw-gap-2 tw-px-3 tw-py-5 footerright:tw-basis-[200px] tw-basis-[90%]'>
                   <h1 className='tw-font-semibold tw-text-[17px] tw-text-richblack-100'>
                     {el.title}
                   </h1>
