@@ -107,7 +107,7 @@
     color: #999DAA;
 }
 
-div[role="textbox"]{
+.textarea{
     min-height: 120px;
     padding: 12px;
     border-radius: 8px;

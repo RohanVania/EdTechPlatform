@@ -1,5 +1,6 @@
 // ABOUT US
-import React from 'react'
+import React,{useRef
+} from 'react'
 import HighlightedText from '../components/core/HighlightedText'
 import img1 from "../assets/Images/aboutus1.webp"
 import img2 from "../assets/Images/aboutus2.webp"
@@ -11,6 +12,8 @@ import { FaQuoteLeft } from "react-icons/fa";
 import { FaQuoteRight } from "react-icons/fa";
 import Buttons from '../components/core/Buttons'
 import Footer from "../components/core/Footer"
+import {useForm} from "react-hook-form"
+import AboutForm from '../components/aboutPage/AboutForm'
 
 const aboutnumberdata = [
     {
@@ -70,6 +73,7 @@ const detailsofaboutus = [
 ]
 
 function AboutUsPage() {
+    const {register,handleSubmit}=useForm();
     return (
         <div className=''>
 
@@ -172,12 +176,12 @@ function AboutUsPage() {
                                     Studynotion partners with more than 275+ leading universities and companies to bring flexible, affordable, job-relevant online learning to individuals and organizations worldwide.
                                 </p>
                             </div>
-                            <Buttons text="Learn More" active className="tw-w-fit tw-text-black tw-rounded-md" />
+                            <Buttons text="Learn More" active className="tw-w-fit tw-text-black tw-rounded-md tw-px-6" />
                         </div>
                         {
                             detailsofaboutus.map((el, indx) => {
                                 return (
-                                    <div key={`deatils-${indx}`} className='about_gridchild  tw-h-[294px] sm:tw-h-[302px] tw-py-[32px] tw-px-5 tw-flex tw-flex-col tw-gap-y-[28px]'>
+                                    <div key={`deatils-${indx}`} className='about_gridchild  tw-h-[294px] sm:tw-h-[305px] tw-py-[32px] tw-px-5 tw-flex tw-flex-col tw-gap-y-[28px]'>
                                         <div className='tw-text-richblack-5 tw-text-[18px] tw-font-[600]'>
                                             <h1>{el.heading1}</h1>
                                             <h1>{el.heading2 ? <HighlightedText className="tw-bg-gradient-to-br tw-from-[#1FA2FF] tw-via-[#12D8FA] tw-to-[#A6FFCB] tw-text-transparent tw-bg-clip-text" >{el.heading2}</HighlightedText> : <br />}</h1>
@@ -204,7 +208,7 @@ function AboutUsPage() {
                     </div>
                     <div className='tw-bg-pink-20 tw-mt-[55px]'>
                         <div className='md:tw-w-[550px] tw-b-caribbeangreen-5 tw-mx-auto '>
-                            <form id='about_contact_form' className='tw-flex tw-flex-col tw-justify-center tw-px-3 tw-gap-y-7'>
+                            {/* <form id='about_contact_form' className='tw-flex tw-flex-col tw-justify-center tw-px-3 tw-gap-y-7'>
                                 <div className='tw-grid tw-grid-cols-1 btnalign:tw-grid-cols-2 tw-gap-y-6 tw-gap-x-6 tw-justify-center '>
                                     <div className='tw-flex tw-flex-col tw-gap-y-2'>
                                         <label htmlFor='firstname' className='tw-text-richblack-5 tw-font-[400] tw-text-[15px]'>First Name</label>
@@ -243,8 +247,11 @@ function AboutUsPage() {
                                     ></div>
                                 </div>
 
-                                <Buttons text="Send Message" active className="tw-text-black tw-font-[500] tw-text-center tw-text-[18px]" />
-                            </form>
+                                <Buttons onClick={()=>{
+                                    console.log("Hello")
+                                }} text="Send Message" active className="tw-text-black tw-font-[500] tw-text-center tw-text-[18px]" />
+                            </form> */}
+                            <AboutForm/>
                         </div>
                     </div>
 
