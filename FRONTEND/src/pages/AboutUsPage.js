@@ -78,7 +78,7 @@ function AboutUsPage() {
         <div className=''>
 
             {/* Section 1*/}
-            <div id='aboutus-section1' className=' tw-bg-richblack-800 aboutusfloatingsection:tw-h-[55vh] '>
+            <div id='aboutus-section1' className=' tw-bg-richblack-800 aboutusfloatingsection:tw-h-[55vh] tw-mt-[79px] '>
                 <div className='tw-mx-auto tw-px-3 tw-pt-[60px] tw-pb-[7px] md:tw-pb-[15px]  tw-text-white tw-w-11/12 '>
 
                     <div className='videobanner:tw-text-left tw-text-center  tw-flex tw-flex-col tw-gap-5 md:tw-gap-10 sm:tw-mb-[32px] tw-mb-[13px]'>
