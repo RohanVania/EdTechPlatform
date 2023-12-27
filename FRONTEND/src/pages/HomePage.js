@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { AiOutlineArrowRight } from 'react-icons/ai'
-import HighlightText from '../components/homePage/HighlightText'
+import HighlightText from '../components/core/HighlightedText'
 import Buttons from '../components/core/Buttons'
 import CodeBlock from '../components/homePage/CodeBlock'
 import CardBlock from '../components/homePage/CardBlock'
@@ -59,7 +59,7 @@ export function HomePage() {
   return (
     <>
       {/* Section 1 */}
-      <div id='section1' className='tw-bg-red-20 tw-bg-richblack-900  '>
+      <div id='section1' className='tw-bg-red-20 tw-bg-richblack-900  tw-mt-[70px]'>
 
         <div className='tw-px-3 tw-w-11/12 tw-mx-auto '>
           {/* BUTTON */}
