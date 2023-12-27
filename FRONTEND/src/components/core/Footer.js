@@ -84,8 +84,8 @@ function Footer() {
             }
           </div>
         </div>
-        <div className='tw-border-t-2 tw-border-richblack-700'>
-          dsds
+        <div className='tw-border-t-2 tw-border-richblack-700 tw-bg-red-300 tw-min-h-[45px] '>
+          Made with ❤ by Rohan Vania 
         </div>
       </div>
 
