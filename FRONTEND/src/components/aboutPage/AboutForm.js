@@ -7,7 +7,8 @@ import { useForm } from 'react-hook-form'
 function AboutForm() {
     
     const textbox = useRef();
-    const { register, handleSubmit, setValue, formState: {
+
+    const { register, handleSubmit, setValue,reset,formState: {
         errors,
     } } = useForm();
 
@@ -18,6 +19,7 @@ function AboutForm() {
             }
         }
         console.log("Form Data After Submitting", data)
+        reset();
     }
 
     const handleContentChange = (data) => {
