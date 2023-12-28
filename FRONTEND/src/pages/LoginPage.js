@@ -1,13 +1,25 @@
 // Create a Template for Login and Signup
 // Adding Pure Css and functionality
-// ashdiu
 
-import React from 'react'
+//** Form Submitting Data as Student or Instructor  */
+
+import React, { useState } from 'react'
 import loginImage from "../assets/Images/framelogin.png"
+import { LuEye } from "react-icons/lu";
+import { LuEyeOff } from "react-icons/lu";
 
 function LoginPage() {
+    const [visible, setVisible] = useState(false);
+
+
+    const handleVisible = () => {
+        setVisible((prev) => {
+            return !prev
+        });
+    }
+
     return (
-        <div id='login' className=' tw-mt-[78px] tw-bg-red-5 tw-bg-richblack-900 sm:tw-py-[103px] tw-py-[80px]'>
+        <div id='login' className=' tw-mt-[78px] tw-bg-red-5 tw-bg-richblack-900 sm:tw-py-[133px] tw-py-[70px]'>
             <div className='sm:tw-w-11/12 tw-mx-auto '>
 
                 <div className='2xs:tw-flex  tw-justify-evenly tw-flex-row-reverse tw-flex-wrap tw-space-y-[64px] tw-items-end'>
@@ -32,14 +44,21 @@ function LoginPage() {
                             </button>
                         </div>
                         <div className='tw-mt-[45px] xs:tw-px-4 tw-px-5'>
-                            <form className='tw-flex tw-flex-col tw-gap-y-6'>
+                            <form className='tw-flex tw-flex-col tw-gap-y-6 '>
                                 <div className='tw-flex tw-flex-col tw-gap-y-3'>
                                     <label className='tw-text-richblack-5 tw-text-[16px]'>Email Address <sup className='tw-ml-[2px] tw-text-pink-200'>*</sup></label>
                                     <input type='email' placeholder='Enter email address' className='tw-rounded-[8px] tw-p-[12px] tw-rounded-[8px] tw-shadow-sm tw-shadow-[#ffffffd9] tw-bg-richblack-800 tw-text-[16px] tw-text-richblack-200 tw-outline-none ' />
                                 </div>
-                                <div className='tw-flex tw-flex-col tw-gap-y-3'>
+                                <div className='tw-flex tw-flex-col tw-gap-y-3 tw-relative'>
                                     <label className='tw-text-richblack-5 tw-text-[16px]'>Password <sup className='tw-ml-[2px] tw-text-pink-200'>*</sup></label>
-                                    <input type='password' placeholder='Enter your Password' className='tw-rounded-[8px] tw-p-[12px] tw-rounded-[8px] tw-shadow-sm tw-shadow-[#ffffffd9] tw-bg-richblack-800 tw-text-[16px] tw-text-richblack-200 tw-outline-none ' />
+                                    <input type={visible ? 'text' : 'password'} placeholder='Enter your Password' className='tw-rounded-[8px] tw-py-[12px] tw-pl-[12px] tw-pr-[49px] tw-rounded-[8px] tw-shadow-sm tw-shadow-[#ffffffd9] tw-bg-richblack-800 tw-text-[16px] tw-text-richblack-200 tw-outline-none tw-w-full' />
+                                    <span className='tw-w-[31px] tw-aspect-square tw-absolute tw-block tw-right-[2%]  tw-top-[36%] tw-ml-10'>
+                                        {
+                                            !visible ?
+                                                <LuEye className='tw-w-full tw-h-full tw-text-richblack-300 tw-object-cover tw-cursor-pointer' onClick={handleVisible} />
+                                                : <LuEyeOff className='tw-w-full tw-h-full tw-text-richblack-300 tw-object-cover tw-cursor-pointer' onClick={handleVisible} />
+                                        }
+                                    </span>
                                     <p className='tw-text-right tw-text-blue-100 tw-text-[13px] tw-mt-2 '>Forgot password</p>
                                 </div>
                                 <div className='tw-mt-5'>
