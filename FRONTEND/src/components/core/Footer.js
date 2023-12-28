@@ -11,7 +11,7 @@ function Footer() {
     <section id='footer' className='tw-bg-richblack-800 tw-py-[10px] sm:tw-py-[30px]'>
       <div id='footer-wrapper' className='tw-py-1 tw-w-11/12 tw-mx-auto sm:tw-max-w-maxContent  '>
         <div className='tw-flex tw-flex-wrap tw-py-10'>
-          <div className=' tw-flex-1  tw-flex tw-justify-evenly tw-flex-wrap tw-gap-y-6 tw-gap-y-4'>
+          <div className=' tw-flex-1  tw-flex tw-justify-evenly tw-flex-wrap tw-gap-y- tw-gap-y-4'>
 
             <div className=' tw-flex tw-flex-col tw-gap-y-5 tw-px-3 tw-py-5 footerright:tw-basis-[200px] tw-basis-[90%]'>
               <div className=' tw-w-[100%] '>
@@ -67,7 +67,7 @@ function Footer() {
             </div>
 
           </div>
-          <div className='tw-flex-1  tw-flex tw-gap-y-6 tw-flex-wrap tw-justify-evenly tw-justify-start footerright:tw-border-l-2 tw-border-richblack-700 lg:tw-pl-10'>
+          <div className='tw-flex-1  tw-flex tw-gap-y-6 tw-flex-wrap tw-justify-evenl tw-justify-start footerright:tw-border-l-2 tw-border-richblack-700 lg:tw-pl-10'>
             {
               FooterLink2.map((el, index) => (
                 <div key={index} className='tw-flex tw-flex-col tw-gap-2 tw-px-3 tw-py-5 footerright:tw-basis-[200px] tw-basis-[90%]'>
