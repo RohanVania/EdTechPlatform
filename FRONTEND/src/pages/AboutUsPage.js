@@ -1,18 +1,15 @@
 // ABOUT US
-import React,{useRef
-} from 'react'
+import React from 'react'
 import HighlightedText from '../components/core/HighlightedText'
 import img1 from "../assets/Images/aboutus1.webp"
 import img2 from "../assets/Images/aboutus2.webp"
 import img3 from "../assets/Images/aboutus3.webp"
-import img4 from "../assets/Images/FoundingStory.png"
 import ellipse from "../assets/Images/Ellipse2.png"
 
 import { FaQuoteLeft } from "react-icons/fa";
 import { FaQuoteRight } from "react-icons/fa";
 import Buttons from '../components/core/Buttons'
 import Footer from "../components/core/Footer"
-import {useForm} from "react-hook-form"
 import AboutForm from '../components/aboutPage/AboutForm'
 
 const aboutnumberdata = [
@@ -73,7 +70,6 @@ const detailsofaboutus = [
 ]
 
 function AboutUsPage() {
-    const {register,handleSubmit}=useForm();
     return (
         <div className=''>
 
@@ -92,15 +88,15 @@ function AboutUsPage() {
 
                     <div className=' tw-flex tw-flex-wrap tw-relative tw-z-10 tw-bg-red700 tw-mx-auto tw-justify-center tw-gap-x-[55px] tw-gap-y-[25px] tw-py-[30px]'>
                         <div className=' tw-bg-red-100'>
-                            <img src={img1} className='tw-object-cover tw-w-full tw-h-full' />
+                            <img src={img1} className='tw-object-cover tw-w-full tw-h-full' alt='img1' />
                         </div>
                         <div className=' tw-bg-red-100'>
-                            <img src={img2} className='tw-object-cover tw-w-full tw-h-full' />
+                            <img src={img2} className='tw-object-cover tw-w-full tw-h-full' alt='img2' />
                         </div>
                         <div className=' tw-bg-red-100'>
-                            <img src={img3} className='tw-object-cover tw-w-full tw-h-full' />
+                            <img src={img3} className='tw-object-cover tw-w-full tw-h-full' alt='img3' />
                         </div>
-                        <img src={ellipse} className='tw-absolute tw-top-[-12%] tw-z-[-20] tw-hidden aboutusfloatingsection:tw-block' />
+                        <img src={ellipse} className='tw-absolute tw-top-[-12%] tw-z-[-20] tw-hidden aboutusfloatingsection:tw-block'  alt='img4' />
                     </div>
 
                 </div>
@@ -125,7 +121,7 @@ function AboutUsPage() {
                     <div className='tw-bg-red-30 tw-flex  tw-items-stretch tw-justify-center  tw-gap-x-[110px] tw-flex-wrap tw-gap-y-[100px] md:tw-py-[90px] tw-py-[100px] '>
                         {
                             aboutdatacolums.map((el, indx) => {
-                                const stylehighlighted = indx == 0 ? 'tw-bg-gradient-to-br tw-from-[#E65C00] tw-via-[#F9D423] tw-to-[#F9D423] tw-text-transparent tw-bg-clip-text' : 'tw-bg-gradient-to-br tw-from-[#1FA2FF] tw-via-[#12D8FA] tw-to-[#A6FFCB] tw-text-transparent tw-bg-clip-text'
+                                const stylehighlighted = indx === 0 ? 'tw-bg-gradient-to-br tw-from-[#E65C00] tw-via-[#F9D423] tw-to-[#F9D423] tw-text-transparent tw-bg-clip-text' : 'tw-bg-gradient-to-br tw-from-[#1FA2FF] tw-via-[#12D8FA] tw-to-[#A6FFCB] tw-text-transparent tw-bg-clip-text'
                                 return (
                                     <div key={`goalcolumn-${indx}`} className='xl:tw-w-[500px] tw-h-full '>
                                         <h1 className='tw-text-[22px] btnalign:tw-text-[30px] sm:tw-text-[36px] tw-font-[600] tw-mb-5'>
@@ -208,49 +204,6 @@ function AboutUsPage() {
                     </div>
                     <div className='tw-bg-pink-20 tw-mt-[55px]'>
                         <div className='md:tw-w-[550px] tw-b-caribbeangreen-5 tw-mx-auto '>
-                            {/* <form id='about_contact_form' className='tw-flex tw-flex-col tw-justify-center tw-px-3 tw-gap-y-7'>
-                                <div className='tw-grid tw-grid-cols-1 btnalign:tw-grid-cols-2 tw-gap-y-6 tw-gap-x-6 tw-justify-center '>
-                                    <div className='tw-flex tw-flex-col tw-gap-y-2'>
-                                        <label htmlFor='firstname' className='tw-text-richblack-5 tw-font-[400] tw-text-[15px]'>First Name</label>
-                                        <input type='text' id='firstname' placeholder='Enter first name' />
-                                    </div>
-                                    <div className='tw-flex tw-flex-col tw-gap-y-2'>
-                                        <label htmlFor='lastname' className='tw-text-richblack-5 tw-font-[400] tw-text-[15px]'>Last Name</label>
-                                        <input type='text' id='lastname' placeholder='Enter Last name' />
-                                    </div>
-                                </div>
-                                <div className='tw-flex tw-flex-col tw-gap-y-2'>
-                                    <label htmlFor='firstname' className=' tw-font-[400] tw-text-[15px]'>Email Address</label>
-                                    <input type='email' id='firstname' placeholder='Enter email address' />
-                                </div>
-                                <div className='tw-flex tw-flex-col tw-gap-y-2'>
-                                    <label htmlFor='phonenumber' className=' tw-font-[400] tw-text-[15px]'>Phone Number</label>
-                                    <div className='tw-flex tw-gap-x-5'>
-                                        <select className=''>
-                                            <option>+91</option>
-                                            <option>+92</option>
-                                            <option>+93</option>
-                                            <option>+94</option>
-                                            <option>+95</option>
-                                        </select>
-                                        <input type='tel' id='phonenumber' placeholder='1234 567890' className='tw-w-full' />
-                                    </div>
-                                </div>
-                                <div className='tw-flex tw-flex-col tw-gap-y-2'>
-                                    <label htmlFor='message' className=' tw-font-[400] tw-text-[15px]'>Message</label>
-                                    <div
-                                        role="textbox"
-                                        contentEditable
-                                        placeholder='Enter '
-                                        aria-placeholder="5-digit zipcode"
-
-                                    ></div>
-                                </div>
-
-                                <Buttons onClick={()=>{
-                                    console.log("Hello")
-                                }} text="Send Message" active className="tw-text-black tw-font-[500] tw-text-center tw-text-[18px]" />
-                            </form> */}
                             <AboutForm/>
                         </div>
                     </div>
@@ -259,7 +212,7 @@ function AboutUsPage() {
             </div>
 
             <Footer />
-
+                            
         </div>
     )
 }
