@@ -19,7 +19,7 @@ function AuthFormTemplate({ title, description1, description2, formtype }) {
             <div className=' tw-bg-richblack-00 tw-bg-red-10   tw-max-w-[508px] '>
                 <div className='tw-flex tw-flex-col tw-gap-y-5 tw-bg-red-5 xs:tw-px-4 tw-px-5'>
                     <h1 className='tw-text-[30px] tw-font-[600] tw-text-richblack-5'>{title}</h1>
-                    <p className='sm:tw-text-[18px] tw-text-richblack-100 tw-text-richblack-100 tw-font-[400]'>
+                    <p className='sm:tw-text-[18px]  tw-text-richblack-100 tw-font-[400]'>
                         {description1} <span
                             className='tw-text-blue-100 tw-text-[16px] tw-font-[500] tw-font-edu-sa'>{description2}</span>
                     </p>
