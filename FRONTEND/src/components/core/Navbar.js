@@ -19,11 +19,11 @@ function Navbar() {
                     {
                         NavbarLinks.map((el, indx) => {
                             const activeLink = el.path === location.pathname ? 'tw-text-[#FFD60A]' : '';
-                            return <Link key={`Navbar-Link-${indx}`} to={el.path}>
-                                <li className={`tw-px-3 tw-py-3 ${activeLink}`}>
+                            return <li className={`tw-px-3 tw-py-3 ${activeLink}`}>
+                                <Link key={`Navbar-Link-${indx}`} to={el.path}>
                                     {el.title}
-                                </li>
-                            </Link>
+                                </Link>
+                            </li>
                         })
                     }
 

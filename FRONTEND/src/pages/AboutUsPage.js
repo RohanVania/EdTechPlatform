@@ -142,8 +142,8 @@ function AboutUsPage() {
             {/* Section 3 */}
 
             <div id='aboutus-section3' className='tw-bg-richblack-800 '>
-
                 <div className='tw-flex tw-flex-wrap tw-gap-y-[50px]  tw-justify-evenly tw-py-[80px]'>
+                    
                     {
                         aboutnumberdata.map((el, indx) => {
                             return (
@@ -154,8 +154,8 @@ function AboutUsPage() {
                             )
                         })
                     }
+                    
                 </div>
-
             </div>
 
             {/* Section 4 */}
