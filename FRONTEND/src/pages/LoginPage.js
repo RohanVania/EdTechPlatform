@@ -3,8 +3,7 @@
 
 //** Form Submitting Data as Student or Instructor  */
 
-import React, { useState } from 'react'
-import loginImage from "../assets/Images/framelogin.png"
+import React from 'react'
 
 import AuthFormTemplate from '../components/AuthFormTemplate/AuthFormTemplate';
 
@@ -23,5 +22,3 @@ function LoginPage() {
 export default LoginPage
 
 
-
-// 

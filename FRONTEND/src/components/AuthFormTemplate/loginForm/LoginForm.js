@@ -6,7 +6,6 @@ import { LuEyeOff } from "react-icons/lu";
 
 function LoginForm({usertype}) {
     const [visible, setVisible] = useState(false);
-    console.log(usertype)
 
 
     const handleVisible = () => {
@@ -16,7 +15,7 @@ function LoginForm({usertype}) {
     }
 
     return (
-        <>
+        <form  className='tw-flex tw-flex-col tw-gap-y-7'>
             <div className='tw-flex tw-flex-col tw-gap-y-3'>
                 <label className='tw-text-richblack-5 tw-text-[16px]'>Email Address <sup className='tw-ml-[2px] tw-text-pink-200'>*</sup></label>
                 <input type='email' placeholder='Enter email address' className='tw-rounded-[8px] tw-p-[12px] tw-rounded-[8px] tw-shadow-sm tw-shadow-[#ffffffd9] tw-bg-richblack-800 tw-text-[16px] tw-text-richblack-200 tw-outline-none ' />
@@ -36,7 +35,7 @@ function LoginForm({usertype}) {
             <div className='tw-mt-5'>
                 <input type='submit' value="Sign in" className='tw-p-[12px] tw-rounded-[8px] tw-bg-yellow-50 tw-w-full tw-text-richblack-900 tw-text-[18px] tw-font-[500]' />
             </div>
-        </>
+        </form>
     )
 }
 
