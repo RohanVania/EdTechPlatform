@@ -43,7 +43,6 @@ function AuthFormTemplate({ title, description1, description2, formtype }) {
                     }
                 </div>
                 <div className='tw-mt-[45px] xs:tw-px-4 tw-px-5'>
-                    <form className='tw-flex tw-flex-col tw-gap-y-7'>
                         {formtype === 'login' &&
                             <LoginForm usertype={activebtntype} />
                         }
@@ -52,7 +51,6 @@ function AuthFormTemplate({ title, description1, description2, formtype }) {
                             <RegisterForm usertype={activebtntype}/>
                         }
 
-                    </form>
                 </div>
             </div>
 
