@@ -10,6 +10,7 @@ module.exports = {
     },
     screens:{
         'videobanner':{'max':'340px'},
+        'navbarmd':{'max':'910px'}
     },
     
     extend: { 
@@ -137,6 +138,7 @@ module.exports = {
         '3xs':'225px',
         '2xs':'340px',
         'xs':'500px',
+
         
 
         'codeblock':'1100px',
