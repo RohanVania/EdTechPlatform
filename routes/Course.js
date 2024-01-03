@@ -47,6 +47,8 @@ router.post("/updateSubSection",auth,isInstructor,updateSubSection)
 
 //~ Only Admin can create a category
 router.post("/createCategory",auth,isAdmin,createCategory)
+
+//* Anyone can use this route to see all categories and page details in study Notion
 router.get("/showAllCategories",showAllCategories)
 router.post("/getCategoryPageDetails", categoryPageDetails)
 

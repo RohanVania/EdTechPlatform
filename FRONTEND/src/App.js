@@ -11,7 +11,7 @@ import ScrollToTop from "./ScrollToTop";
 
 function App() {
   return (
-    <div className="tw-font-inter tw-bg-richblack-900">
+    <div className="tw-font-inter tw-bg-richblack-900 tw-h-full  tw-relative">
       <Navbar/>
       <ScrollToTop/>
       <Routes>
