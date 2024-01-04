@@ -7,6 +7,7 @@ import AboutUsPage from "./pages/AboutUsPage";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import ScrollToTop from "./ScrollToTop";
+import ContactPage from "./pages/ContactPage";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path='/about' element={<AboutUsPage/>} />
         <Route path='/login' element={<LoginPage/>} />
         <Route path='/signup' element={<SignUpPage/>} />
+        <Route path='/contact' element={<ContactPage/>} />
       </Routes>
     </div>
   );

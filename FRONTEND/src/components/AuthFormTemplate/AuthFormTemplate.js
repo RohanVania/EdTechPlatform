@@ -12,7 +12,7 @@ function AuthFormTemplate({ title, description1, description2, formtype }) {
     const [activebtntype, setActivebtntype] = useState('instructor');
     return (
         <div className='2xs:tw-flex  tw-justify-evenly tw-flex-row-reverse tw-flex-wrap tw-space-y-[64px] tw-items-center'>
-            <div className='tw-max-w-[558px] sm:tw-min-w-[558px] tw-h-[580px]  lg:tw-h-[680px]  tw-bg-orange-30 xs:tw-px-4 tw-px-3 tw-bg-red-40 tw-relative '>
+            <div className='tw-max-w-[558px] sm:tw-min-w-[558px] tw-h-[580px]  lg:tw-h-[610px]  tw-bg-orange-30 xs:tw-px-4 tw-px-3 tw-bg-red-40 tw-relative '>
                 <img src={activebtntype==='instructor'?instructorformImage:studentformImage} alt='Login Image' className='tw-w-full tw-relative tw-z-50 tw-h-full tw-object-cover tw-shadow-md tw-shadow-[#ffffffd9] xl:tw-shadow-none ' />
                 <img src={Frame} alt='Frame' className='tw-hidden sm:tw-block tw-absolute tw-top-[4.7%] tw-z-10 tw-left-[8%] tw-w-[95.6%] tw-h-full '/>
             </div>
