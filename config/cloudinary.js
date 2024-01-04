@@ -10,7 +10,7 @@ const cloudinaryConfig = async (file="") => {
             // secure: true
         });
         console.log("Connected to Cloudinary !")
-        // console.log(file)
+        console.log(file)
         if(file){
             const result=await cloudinary.uploader.upload(file.tempFilePath,{resource_type:'video'})
             console.log(result)
