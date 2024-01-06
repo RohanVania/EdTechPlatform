@@ -76,8 +76,8 @@ function RegisterForm() {
                 </div>
             </div>
 
-            <div className='tw-mt-5'>
-                <input type='submit' value="Create Account" className='tw-p-[12px] tw-rounded-[8px] tw-bg-yellow-50 tw-w-full tw-text-richblack-900 tw-text-[18px] tw-font-[500]' />
+            <div className='tw-mt-5 '>
+                <input type='submit' value="Create Account" className='tw-p-[12px] tw-cursor-pointer tw-rounded-[8px] tw-bg-yellow-50 tw-w-full tw-text-richblack-900 tw-text-[18px] tw-font-[500]' />
             </div>
         </form>
     )

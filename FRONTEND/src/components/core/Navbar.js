@@ -48,7 +48,7 @@ function Navbar() {
 
                         }
                         {
-                            location.pathname != '/signup' && location.pathname != '/login' && <>
+                            location.pathname !== '/signup' && location.pathname !== '/login' && <>
                                 <Link to="/login">
                                     <button className='tw-px-[21px] tw-py-[10px] tw-border-[1px] tw-border-richblack-700 tw-rounded-[8px]'>Login</button>
                                 </Link>

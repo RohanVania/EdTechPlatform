@@ -5,10 +5,10 @@ import Buttons from '../core/Buttons';
 import { useForm } from 'react-hook-form'
 
 function AboutForm() {
-    
+
     const textbox = useRef();
 
-    const { register, handleSubmit, setValue,reset,formState: {
+    const { register, handleSubmit, setValue, reset, formState: {
         errors,
     } } = useForm();
 
@@ -36,7 +36,7 @@ function AboutForm() {
                         required: { value: true, message: `First name is required` },
                         maxLength: { value: 50, message: `First name exceeded limit` }
                     })} />
-                    {errors.firstname && errors.firstname.type === 'required' && <p className='tw-text-red-400'>{errors.firstname.message} <sup>*</sup></p>}
+                    {(errors.firstname && errors.firstname.type === 'required') && (<p className='tw-text-red-400'>{errors.firstname.message} <sup>*</sup></p>)}
                 </div>
                 <div className='tw-flex tw-flex-col tw-gap-y-2'>
                     <label htmlFor='lastname' className='tw-text-richblack-5 tw-font-[400] tw-text-[15px]'>Last Name</label>
@@ -60,10 +60,10 @@ function AboutForm() {
                     }
                 })} />
                 {
-                    errors.email && errors.email.type === 'required' && <p className='tw-text-red-400'>{errors.email.message} <sup>*</sup></p> ||
-                    errors.email && errors.email.type === 'length' && <p className='tw-text-red-400'>{errors.email.message} <sup>*</sup></p> ||
-                    errors.email && errors.email.type === 'special' && <p className='tw-text-red-400'>{errors.email.message} <sup>*</sup></p> ||
-                    errors.email && errors.email.type === 'pattern' && <p className='tw-text-red-400'>{errors.email.message} <sup>*</sup></p>
+                    (errors.email && errors.email.type === 'required') && (<p className='tw-text-red-400'>{errors.email.message} <sup>*</sup></p>) ||
+                    (errors.email && errors.email.type === 'length') && (<p className='tw-text-red-400'>{errors.email.message} <sup>*</sup></p>) ||
+                    (errors.email && errors.email.type === 'special') && (<p className='tw-text-red-400'>{errors.email.message} <sup>*</sup></p>) ||
+                    (errors.email && errors.email.type === 'pattern') && (<p className='tw-text-red-400'>{errors.email.message} <sup>*</sup></p>)
                 }
 
             </div>
@@ -87,10 +87,10 @@ function AboutForm() {
                     })} />
                 </div>
                 {
-                    errors.phonenumber && errors.phonenumber.type === 'required' && <p className='tw-text-red-400'>{errors.phonenumber.message} <sup>*</sup></p> ||
-                    errors.phonenumber && errors.phonenumber.type === 'minLength' && <p className='tw-text-red-400'>{errors.phonenumber.message} <sup>*</sup></p> ||
-                    errors.phonenumber && errors.phonenumber.type === 'maxLength' && <p className='tw-text-red-400'>{errors.phonenumber.message} <sup>*</sup></p> ||
-                    errors.phonenumber && errors.phonenumber.type === 'onlyDigit' && <p className='tw-text-red-400'>{errors.phonenumber.message} <sup>*</sup></p>
+                    (errors.phonenumber && errors.phonenumber.type === 'required') && (<p className='tw-text-red-400'>{errors.phonenumber.message} <sup>*</sup></p>) ||
+                    (errors.phonenumber && errors.phonenumber.type === 'minLength') && (<p className='tw-text-red-400'>{errors.phonenumber.message} <sup>*</sup></p>) ||
+                    (errors.phonenumber && errors.phonenumber.type === 'maxLength') && (<p className='tw-text-red-400'>{errors.phonenumber.message} <sup>*</sup></p>) ||
+                    (errors.phonenumber && errors.phonenumber.type === 'onlyDigit') && (<p className='tw-text-red-400'>{errors.phonenumber.message} <sup>*</sup></p>)
                 }
             </div>
             <div className='tw-flex tw-flex-col tw-gap-y-2'>
