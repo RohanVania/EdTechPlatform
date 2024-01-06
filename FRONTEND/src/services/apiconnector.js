@@ -3,11 +3,11 @@
 import axios from "axios"
 
 const axiosInstance=axios.create({
-    baseURL:'localhost:4000/api/v1',
+    baseURL:process.env.REACT_APP_API_BASE_URL,
 })
 
 
-export const apiCaller=(method,header,bodyData,url,params)=>{
+export const apiCaller=(method,url,bodyData,header,params)=>{
     return axiosInstance({
         method:`${method}`,
         url:`${url}`,

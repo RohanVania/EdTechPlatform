@@ -4,6 +4,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const fileuploader = require("express-fileupload")
 const cookieparser = require("cookie-parser")
+const cors=require("cors");
 
 // Import our packages
 const {databaseConnect}= require("./config/database");
@@ -21,6 +22,11 @@ const courseRoutes=require("./routes/Course");
 const { imageUploader } = require("./utils/imageUploader");
 
 // Middlewares
+
+app.use(cors({
+    origin:'http://localhost:3002',
+    credentials:true
+}))
 app.use(express.json())
 app.use(cookieparser())
 app.use(fileuploader({

@@ -8,7 +8,7 @@ function Buttons({extrasmall,text,active,className,onClick}) {
 
     return (
         <>
-            <div onClick={onClick} className={`tw-cursor-pointer tw-px-[7px] tw-py-[12px] tw-rounded-full btnalign:tw-rounded-md  tw-font-bold tw-shadow-m tw-shadow-[0_1px_1px_0px_rgba(255,255,255,0.3)] ${activestyle1} ${extrasmallstyle} ${className} `}>
+            <div onClick={onClick} className={`tw-cursor-pointer tw-px-[9px] 2xs:tw-px-[17px]  tw-py-[12px] tw-rounded-full btnalign:tw-rounded-md  tw-font-bold tw-shadow-m tw-shadow-[0_1px_1px_0px_rgba(255,255,255,0.3)] ${activestyle1} ${extrasmallstyle} ${className}  active:tw-scale-[.9] tw-transition-all `}>
                 {text}
             </div>
             
