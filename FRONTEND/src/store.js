@@ -24,7 +24,7 @@ export {store}
  *  
  * 3. Create a slice using the createSlice method 
  *    ( Slice is a function that accepts object that consists of name,initial state, reducer object)
- *    It is a ollection of redux reducer logic and action for a single feature in your app ( Single kind of data)
+ *    It is a collection of redux reducer logic and action for a single feature in your app ( Single kind of data)
  *    typically defined in a single file.
  * 
  *  4. Inside the Create Slice Reducer we write all the actions and export it one by one 

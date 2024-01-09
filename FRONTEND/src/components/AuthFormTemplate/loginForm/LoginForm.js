@@ -18,7 +18,7 @@ function LoginForm({ usertype }) {
 
     const notify =()=> toast('Here is your toast')
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         console.log(errors)
         console.log("Form Data After Submitting", data)
         reset();
