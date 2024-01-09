@@ -10,7 +10,9 @@ const jwtToken = require("jsonwebtoken")
 exports.auth = async (req, resp, next) => {
     try {
 
-        const token = req.cookies.token || req.body.token || req.header("Authorization").replace("Bearer ", "");
+            // const token = req.cookies.token || req.body.token || req.header("Authorization").replace("Bearer ", "");
+            const token =  req.header("Authorization").replace("Bearer ", "");
+        
         if (!token) {
             return resp.status(200).json({
                 status: "Failed",

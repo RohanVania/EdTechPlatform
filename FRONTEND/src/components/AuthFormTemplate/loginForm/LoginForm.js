@@ -11,12 +11,18 @@ import {authEndPoints} from "../../../services/apiList"
 function LoginForm({ usertype }) {
     const [visible, setVisible] = useState(false);
 
-    const { register, handleSubmit,formState: {
+    const { register, handleSubmit,reset,formState: {
         errors
     } } = useForm();
+
+
     const notify =()=> toast('Here is your toast')
 
-    does
+    const onSubmit = (data) => {
+        console.log(errors)
+        console.log("Form Data After Submitting", data)
+        reset();
+    }
 
 
     const handleVisible = () => {
@@ -26,11 +32,11 @@ function LoginForm({ usertype }) {
     }
 
     return (
-        <form className='tw-flex tw-flex-col tw-gap-y-7' onSubmit={handleSubmit(submitData)}>
+        <form className='tw-flex tw-flex-col tw-gap-y-7' onSubmit={handleSubmit(onSubmit)}>
             <div className='tw-flex tw-flex-col tw-gap-y-3'>
                 <label className='tw-text-richblack-5 tw-text-[16px]'>Email Address <sup className='tw-ml-[2px] tw-text-pink-200'>*</sup></label>
                 <input type='email' placeholder='Enter email address' className='tw-rounded-[8px] tw-p-[12px] tw-rounded-[8px] tw-shadow-sm tw-shadow-[#ffffffd9] tw-bg-richblack-800 tw-text-[16px] tw-text-richblack-200 tw-outline-none '
-                    {...register('email', {
+                    {...register('login_email', {
                         required: { value: true, message: 'Email address is required' },
                         validate: {
                             length: (v) => v.length <= 30 || 'Email exceeded limit',
@@ -49,12 +55,12 @@ function LoginForm({ usertype }) {
             <div className='tw-flex tw-flex-col tw-gap-y-3 tw-relative'>
                 <label className='tw-text-richblack-5 tw-text-[16px]'>Password <sup className='tw-ml-[2px] tw-text-pink-200'>*</sup></label>
                 <input type={visible ? 'text' : 'password'} placeholder='Enter your Password' className='tw-rounded-[8px] tw-p-[12px] tw-rounded-[8px] tw-shadow-sm tw-shadow-[#ffffffd9] tw-bg-richblack-800 tw-text-[16px] tw-text-richblack-200 tw-outline-none '
-                    {...register('password',{
+                    {...register('login_password',{
                         required:{value:true,message:'Password is required'}
                     })}
                 />
                 {
-                    errors.login_password && errors.type==='required' && <p className='tw-text-pink-200'>{errors.login_password.message} <sup className='tw-text-pink-200'>*</sup></p>
+                    errors.login_password && errors.login_password.type==='required' && <p className='tw-text-pink-200'>{errors.login_password.message} <sup className='tw-text-pink-200'>*</sup></p>
 
                 }
                 <p className='tw-text-right tw-text-blue-100 tw-text-[13px] tw-mt-2 '>Forgot password</p>
@@ -67,7 +73,7 @@ function LoginForm({ usertype }) {
                 </span>
             </div>
             <div className='tw-mt-5'>
-                <button onClick={handleSubmit(submitData)}  className='tw-p-[12px] tw-rounded-[8px] tw-bg-yellow-50 tw-w-full tw-text-richblack-900 tw-text-[18px] tw-font-[500] active:tw-scale-[.9] tw-transition-all' >Sign In</button>
+                <button onClick={handleSubmit(onSubmit)}  className='tw-p-[12px] tw-rounded-[8px] tw-bg-yellow-50 tw-w-full tw-text-richblack-900 tw-text-[18px] tw-font-[500] active:tw-scale-[.9] tw-transition-all' >Sign In</button>
             </div>
         </form>
     )

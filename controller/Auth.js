@@ -291,7 +291,8 @@ exports.login = async (req, resp) => {
                 //expiresIn:"3hr, 3days" 
 
                 expires: new Date(Date.now() + 3 * 24 * 60 * 1000),
-                httpOnly: false,
+                httpOnly: true,
+                secure:true,
             }
 
             resp.cookie("token", token, cookieOptions).
