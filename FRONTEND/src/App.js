@@ -13,18 +13,23 @@ import ProfilePage from "./pages/ProfilePage";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import Test from "./pages/Test";
 
-import { useIsFetching } from "react-query";
+import {useSelector} from "react-redux"
+
 
 
 
 
 function App() {
 
-  const fetch=useIsFetching();
+ 
 
-  return  (
+  const toastconfiguration={
+    position:'top-center',
+  }
+
+  return (
     <div className="tw-font-inter tw-bg-richblack-900 tw-h-full  tw-relative">
-        <Toaster />
+        <Toaster position="top-center" toastOptions={toastconfiguration} />
         <Navbar />
         <ScrollToTop />
 

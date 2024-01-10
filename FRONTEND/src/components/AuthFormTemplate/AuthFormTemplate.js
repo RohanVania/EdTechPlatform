@@ -9,7 +9,7 @@ import RegisterForm from './registerForm/RegisterForm';
 
 
 function AuthFormTemplate({ title, description1, description2, formtype }) {
-    const [activebtntype, setActivebtntype] = useState('instructor');
+    const [activebtntype, setActivebtntype] = useState('student');
     return (
         <div className='2xs:tw-flex  tw-justify-evenly tw-flex-row-reverse tw-flex-wrap tw-space-y-[64px] tw-items-center tw-pt-[80px] sm:tw-pb-[133px] tw-py-[70px'>
             <div className='tw-max-w-[558px] sm:tw-min-w-[558px] tw-h-[580px]  lg:tw-h-[610px]  tw-bg-orange-30 xs:tw-px-4 tw-px-3 tw-bg-red-40 tw-relative '>

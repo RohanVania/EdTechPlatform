@@ -5,23 +5,26 @@ import { useForm } from 'react-hook-form';
 import { LuEye } from "react-icons/lu";
 import { LuEyeOff } from "react-icons/lu";
 import toast from 'react-hot-toast'
-import { apiCaller } from '../../../services/apiconnector';
-import {authEndPoints} from "../../../services/apiList"
+import {loginApiOperation} from "../../../services/operations/authFunctions"
+import { useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 
 function LoginForm({ usertype }) {
     const [visible, setVisible] = useState(false);
+    const navigate=useNavigate();
 
     const { register, handleSubmit,reset,formState: {
         errors
     } } = useForm();
 
+    const dispatch=useDispatch();
 
-    const notify =()=> toast('Here is your toast')
 
-    const onSubmit = async (data) => {
-        console.log(errors)
-        console.log("Form Data After Submitting", data)
-        reset();
+    const onSubmit =  (formdata) => {
+        console.log("Form Data After Submitting", formdata)
+        const res= dispatch(loginApiOperation(formdata,navigate));
+        console.log(res)
+        
     }
 
 
@@ -36,7 +39,7 @@ function LoginForm({ usertype }) {
             <div className='tw-flex tw-flex-col tw-gap-y-3'>
                 <label className='tw-text-richblack-5 tw-text-[16px]'>Email Address <sup className='tw-ml-[2px] tw-text-pink-200'>*</sup></label>
                 <input type='email' placeholder='Enter email address' className='tw-rounded-[8px] tw-p-[12px] tw-rounded-[8px] tw-shadow-sm tw-shadow-[#ffffffd9] tw-bg-richblack-800 tw-text-[16px] tw-text-richblack-200 tw-outline-none '
-                    {...register('login_email', {
+                    {...register('email', {
                         required: { value: true, message: 'Email address is required' },
                         validate: {
                             length: (v) => v.length <= 30 || 'Email exceeded limit',
@@ -46,21 +49,21 @@ function LoginForm({ usertype }) {
                     })}
                 />
                 {
-                    (errors.login_email && errors.login_email.type === 'required' && <p className='tw-text-pink-200'>{errors.login_email.message} <sup className='tw-text-pink-200'>*</sup></p>) ||
-                    (errors.login_email && errors.login_email.type === 'length' && <p className='tw-text-pink-200'>{errors.login_email.message} <sup className='tw-text-pink-200'>*</sup></p>) ||
-                    (errors.login_email && errors.login_email.type === 'special' && <p className='tw-text-pink-200'>{errors.login_email.message} <sup className='tw-text-pink-200'>*</sup></p>) ||
-                    (errors.login_email && errors.login_email.type === 'pattern' && <p className='tw-text-pink-200'>{errors.login_email.message} <sup className='tw-text-pink-200'>*</sup></p>)
+                    (errors.email && errors.email.type === 'required' && <p className='tw-text-pink-200'>{errors.email.message} <sup className='tw-text-pink-200'>*</sup></p>) ||
+                    (errors.email && errors.email.type === 'length' && <p className='tw-text-pink-200'>{errors.email.message} <sup className='tw-text-pink-200'>*</sup></p>) ||
+                    (errors.email && errors.email.type === 'special' && <p className='tw-text-pink-200'>{errors.email.message} <sup className='tw-text-pink-200'>*</sup></p>) ||
+                    (errors.email && errors.email.type === 'pattern' && <p className='tw-text-pink-200'>{errors.email.message} <sup className='tw-text-pink-200'>*</sup></p>)
                 }
             </div>
             <div className='tw-flex tw-flex-col tw-gap-y-3 tw-relative'>
                 <label className='tw-text-richblack-5 tw-text-[16px]'>Password <sup className='tw-ml-[2px] tw-text-pink-200'>*</sup></label>
                 <input type={visible ? 'text' : 'password'} placeholder='Enter your Password' className='tw-rounded-[8px] tw-p-[12px] tw-rounded-[8px] tw-shadow-sm tw-shadow-[#ffffffd9] tw-bg-richblack-800 tw-text-[16px] tw-text-richblack-200 tw-outline-none '
-                    {...register('login_password',{
+                    {...register('password',{
                         required:{value:true,message:'Password is required'}
                     })}
                 />
                 {
-                    errors.login_password && errors.login_password.type==='required' && <p className='tw-text-pink-200'>{errors.login_password.message} <sup className='tw-text-pink-200'>*</sup></p>
+                    errors.password && errors.password.type==='required' && <p className='tw-text-pink-200'>{errors.password.message} <sup className='tw-text-pink-200'>*</sup></p>
 
                 }
                 <p className='tw-text-right tw-text-blue-100 tw-text-[13px] tw-mt-2 '>Forgot password</p>
