@@ -13,28 +13,35 @@ import ProfilePage from "./pages/ProfilePage";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import Test from "./pages/Test";
 
+import { useIsFetching } from "react-query";
+
+
+
 
 function App() {
-  return (
+
+  const fetch=useIsFetching();
+
+  return  (
     <div className="tw-font-inter tw-bg-richblack-900 tw-h-full  tw-relative">
-      <Toaster />
-      <Navbar />
-      <ScrollToTop />
-      <Routes>
-        <Route path='/' element={<HomePage />} />
-        <Route path='/courses' element={<CoursePage />} />
-        <Route path='/about' element={<AboutUsPage />} />
-        <Route path='/login' element={<LoginPage />} />
-        <Route path='/signup' element={<SignUpPage />} />
-        <Route path='/contact' element={<ContactPage />} />
+        <Toaster />
+        <Navbar />
+        <ScrollToTop />
 
-        <Route element={<ProtectedRoute/>}>
-          <Route element={<ProfilePage/>} path="/profile" />
-          <Route element={<Test/>} path="/test"/>
-        </Route>
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+          <Route path='/courses' element={<CoursePage />} />
+          <Route path='/about' element={<AboutUsPage />} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/signup' element={<SignUpPage />} />
+          <Route path='/contact' element={<ContactPage />} />
 
-      </Routes>
-    </div>
+          <Route element={<ProtectedRoute />}>
+            <Route element={<ProfilePage />} path="/profile" />
+            <Route element={<Test />} path="/test" />
+          </Route>
+        </Routes>
+    </div >
   );
 }
 
