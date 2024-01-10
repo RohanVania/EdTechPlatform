@@ -5,10 +5,21 @@ import logo from "../../assets/Logo/Logo-Full-Light.png"
 import { NavbarLinks } from '../../data/navbar-links';
 import { TfiMenu } from "react-icons/tfi";
 import { MdOutlineArrowDropDown } from "react-icons/md";
+import {useQuery} from 'react-query';
+import {getAllCategories} from "../../services/operations/publicFunction"
 
 function Navbar() {
     const location = useLocation();
     const [open, setOpen] = useState(false);
+
+    const {data:category,isLoading,error}=useQuery('categories', getAllCategories);
+
+    if(isLoading) return console.log("Loading");
+    if(error) return console.log('An Error occurred :',error.message)
+
+    const categories=category.data;
+    
+
 
     return (
         <>
@@ -37,16 +48,13 @@ function Navbar() {
                                             <MdOutlineArrowDropDown />
                                         </div>
                                         <div className='tw-min-w-fit tw-flex tw-flex-col tw-gap-y-1  tw-absolute tw-hidden tw-py-5 tw-px-4  tw-rounded-lg tw-bg-[#F1F2FF] tw-top-[65.1px] tw-left-[-13px] group-hover:tw-block group-hover:tw-flex group-hover:tw-flex-col group-hover:tw-gap-y-1 '>
-                                            <a className='tw-cursor-pointer '>
-                                                    <h1 className='tw-whitespace-nowrap tw-px-4 tw-py-5 tw-bg-transparent  hover:tw-bg-richblack-50 tw-rounded-lg tw-text-black'>Web Development </h1>
-                                            </a>
-                                            <a className='tw-cursor-pointer '>
-                                                    <h1 className='tw-whitespace-nowrap tw-px-4 tw-py-5 tw-bg-transparent   hover:tw-bg-richblack-50 tw-rounded-lg tw-text-black'>Web Development </h1>
-                                            </a>
-                                            <a className='tw-cursor-pointer '>
-                                                    <h1 className='tw-whitespace-nowrap tw-px-4 tw-py-5 tw-bg-transparent  hover:tw-bg-richblack-50 tw-rounded-lg tw-text-black'>Web Development Web Development Web Development </h1>
-                                            </a>
-                                            
+                                            {
+                                               categories.map((el, indx) => {
+                                                    return <a className='tw-cursor-pointer' key={`SubNavbar-${indx}`}>
+                                                        <h1 className='tw-whitespace-nowrap tw-px-4 tw-py-5 tw-bg-transparent  hover:tw-bg-richblack-50 tw-rounded-lg tw-text-black'>{el.name}</h1>
+                                                    </a>
+                                                })
+                                            }
 
                                             <div className='tw-bg-[#F1F2FF] tw-w-[35px] tw-h-[35px] tw-absolute tw-top-[-7px] tw-left-[82px] tw-rotate-45 tw-rounded-sm tw-z-[-1]'>
                                             </div>

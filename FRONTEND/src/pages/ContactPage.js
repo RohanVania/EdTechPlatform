@@ -11,10 +11,7 @@ import Footer from '../components/core/Footer'
 function ContactPage() {
     return (
         <>
-            <div className='tw-bg-black tw-h-[100vh]'>
-
-            </div>
-            {/* <div className='tw-bg-richblack-900 tw-mt-[78px] tw-py-[90px]'>
+            <div className='tw-bg-richblack-900 tw-mt-[78px] tw-py-[90px]'>
                 <div className='sm:tw-w-[90%]  tw-mx-auto '>
 
                     <div className='tw-block xs:tw-flex tw-items-center  tw-justify-evenly tw-flex-wrap xl-md:tw-space-y-0 tw-space-y-[64px]   tw-gap-x-[76px    '>
@@ -70,7 +67,7 @@ function ContactPage() {
                 </div>
             </div>
 
-            <Footer/> */}
+            <Footer/>
         </>
     )
 }
