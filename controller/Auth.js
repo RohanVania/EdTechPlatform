@@ -291,8 +291,7 @@ exports.login = async (req, resp) => {
                 //expiresIn:"3hr, 3days" 
 
                 expires: new Date(Date.now() + 3 * 24 * 60 * 1000),
-                httpOnly: true,
-                secure:true,
+                httpOnly: false,
             }
 
             resp.cookie("token", token, cookieOptions).
@@ -307,7 +306,7 @@ exports.login = async (req, resp) => {
         }
         else {
             return resp.status(200).json({
-                status: "Success",
+                status: "Failed",
                 msg: "Password dont match ! Try Again !"
             })
         }
