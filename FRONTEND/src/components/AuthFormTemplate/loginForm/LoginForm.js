@@ -21,10 +21,10 @@ function LoginForm({ usertype }) {
 
 
     const onSubmit =  (formdata) => {
-        console.log("Form Data After Submitting", formdata)
+        formdata={...formdata,usertype}
+        // console.log(formdata)
         const res= dispatch(loginApiOperation(formdata,navigate));
-        console.log(res)
-        
+        res.then(()=>console.log('Success'))
     }
 
 
@@ -34,8 +34,9 @@ function LoginForm({ usertype }) {
         });
     }
 
+   
     return (
-        <form className='tw-flex tw-flex-col tw-gap-y-7' onSubmit={handleSubmit(onSubmit)}>
+        <form className='tw-flex tw-flex-col tw-gap-y-7 ' onSubmit={handleSubmit(onSubmit)}>
             <div className='tw-flex tw-flex-col tw-gap-y-3'>
                 <label className='tw-text-richblack-5 tw-text-[16px]'>Email Address <sup className='tw-ml-[2px] tw-text-pink-200'>*</sup></label>
                 <input type='email' placeholder='Enter email address' className='tw-rounded-[8px] tw-p-[12px] tw-rounded-[8px] tw-shadow-sm tw-shadow-[#ffffffd9] tw-bg-richblack-800 tw-text-[16px] tw-text-richblack-200 tw-outline-none '
@@ -64,9 +65,8 @@ function LoginForm({ usertype }) {
                 />
                 {
                     errors.password && errors.password.type==='required' && <p className='tw-text-pink-200'>{errors.password.message} <sup className='tw-text-pink-200'>*</sup></p>
-
                 }
-                <p className='tw-text-right tw-text-blue-100 tw-text-[13px] tw-mt-2 '>Forgot password</p>
+                <p className='tw-text-right tw-text-blue-100 tw-text-[13px] tw-mt-2' onClick={()=>navigate('/forgotpassword')}>Forgot password</p>
                 <span className='tw-w-[31px] tw-aspect-square tw-absolute tw-block tw-right-[2%]  tw-top-[36%] tw-ml-10'>
                     {
                         !visible ?
@@ -79,6 +79,7 @@ function LoginForm({ usertype }) {
                 <button onClick={handleSubmit(onSubmit)}  className='tw-p-[12px] tw-rounded-[8px] tw-bg-yellow-50 tw-w-full tw-text-richblack-900 tw-text-[18px] tw-font-[500] active:tw-scale-[.9] tw-transition-all' >Sign In</button>
             </div>
         </form>
+        
     )
 }
 

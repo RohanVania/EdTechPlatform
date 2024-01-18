@@ -8,23 +8,18 @@ import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import ScrollToTop from "./ScrollToTop";
 import ContactPage from "./pages/ContactPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import { Toaster } from "react-hot-toast";
 import ProfilePage from "./pages/ProfilePage";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import Test from "./pages/Test";
 
-import {useSelector} from "react-redux"
-
-
-
-
 
 function App() {
 
- 
-
   const toastconfiguration={
     position:'top-center',
+    duration:1000
   }
 
   return (
@@ -40,7 +35,8 @@ function App() {
           <Route path='/login' element={<LoginPage />} />
           <Route path='/signup' element={<SignUpPage />} />
           <Route path='/contact' element={<ContactPage />} />
-
+          <Route path='/forgotpassword' element={<ForgotPasswordPage/>}/>
+            
           <Route element={<ProtectedRoute />}>
             <Route element={<ProfilePage />} path="/profile" />
             <Route element={<Test />} path="/test" />
