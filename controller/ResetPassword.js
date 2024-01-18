@@ -33,7 +33,8 @@ exports.resetPasswordToken = async (req, resp) => {
 
         // generate token
         const token = crypto.randomUUID()
-
+        
+        //** Front End Link  */
         const url = `http://localhost:3000/update-password/${token}`
 
         // Update in model with token and resetPasswordExpires

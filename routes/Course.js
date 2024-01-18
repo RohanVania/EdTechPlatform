@@ -38,9 +38,6 @@ router.post("/addSubSection",auth,isInstructor,createSubSection)
 router.delete("/deleteSubSection",auth,isInstructor,deleteSubSection)
 router.post("/updateSubSection",auth,isInstructor,updateSubSection)
 
-
-
-
 // ********************************************************************************************************
 //                                     Category routes (Only by Admin)
 // ********************************************************************************************************
@@ -61,4 +58,8 @@ router.post("/getCategoryPageDetails", categoryPageDetails)
 // router.get("/getReviews", getAllRating)
 
 module.exports=router;
+
+
+
+
 

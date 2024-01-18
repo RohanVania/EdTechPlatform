@@ -34,18 +34,21 @@ function AboutForm() {
                     <label htmlFor='firstname' className='tw-text-richblack-5 tw-font-[400] tw-text-[15px]'>First Name</label>
                     <input type='text' id='firstname' placeholder='Enter first name' {...register('firstname', {
                         required: { value: true, message: `First name is required` },
-                        maxLength: { value: 50, message: `First name exceeded limit` }
+                        maxLength: { value: 50, message: `First name exceeded 50 limit` }
                     })} />
-                    {(errors.firstname && errors.firstname.type === 'required') && (<p className='tw-text-red-400'>{errors.firstname.message} <sup>*</sup></p>)}
+                    {(errors.firstname && errors.firstname.type === 'required') && (<p className='tw-text-red-400'>{errors.firstname.message} <sup>*</sup></p>) ||
+                        (errors.firstname && errors.firstname.type === 'maxLength' && <p className='tw-text-red-400'>{errors.firstname.message} <sup>*</sup></p>)
+                    }
                 </div>
                 <div className='tw-flex tw-flex-col tw-gap-y-2'>
                     <label htmlFor='lastname' className='tw-text-richblack-5 tw-font-[400] tw-text-[15px]'>Last Name</label>
                     <input type='text' id='lastname' placeholder='Enter Last name' {...register('lastname', {
                         required: { value: true, message: 'Last name is required' },
-                        maxLength: { value: 50, message: 'Last name exceeded limit' }
+                        maxLength: { value: 50, message: 'Last name exceeded 50  limit' }
                     })} />
                     {
-                        errors.lastname && <p className='tw-text-red-400'>{errors.lastname.message} <sup>*</sup></p>
+                        (errors.lastname && <p className='tw-text-red-400'>{errors.lastname.message} <sup>*</sup></p>) ||
+                        (errors.lastname && errors.lastname.type === 'maxLength' && <p className='tw-text-red-400'>{errors.lastname.message} <sup>*</sup></p>)
                     }
                 </div>
             </div>

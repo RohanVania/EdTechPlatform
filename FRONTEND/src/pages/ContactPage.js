@@ -8,7 +8,7 @@ import Footer from '../components/core/Footer'
 
 
 
-function ContactPage() {
+function  ContactPage() {
     return (
         <>
             <div className='tw-bg-richblack-900 tw-mt-[78px] tw-py-[90px]'>
