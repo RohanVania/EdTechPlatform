@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { LuEye } from "react-icons/lu";
 import { LuEyeOff } from "react-icons/lu";
-import toast from 'react-hot-toast'
 import {loginApiOperation} from "../../../services/operations/authFunctions"
 import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
@@ -20,11 +19,12 @@ function LoginForm({ usertype }) {
     const dispatch=useDispatch();
 
 
-    const onSubmit =  (formdata) => {
+    const onSubmit =  async (formdata) => {
         formdata={...formdata,usertype}
         // console.log(formdata)
-        const res= dispatch(loginApiOperation(formdata,navigate));
-        res.then(()=>console.log('Success'))
+        const result= await loginApiOperation(formdata,navigate,dispatch);
+        console.log(result)
+        reset();
     }
 
 
@@ -44,8 +44,8 @@ function LoginForm({ usertype }) {
                         required: { value: true, message: 'Email address is required' },
                         validate: {
                             length: (v) => v.length <= 30 || 'Email exceeded limit',
-                            special: (v) => /^[^@]*@[^@]*$/.test(v) || 'Email should contain atleast @',
-                            pattern: (v) => /[\w-\.]+@([\w-]+\.)+[\w-]{2,4}/.test(v) || 'Email should be of form a@domain.topdomain'
+                            special: (v) => /^[^@]*@[^@]*$/.test(v) || 'Email should contain at least @',
+                            pattern: (v) => /[\w-]+@([\w-]+\.)+[\w-]{2,4}/.test(v) || 'Email should be of form a@domain.topdomain'
                         }
                     })}
                 />
@@ -66,7 +66,7 @@ function LoginForm({ usertype }) {
                 {
                     errors.password && errors.password.type==='required' && <p className='tw-text-pink-200'>{errors.password.message} <sup className='tw-text-pink-200'>*</sup></p>
                 }
-                <p className='tw-text-right tw-text-blue-100 tw-text-[13px] tw-mt-2' onClick={()=>navigate('/forgotpassword')}>Forgot password</p>
+                <p className='tw-text-right tw-text-blue-100 tw-text-[13px] tw-mt-2 tw-cursor-pointer' onClick={()=>navigate('/forgotpassword')}>Forgot password</p>
                 <span className='tw-w-[31px] tw-aspect-square tw-absolute tw-block tw-right-[2%]  tw-top-[36%] tw-ml-10'>
                     {
                         !visible ?
