@@ -19,7 +19,6 @@ function App() {
 
   const toastconfiguration={
     position:'top-center',
-    duration:1000
   }
 
   return (
@@ -41,6 +40,8 @@ function App() {
             <Route element={<ProfilePage />} path="/profile" />
             <Route element={<Test />} path="/test" />
           </Route>
+
+          <Route path="*" element={<div>Not Found</div>}/>  
         </Routes>
     </div >
   );

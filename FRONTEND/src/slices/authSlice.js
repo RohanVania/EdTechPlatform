@@ -1,14 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { json } from "react-router-dom";
 
 const initialState={
     loading:false,
-    token:null,
+    token:localStorage.getItem('token')?json.parse(localStorage.getItem("token")):null,
 }
 
 const authSlice=createSlice({
     name:'auth',
     initialState:initialState,
     reducers:{
+        
         setLoading:(state,action)=>{
             state.loading=action.payload;
         }, 

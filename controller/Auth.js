@@ -275,6 +275,7 @@ exports.login = async (req, resp) => {
                 expiresIn: "24h"
             }
 
+             
             //Token Expires in 2 hours
             const token = jwtToken.sign(payload, process.env.JWT_SECRET, tokenOptions)
 
@@ -288,10 +289,10 @@ exports.login = async (req, resp) => {
 
             const cookieOptions = {
                 // expires in 3days
-                //expiresIn:"3hr, 3days" 
+                expiresIn:"1min", 
+                // expires: new Date(Date.now() + 3 * 24 * 60 * 1000),
 
-                expires: new Date(Date.now() + 3 * 24 * 60 * 1000),
-                httpOnly: true,
+                httpOnly: false,
             }
 
             resp.cookie("token", token, cookieOptions).
@@ -299,7 +300,7 @@ exports.login = async (req, resp) => {
                 status(200).json({
                     success: "Success",
                     token,
-                    user,
+                    // user,
                     message: 'User Logged in successfully !',
                 })
 

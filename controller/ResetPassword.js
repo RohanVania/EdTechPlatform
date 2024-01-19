@@ -25,7 +25,7 @@ exports.resetPasswordToken = async (req, resp) => {
         // Check if Email exists in DB
         const user = await User.findOne({ email: email });
         if (!user) {
-            return resp.status(200).json({
+            return resp.status(401).json({
                 status: "Failed",
                 msg: `This Email: ${email} is not Registered With us, Enter a Valid Email `
             })
