@@ -12,25 +12,25 @@ function ForgotPasswordPage() {
     //* Global State for auth
     const { loading } = useSelector((state) => state.auth);
     //* When I call Api I want dispatchparticular api loading
-    const dispatch=useDispatch();
+    const dispatch = useDispatch();
 
     const [emailSent, setEmailSent] = useState(false);
     const [apiCalled, setApiCalled] = useState(false)
 
     const navigate = useNavigate();
 
-    const { register, handleSubmit,watch, reset, formState: {
+    const { register, handleSubmit, watch, reset, formState: {
         errors
     } } = useForm();
 
 
 
-     async function onSubmit(formData) {
+    async function onSubmit(formData) {
         //** Call Forgot Api From Here */
         console.log(formData);
 
         if (!apiCalled) {
-            const result =   await forgotPasswordApiOperation(formData, setEmailSent, setApiCalled,dispatch);
+            const result = await forgotPasswordApiOperation(formData, setEmailSent, setApiCalled, dispatch);
             console.log(result);
         }
 
@@ -77,29 +77,31 @@ function ForgotPasswordPage() {
                 </div>
                 :
 
-                !loading ?
-                    <div className='tw-max-w-[510px] tw-px-[10px]  '>
-                        <h1 className='2xs:tw-text-[22px] sm:tw-text-[30px] tw-font-[600] tw-text-richblack-5'>Check Email</h1>
-                        <p className='tw-text-[13px] sm:tw-text-[17px] tw-text-richblack-100 tw-mt-[10px] tw-font-[400] '>
-                            We have sent the reset email to {  watch('email')} 
-                        </p>
+                <div className='tw-max-w-[510px] tw-px-[10px] tw-relative  '>
+                    <h1 className='2xs:tw-text-[22px] sm:tw-text-[30px] tw-font-[600] tw-text-richblack-5'>Check Email</h1>
+                    <p className='tw-text-[13px] sm:tw-text-[17px] tw-text-richblack-100 tw-mt-[10px] tw-font-[400] '>
+                        We have sent the reset email to {watch('email')}
+                    </p>
 
-                        <form className='tw-mt-[24px] tw-flex tw-flex-col' onSubmit={handleSubmit(onSubmit)}>
-                            {
-                                !apiCalled ? <button onClick={handleSubmit(onSubmit)} className='tw-p-[12px] tw-mt-[30px] tw-rounded-[8px] tw-bg-yellow-50 tw-w-full tw-text-richblack-900 tw-text-[15px] xs:tw-text-[18px] tw-font-[500] active:tw-scale-[.9] tw-transition-all tw-disbale' >Resend email</button>
-                                    : <p className='tw-p-[12px] tw-mt-[30px] tw-rounded-[8px] tw-bg-yellow-50 tw-cursor-not-allowed tw-w-full tw-text-richblack-900 tw-text-[15px] xs:tw-text-[18px] tw-font-[500]  tw-text-center tw-opacity-[0.6]' >Resend email</p>
-                            }
-                        </form>
-                        <p className='tw-text-richblack-5 tw-mt-[30px] tw-flex tw-gap-2 tw-items-center tw-w-fit tw-text-[14px] xs:tw-text-base tw-cursor-pointer ' onClick={() => navigate('/login')}>
-                            <FaArrowLeft />
-                            Back to Login
-                        </p>
+                    <form className='tw-mt-[24px] tw-flex tw-flex-col' onSubmit={handleSubmit(onSubmit)}>
+                        {
+                            !apiCalled ? <button onClick={handleSubmit(onSubmit)} className='tw-p-[12px] tw-mt-[30px] tw-rounded-[8px] tw-bg-yellow-50 tw-w-full tw-text-richblack-900 tw-text-[15px] xs:tw-text-[18px] tw-font-[500] active:tw-scale-[.9] tw-transition-all tw-disbale' >Resend email</button>
+                                : <p className='tw-p-[12px] tw-mt-[30px] tw-rounded-[8px] tw-bg-yellow-50 tw-cursor-not-allowed tw-w-full tw-text-richblack-900 tw-text-[15px] xs:tw-text-[18px] tw-font-[500]  tw-text-center tw-opacity-[0.6]' >Resend email</p>
+                        }
+                    </form>
+                    <p className='tw-text-richblack-5 tw-mt-[30px] tw-flex tw-gap-2 tw-items-center tw-w-fit tw-text-[14px] xs:tw-text-base tw-cursor-pointer ' onClick={() => navigate('/login')}>
+                        <FaArrowLeft />
+                        Back to Login
+                    </p>
 
-                    </div>
-                    :
-                    <div className='tw-bg-red-400 tw-opacity-[0.9] tw-absolute tw-w-full tw-h-full tw-z-[50] tw-flex tw-justify-center tw-items-center'>
-                        <ScaleLoader color='yellow' height={'120px'} />
-                    </div>
+                    { loading &&
+                        <div className='tw-bg-richblack-900 tw-bg-red-400 tw-opacity-[0.82] tw-absolute tw-w-full tw-h-full tw-z-[50] tw-flex tw-justify-center tw-items-center tw-top-[0px]'>
+                            <ScaleLoader color='yellow' height={'120px'} />
+                        </div>
+                    }
+
+                </div>
+
 
             }
         </div>
