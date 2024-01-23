@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { FaArrowLeft } from "react-icons/fa6";
 import { forgotPasswordApiOperation } from '../services/operations/authFunctions';
-import { ScaleLoader } from "react-spinners"
 import { useDispatch, useSelector } from 'react-redux';
+import ModalLoader from "../components/core/ModalLoader"
 
 
 function ForgotPasswordPage() {
@@ -95,9 +95,10 @@ function ForgotPasswordPage() {
                     </p>
 
                     { loading &&
-                        <div className='tw-bg-richblack-900 tw-bg-red-400 tw-opacity-[0.82] tw-absolute tw-w-full tw-h-full tw-z-[50] tw-flex tw-justify-center tw-items-center tw-top-[0px]'>
-                            <ScaleLoader color='yellow' height={'120px'} />
-                        </div>
+                        <ModalLoader/>
+                        // <div className='tw-bg-richblack-900 tw-bg-red-400 tw-opacity-[0.82] tw-absolute tw-w-full tw-h-full tw-z-[50] tw-flex tw-justify-center tw-items-center tw-top-[0px]'>
+                        //     <ScaleLoader color='yellow' height={'120px'} />
+                        // </div>
                     }
 
                 </div>

@@ -13,6 +13,7 @@ import { Toaster } from "react-hot-toast";
 import ProfilePage from "./pages/ProfilePage";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import Test from "./pages/Test";
+import VerifyEmailPage from "./pages/VerifyEmailPage";
 
 
 function App() {
@@ -35,10 +36,12 @@ function App() {
           <Route path='/signup' element={<SignUpPage />} />
           <Route path='/contact' element={<ContactPage />} />
           <Route path='/forgotpassword' element={<ForgotPasswordPage/>}/>
+
             
           <Route element={<ProtectedRoute />}>
             <Route element={<ProfilePage />} path="/profile" />
             <Route element={<Test />} path="/test" />
+            <Route element={<VerifyEmailPage/>} path="/verify-email"/>
           </Route>
 
           <Route path="*" element={<div>Not Found</div>}/>  
