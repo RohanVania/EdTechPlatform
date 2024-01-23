@@ -1,12 +1,15 @@
 
 
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useForm } from "react-hook-form"
 
 import { LuEye } from "react-icons/lu";
 import { LuEyeOff } from "react-icons/lu";
+import { OtpContext } from '../../../context/OtpContext';
 
 function RegisterForm({ usertype }) {
+
+    const {setShowOtpSection}=useContext(OtpContext);
 
     const [visible, setVisible] = useState(false);
     const [visibleEye2, setVisibleEye2] = useState(false);
@@ -30,7 +33,9 @@ function RegisterForm({ usertype }) {
     }
 
     const submitData = (formData) => {
+        //** Call Otp Api with email and then show otp page */
         console.log(formData);
+        setShowOtpSection(true);
 
     }
 
@@ -115,8 +120,8 @@ function RegisterForm({ usertype }) {
                         <input type='text' placeholder='1234 567890' className=' tw-w-full tw-p-[12px] tw-rounded-[8px] tw-shadow-sm tw-shadow-[#ffffffd9] tw-bg-richblack-800 tw-text-[16px] tw-text-richblack-200 tw-outline-none '
                             {...register('contactNumber', {
                                 required: { value: true, message: "Phone number is required" },
-                                minLength: { value: 9, message: 'Phone number should be 10 digits' },
-                                maxLength: { value: 9, message: 'Phone number exceeded 10 digits' },
+                                minLength: { value: 10, message: 'Phone number should be 10 digits' },
+                                maxLength: { value: 10, message: 'Phone number exceeded 10 digits' },
                                 validate: {
                                     onlyDigit: (v) => /^[0-9]+$/.test(v) || 'Only digits are allowed'
                                 }
@@ -141,7 +146,7 @@ function RegisterForm({ usertype }) {
                         {...register('password', {
                             required: { value: true, message: "Password is required" },
                             minLength: { value: 10, message: "Minimum length is 10" },
-                           
+
                         })}
                     />
 
@@ -178,7 +183,7 @@ function RegisterForm({ usertype }) {
                 <div className=' tw-flex-1'>
                     {
                         (errors.password && errors.password.type === 'required') && (<p className='tw-text-red-400'>{errors.password.message} <sup>*</sup></p>) ||
-                        (errors.password && errors.password.type === 'minLength') && (<p className='tw-text-red-400'>{errors.password.message} <sup>*</sup></p>) 
+                        (errors.password && errors.password.type === 'minLength') && (<p className='tw-text-red-400'>{errors.password.message} <sup>*</sup></p>)
                     }
                 </div>
                 <div className=' tw-flex-1'>

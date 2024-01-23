@@ -75,20 +75,11 @@ export const forgotPasswordApiOperation = async (formdata, setEmailSent, setApiC
 
     }
 
-// async (dispatch) => {
-//     try {
+    export const sendOtpApiOperation=()=>{
+        try{
 
-
-
-
-
-       
-//         return response
-//     }
-//     catch (err) {
-//         console.log('Reset Password token error', err)
-//         setApiCalled(false);
-//     }
-
-// }
+        }catch(err){
+            
+        }
+    }
 
