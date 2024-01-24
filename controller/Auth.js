@@ -27,9 +27,10 @@ exports.sendOtp = async (req, resp) => {
 
         // If user already exits, then return a response
         if (checkUserPresent) {
-            return resp.status(200).json({
+            //* Status code we change so we can handle toast properly
+            return resp.status(417).json({
                 status: "Failed",
-                msg: "User already registered !",
+                msg: "User already registered",
             })
         }
 
@@ -67,7 +68,7 @@ exports.sendOtp = async (req, resp) => {
         console.log("OTP Body:", otpBody);
 
         // return resp successfully
-        return resp.status(200).json({
+        return resp.status(206).json({
             status: "Success",
             msg: "OTP sent successfully",
             otp: otp,
