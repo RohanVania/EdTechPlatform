@@ -4,6 +4,7 @@ import { json } from "react-router-dom";
 const initialState={
     loading:false,
     token:localStorage.getItem('token')?json.parse(localStorage.getItem("token")):null,
+    registerData:null
 }
 
 const authSlice=createSlice({
@@ -13,7 +14,10 @@ const authSlice=createSlice({
         
         setLoading:(state,action)=>{
             state.loading=action.payload;
-        }, 
+        },
+        setRegisterData:(state,action)=>{
+            state.registerData=action.payload;
+        },
 
         setToken:(state,action)=>{
             state.token=action.payload;
@@ -26,4 +30,4 @@ const authSlice=createSlice({
 
 export default authSlice.reducer;
 
-export const {setLoading,setToken}=authSlice.actions;
+export const {setLoading,setToken,setRegisterData}=authSlice.actions;

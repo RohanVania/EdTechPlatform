@@ -1,23 +1,29 @@
 
 
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { useForm } from "react-hook-form"
-
 import { LuEye } from "react-icons/lu";
 import { LuEyeOff } from "react-icons/lu";
-import { OtpContext } from '../../../context/OtpContext';
+import { sendOtpApiOperation } from "../../../services/operations/authFunctions"
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 function RegisterForm({ usertype }) {
 
-    const {setShowOtpSection}=useContext(OtpContext);
 
+    const [err,setErr]=useState(false)
+    const [errMsg,setErrMsg]=useState("")
     const [visible, setVisible] = useState(false);
     const [visibleEye2, setVisibleEye2] = useState(false);
+    const [apiSent, setApiSent] = useState(false);
+
+    const navigate = useNavigate();
 
     const { register, watch, handleSubmit, reset, formState: {
         errors,
     } } = useForm();
 
+    const dispatch = useDispatch();
 
 
     const handleVisible = () => {
@@ -32,15 +38,29 @@ function RegisterForm({ usertype }) {
         });
     }
 
-    const submitData = (formData) => {
+    let sendOtpResult;
+    const submitData = async (formData) => {
         //** Call Otp Api with email and then show otp page */
-        console.log(formData);
-        setShowOtpSection(true);
+
+        setErr(false)
+        formData = { ...formData, acountType: usertype };
+        sendOtpResult = await sendOtpApiOperation(formData, setApiSent, dispatch);
+
+        if(sendOtpResult?.response?.data.status==='Failed'){
+            setErr(true)
+            setErrMsg(sendOtpResult?.response.data.msg);
+        }else{
+            reset();
+            navigate('/verify-email')
+        }
+
+
 
     }
 
     return (
-        <form className='tw-flex tw-flex-col tw-gap-y-7' onSubmit={handleSubmit(submitData)}>
+        <form className='tw-flex tw-flex-col tw-gap-y-7 ' onSubmit={handleSubmit(submitData)}>
+            {err && <h1 className=' tw-text-red-500'>{errMsg}</h1>}
             <div className='tw-grid tw-grid-cols-1 btnalign:tw-grid-cols-2 tw-gap-y-6 tw-gap-x-6 tw-justify-center '>
                 <div className='tw-flex tw-flex-col tw-gap-y-2'>
                     <label className='tw-text-richblack-5 tw-text-[16px]'>First Name <sup className='tw-ml-[2px] tw-text-pink-200'>*</sup></label>
@@ -97,13 +117,13 @@ function RegisterForm({ usertype }) {
                 <label className='tw-text-richblack-5 tw-text-[16px]'>Phone Number <sup className='tw-ml-[2px] tw-text-pink-200'>*</sup></label>
                 <div className='tw-flex  tw-gap-x-5'>
                     <div className='tw-flex tw-flex-col tw-gap-y-[10px]'>
-                        <select className='tw-rounded-[8px] tw-p-[12px] tw-shadow-sm tw-shadow-[#ffffffd9] tw-bg-richblack-800 tw-text-[16px] tw-text-richblack-200 tw-outline-none '
+                        <select defaultValue={""} className='tw-rounded-[8px] tw-p-[12px] tw-shadow-sm tw-shadow-[#ffffffd9] tw-bg-richblack-800 tw-text-[16px] tw-text-richblack-200 tw-outline-none '
                             {...register('countryCode', {
                                 required: { value: true, message: 'Select code' },
 
                             })}
                         >
-                            <option value="" disabled selected hidden>Choose</option>
+                            <option value="" disabled hidden>Choose</option>
                             <option value={+1}>+1</option>
                             <option value={+91}>+91</option>
                             <option value={+92}>+92</option>
@@ -195,7 +215,10 @@ function RegisterForm({ usertype }) {
             </div>
 
             <div className='tw-mt-5 '>
-                <input type='button' onClick={handleSubmit(submitData)} value="Create Account" className='tw-p-[12px] tw-cursor-pointer tw-rounded-[8px] tw-bg-yellow-50 tw-w-full tw-text-richblack-900 tw-text-[18px] tw-font-[500]' />
+                {!apiSent ?
+                    <input type='button' onClick={handleSubmit(submitData)} value="Create Account" className='tw-p-[12px] tw-cursor-pointer tw-rounded-[8px] tw-bg-yellow-50 tw-w-full tw-text-richblack-900 tw-text-[18px] tw-font-[500]' />
+                    : <p value="Create Account" className='tw-p-[12px] tw-cursor-pointer tw-text-center tw-outline-none tw-rounded-[8px] tw-bg-yellow-50 tw-w-full tw-text-richblack-900 tw-text-[18px] tw-font-[500] tw-opacity-[0.4]' >Create Account</p>
+                }
             </div>
         </form>
     )
