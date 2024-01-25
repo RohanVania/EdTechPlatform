@@ -7,24 +7,26 @@ import ModalLoader from '../components/core/ModalLoader.js';
 import OtpInput from 'react-otp-input';
 import { PiClockCounterClockwise } from "react-icons/pi";
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import OTPInput from 'react-otp-input';
+import { useDispatch, useSelector } from 'react-redux';
+import {registerApiOperation,sendOtpApiOperation} from "../../src/services/operations/authFunctions.js"
 
 function VerifyEmailPage() {
     const [otperror, setOtpError] = useState(false)
     const [apiCalled,setApiCalled]=useState(false);
     const { registerData } = useSelector((state) => state.auth);
+    const dispatch=useDispatch();
     const navigate = useNavigate();
     useEffect(() => {
         if (!registerData) {
-            navigate('/')
+            navigate('/signup')
         }
     }, [])
 
 
     const [otp, setOtp] = useState('');
 
-    function handleVerificationAndRegistration(event) {
+
+    async function handleVerificationAndRegistration(event) {
         setOtpError(false)
         event.preventDefault();
         if (otp.length != 6) {
@@ -34,6 +36,10 @@ function VerifyEmailPage() {
         setOtpError(false);
         const dataToSubmit = { ...registerData, otp: otp };
         console.log(dataToSubmit)
+        //* Call the Api
+       const result= await registerApiOperation(dataToSubmit,setApiCalled,navigate,dispatch)
+        setOtp('')
+        setApiCalled(false)
 
     }
 
@@ -42,7 +48,7 @@ function VerifyEmailPage() {
             <div className='tw-max-w-[510px] tw-px-[10px] tw-relative  '>
                 <h1 className='2xs:tw-text-[22px] sm:tw-text-[30px] tw-font-[600] tw-text-richblack-5'>Verify Email</h1>
                 <p className='tw-text-[13px] sm:tw-text-[17px] tw-text-richblack-100 tw-mt-[10px] tw-font-[400] '>
-                    A verification code has been sent to your email <span className='tw-text-blue-200'>{registerData?.email}</span> Enter the code below.
+                    A verification code has been sent to your email <span className='tw-text-blue-200'>{registerData?.email}</span> , Enter the code below.
                 </p>
 
                 <form className='tw-mt-[24px] tw-flex tw-flex-col' onSubmit={handleVerificationAndRegistration}>
@@ -82,7 +88,7 @@ function VerifyEmailPage() {
                         <FaArrowLeft />
                         Back to Login
                     </p>
-                    <p className='tw-text-white tw-mt-[30px] tw-flex tw-gap-1 tw-items-center tw-cursor-pointer '>
+                    <p className='tw-text-white tw-mt-[30px] tw-flex tw-gap-1 tw-items-center tw-cursor-pointer tw-text-blue-200' >
                         <PiClockCounterClockwise className='tw-w-[20px] tw-h-[20px]' />
                         Resend
                     </p>

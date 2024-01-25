@@ -89,7 +89,7 @@ export const sendOtpApiOperation = async (formData, setApiSent, dispatch) => {
             },
             {
                 style: {
-                    minWidth: '299px'
+                    minWidth: '299px',
                 }
             },
             {
@@ -119,11 +119,37 @@ export const sendOtpApiOperation = async (formData, setApiSent, dispatch) => {
     }
 }
 
-export const registerApiOperation=(formData,setApiCalled)=>{
+export const registerApiOperation=async (formData,setApiCalled,navigate,dispatch)=>{
     try{
+        setApiCalled(true)
+        const response = await apiCaller('POST', authEndPoints.REGISTER_API, formData)
+
+        if (response.data.status !== 'Success') {
+            throw new Error(response.data.msg);
+        }
+
+        toast.success('User registered successfully',{
+            id:'Register-successs-1'
+        })
+        dispatch(setRegisterData(null))
+
+        
+        navigate('/login')
+
+
 
     }catch(err){
-
+        console.log('Registration Error =>',err)
+        console.log(err.toString().split("Error: ")[1])
+        toast(`${err.toString().split("Error: ")[1]}`,{
+            id:'Register-Error-1',
+            icon:'😆',
+            style:{
+                minWidth:'280px'
+            }
+        })
+        setApiCalled(false)
+        return err;
     }
 }
 

@@ -43,7 +43,7 @@ function RegisterForm({ usertype }) {
         //** Call Otp Api with email and then show otp page */
 
         setErr(false)
-        formData = { ...formData, acountType: usertype };
+        formData = { ...formData, accountType: usertype };
         sendOtpResult = await sendOtpApiOperation(formData, setApiSent, dispatch);
 
         if(sendOtpResult?.response?.data.status==='Failed'){
