@@ -113,9 +113,9 @@ exports.signUp = async (req, resp) => {
 
         // validate if all field exists
         if (!firstName || !lastName || !email || !password || !confirmPassword || !accountType || !contactNumber || !otp) {
-            return resp.status(200).json({
+            return resp.status(400).json({
                 status: "Failed",
-                msg: "All fields are required for signup !"
+                msg: "All fields are required for signup"
             })
         }
 
@@ -131,9 +131,10 @@ exports.signUp = async (req, resp) => {
         // Check if Email already registered 
         const existingUser = await User.findOne({ email: email });
         if (existingUser) {
+            //* Status code for conflict
             return resp.status(200).json({
                 status: "Failed",
-                msg: "User  already exists ! Please Sign in to continue"
+                msg: "User already exists, Sign In"
             })
         }
 
@@ -154,7 +155,7 @@ exports.signUp = async (req, resp) => {
         else if (otp !== recentOtp[0].otp) {
             return resp.status(200).json({
                 status: "Failed",
-                msg: "Otp entered is not valid !"
+                msg: "Otp entered is not valid"
             })
         }
 
@@ -198,7 +199,7 @@ exports.signUp = async (req, resp) => {
         return resp.status(200).json({
             status: "Success",
             user:user,
-            msg: "User is Registered successfully !"
+            msg: "User is registered successfully"
         })
 
 
