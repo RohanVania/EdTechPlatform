@@ -5,19 +5,12 @@ import logo from "../../assets/Logo/Logo-Full-Light.png"
 import { NavbarLinks } from '../../data/navbar-links';
 import { TfiMenu } from "react-icons/tfi";
 import { MdOutlineArrowDropDown } from "react-icons/md";
-import {useQuery} from 'react-query';
-import {getAllCategories} from "../../services/operations/publicFunction"
 
-function Navbar() {
+function Navbar({ categoryData }) {
     const location = useLocation();
     const [open, setOpen] = useState(false);
 
-    const {data:category,isLoading,error}=useQuery('categories', getAllCategories);
-
-    if(isLoading) return console.log("Loading");
-    if(error) return console.log('An Error occurred :',error.message)
-
-    const categories=category.data;
+    const categories = categoryData;
 
     return (
         <>
@@ -43,22 +36,25 @@ function Navbar() {
                                             <Link to={el.path} className='tw-flex tw-justify-between'>
                                                 {el.title}
                                             </Link>
-                                            <MdOutlineArrowDropDown />
-                                        </div>
-                                        <div className='tw-min-w-fit tw-flex tw-flex-col tw-gap-y-1  tw-absolute tw-hidden tw-py-5 tw-px-4  tw-rounded-lg tw-bg-[#F1F2FF] tw-top-[65.1px] tw-left-[-13px] group-hover:tw-block group-hover:tw-flex group-hover:tw-flex-col group-hover:tw-gap-y-1 '>
                                             {
-                                               categories.map((el, indx) => {
-                                                    return <a className='tw-cursor-pointer' key={`SubNavbar-${indx}`}>
-                                                        <h1 className='tw-whitespace-nowrap tw-px-4 tw-py-5 tw-bg-transparent  hover:tw-bg-richblack-50 tw-rounded-lg tw-text-black'>{el.name}</h1>
-                                                    </a>
-                                                })
+                                                categories.length !== 0 && <MdOutlineArrowDropDown />
                                             }
-
-                                            <div className='tw-bg-[#F1F2FF] tw-w-[35px] tw-h-[35px] tw-absolute tw-top-[-7px] tw-left-[82px] tw-rotate-45 tw-rounded-sm tw-z-[-1]'>
-                                            </div>
-
                                         </div>
+                                        {
+                                            categories.length !== 0 && <div className='tw-min-w-fit  tw-flex-col tw-gap-y-1  tw-absolute tw-hidden tw-py-5 tw-px-4  tw-rounded-lg tw-bg-[#F1F2FF] tw-top-[65.1px] tw-left-[-13px] group-hover:tw-block  group-hover:tw-flex-col group-hover:tw-gap-y-1 '>
+                                                {
+                                                    categories.map((el, indx) => {
+                                                        return <a className='tw-cursor-pointer' key={`SubNavbar-${indx}`}>
+                                                            <h1 className='tw-whitespace-nowrap tw-px-4 tw-py-5 tw-bg-transparent  hover:tw-bg-richblack-50 tw-rounded-lg tw-text-black'>{el.name}</h1>
+                                                        </a>
+                                                    })
+                                                }
 
+                                                <div className='tw-bg-[#F1F2FF] tw-w-[35px] tw-h-[35px] tw-absolute tw-top-[-7px] tw-left-[82px] tw-rotate-45 tw-rounded-sm tw-z-[-1]'>
+                                                </div>
+
+                                            </div>
+                                        }
                                     </li>
                             })
                         }
@@ -67,12 +63,12 @@ function Navbar() {
                     </ul>
 
                     <div className='tw-flex tw-gap-x-4  navbarmd:tw-hidden'>
-                            {
-                                location.pathname === '/login' &&
-                                <Link to='/signup'>
+                        {
+                            location.pathname === '/login' &&
+                            <Link to='/signup'>
                                 <button className='tw-px-[14px] tw-py-[10px] tw-border-[1px] tw-border-richblack-700 tw-rounded-[8px]'>Sign Up</button>
-                                </Link>
-                            }
+                            </Link>
+                        }
                         {
                             location.pathname === '/signup' &&
                             <Link to='/login'>
@@ -82,19 +78,19 @@ function Navbar() {
                         }
                         {
                             location.pathname !== '/signup' && location.pathname !== '/login' && <>
-                            <Link to="/login">
-                            <button className='tw-px-[21px] tw-py-[10px] tw-border-[1px] tw-border-richblack-700 tw-rounded-[8px]'>Login</button>
-                            </Link>
-                            <Link to="/signup">
-                            <button className='tw-px-[14px] tw-py-[10px] tw-border-[1px] tw-border-richblack-700 tw-rounded-[8px]'>Sign Up</button>
-                            </Link>
+                                <Link to="/login">
+                                    <button className='tw-px-[21px] tw-py-[10px] tw-border-[1px] tw-border-richblack-700 tw-rounded-[8px]'>Login</button>
+                                </Link>
+                                <Link to="/signup">
+                                    <button className='tw-px-[14px] tw-py-[10px] tw-border-[1px] tw-border-richblack-700 tw-rounded-[8px]'>Sign Up</button>
+                                </Link>
                             </>
-                            
+
                         }
 
                     </div>
 
-                      {/* <div className='tw-flex tw-gap-x-4  navbarmd:tw-hidden'>
+                    {/* <div className='tw-flex tw-gap-x-4  navbarmd:tw-hidden'>
                             {
                                 location.pathname !== '/login' &&
                                 <Link to='/signup'>
