@@ -5,6 +5,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { FiLogOut } from "react-icons/fi";
 
 import { sidebarLinks } from "../../data/dashboard-links"
+import { NavLink } from 'react-router-dom';
 
 function SideBar() {
     return (
@@ -14,32 +15,40 @@ function SideBar() {
                 {
 
                     sidebarLinks.map((el) => {
+
                         if (el.id === 1 || el.type === 'Student')
                             return <SideBarLink key={el.id} linkData={el} />
                     })
                 }
 
                 <>
-                    <li className='tw-flex md:tw-hidden tw-gap-x-[12px] tw-items-center tw-cursor-pointer hover:tw-bg-[#3d2a01] hover:tw-text-white  tw-px-[21px] tw-py-[12px]'>
-                        <div className=''>
-                            <IoSettingsOutline className='tw-text-xl sm:tw-text-2xl md:tw-text-lg ' />
-                        </div>
-                    </li>
-                    <li className='tw-flex tw-gap-x-[12px] md:tw-hidden tw-items-center tw-cursor-pointer hover:tw-bg-[#3d2a01] hover:tw-text-white  tw-px-[21px] tw-py-[12px]'>
-                        <div className=''>
-                            <FiLogOut className='tw-text-xl sm:tw-text-2xl' />
-                        </div>
-                    </li>
+                    <NavLink
+                    >
+                        <li className='tw-flex md:tw-hidden tw-gap-x-[12px] tw-items-center tw-cursor-pointer hover:tw-bg-[#3d2a01] hover:tw-text-white  tw-px-[21px] tw-py-[12px]'>
+                            <div className=''>
+                                <IoSettingsOutline className='tw-text-xl sm:tw-text-2xl md:tw-text-lg ' />
+                            </div>
+                        </li>
+                    </NavLink>
+                    {/* <NavLink>
+                        <li className='tw-flex tw-gap-x-[12px] md:tw-hidden tw-items-center tw-cursor-pointer hover:tw-bg-[#3d2a01] hover:tw-text-white  tw-px-[21px] tw-py-[12px]'>
+                            <div className=''>
+                                <FiLogOut className='tw-text-xl sm:tw-text-2xl' />
+                            </div>
+                        </li>
+                    </NavLink> */}
                 </>
             </ul>
             <div className=' tw-hidden md:tw-block tw-border-b-[1px] tw-border-b-richblack-500  tw-px-[21px] tw-w-[80%] tw-mx-auto'></div>
             <ul className='tw-w-full tw-py-[28px]  tw-flex md:tw-flex-col tw-text-richblack-200 tw-hidden md:tw-block '>
-                <li className='tw-flex tw-gap-x-[12px] tw-items-center tw-cursor-pointer hover:tw-bg-[#3d2a01] hover:tw-text-white  tw-px-[21px] tw-py-[12px]'>
-                    <div className=''>
-                        <IoSettingsOutline className='tw-text-lg' />
-                    </div>
-                    <p className='tw-text-[14px] lg:tw-text-[16px] tw-font-inter tw-font-normal '>Settings</p>
-                </li>
+                <NavLink to="/dashboard/settings">
+                    <li className='tw-flex tw-gap-x-[12px] tw-items-center tw-cursor-pointer hover:tw-bg-[#3d2a01] hover:tw-text-white  tw-px-[21px] tw-py-[12px]'>
+                        <div className=''>
+                            <IoSettingsOutline className='tw-text-lg' />
+                        </div>
+                        <p className='tw-text-[14px] lg:tw-text-[16px] tw-font-inter tw-font-normal '>Settings</p>
+                    </li>
+                </NavLink>
                 <li className='tw-flex tw-gap-x-[12px] tw-items-center tw-cursor-pointer hover:tw-bg-[#3d2a01] hover:tw-text-white  tw-px-[21px] tw-py-[12px]'>
                     <div className=''>
                         <FiLogOut className='tw-text-lg' />
