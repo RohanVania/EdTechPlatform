@@ -14,7 +14,7 @@ export const loginApiOperation = async (formdata, navigate, dispatch) => {
             id: "Login-1",
         })
         dispatch(setLoading(false));
-        navigate('/dashboard')
+        navigate('/dashboard/my-profile')
         return response
 
     } catch (err) {

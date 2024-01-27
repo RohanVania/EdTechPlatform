@@ -62,14 +62,20 @@ function App() {
 
 
         <Route element={<ProtectedRoute />}>
-          <Route element={<DashBoardPage/>} path="/dashboard" >
-            <Route element/>
+          <Route element={<DashBoardPage />}  >
+            <Route path="/dashboard/my-profile" element={<h1 className="tw-text-white">My Profile</h1>} />
+            <Route path="/dashboard/settings" element={<h1 className="tw-text-white">Settings</h1>} />
+            <Route path="/dashboard/enrolled-courses" element={<h1 className="tw-text-white">Enrolled Courses</h1>}/>
+            <Route path="/dashboard/purchase-history" element={<h1 className="tw-text-white">Purschase History</h1>}/>
+          <Route />
+        <Route />
+
           </Route>
           <Route element={<Test />} path="/test" />
           <Route element={<VerifyEmailPage />} path="/verify-email" />
         </Route>
 
-        <Route path="*" element={<div>Not Found</div>} />
+        <Route path="*" element={<div className="tw-text-white tw-mt-[90px]">Not Found</div>} />
       </Routes>
     </div >
   );
