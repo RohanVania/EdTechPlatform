@@ -17,6 +17,7 @@ import { useQuery } from "react-query";
 import { getAllCategories } from "./services/operations/publicFunction";
 import ModalLoader from "./components/core/ModalLoader";
 import DashBoardPage from "./pages/DashBoardPage";
+import ResetPasswordPage from "./components/core/ResetPasswordPage";
 
 
 function App() {
@@ -59,6 +60,7 @@ function App() {
         <Route path='/signup' element={<SignUpPage />} />
         <Route path='/contact' element={<ContactPage />} />
         <Route path='/forgotpassword' element={<ForgotPasswordPage />} />
+        <Route path='/update-password/:resetToken' element={<ResetPasswordPage/>}/>
 
 
         <Route element={<ProtectedRoute />}>
