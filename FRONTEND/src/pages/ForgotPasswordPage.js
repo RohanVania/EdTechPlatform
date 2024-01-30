@@ -19,7 +19,7 @@ function ForgotPasswordPage() {
 
     const navigate = useNavigate();
 
-    const { register, handleSubmit, watch, reset, formState: {
+    const { register, handleSubmit, watch, formState: {
         errors
     } } = useForm();
 
@@ -33,7 +33,6 @@ function ForgotPasswordPage() {
             const result = await forgotPasswordApiOperation(formData, setEmailSent, setApiCalled, dispatch);
             console.log(result);
         }
-        reset();
     }
 
     //** What the response is receieved whether email is sent make the state true */
@@ -80,7 +79,7 @@ function ForgotPasswordPage() {
 
                 <div className='tw-max-w-[510px] tw-px-[10px] tw-relative  '>
                     <h1 className='2xs:tw-text-[22px] sm:tw-text-[30px] tw-font-[600] tw-text-richblack-5'>Check Email</h1>
-                    <p className='tw-text-[13px] sm:tw-text-[17px] tw-text-richblack-100 tw-mt-[10px] tw-font-[400] '>
+                    <p className='tw-text-[13px] sm:tw-text-[17px] tw-text-richblack-100 tw-mt-[10px] tw-font-[400]  '>
                         We have sent the reset email to {watch('email')}
                     </p>
 
@@ -97,9 +96,6 @@ function ForgotPasswordPage() {
 
                     { loading &&
                         <ModalLoader/>
-                        // <div className='tw-bg-richblack-900 tw-bg-red-400 tw-opacity-[0.82] tw-absolute tw-w-full tw-h-full tw-z-[50] tw-flex tw-justify-center tw-items-center tw-top-[0px]'>
-                        //     <ScaleLoader color='yellow' height={'120px'} />
-                        // </div>
                     }
 
                 </div>
