@@ -81,7 +81,7 @@ export const forgotPasswordApiOperation = async (formdata, setEmailSent, setApiC
 export const sendOtpApiOperation = async (formData, setApiSent, dispatch) => {
     try {
         setApiSent(true)
-        const response = await toast.promise(apiCaller('POST', authEndPoints.SEND_OTP_API, {email:formData.email}),
+        const response = await toast.promise(apiCaller('POST', authEndPoints.SEND_OTP_API, { email: formData.email }),
             {
                 loading: 'Please wait before registering 🙏',
                 success: 'Verification code is sent to email 😎',
@@ -99,7 +99,7 @@ export const sendOtpApiOperation = async (formData, setApiSent, dispatch) => {
                 }
             }
         )
-        
+
 
         if (response.data.status !== 'Success') {
             throw new Error(response.data.msg);
@@ -119,8 +119,8 @@ export const sendOtpApiOperation = async (formData, setApiSent, dispatch) => {
     }
 }
 
-export const registerApiOperation=async (formData,setApiCalled,navigate,dispatch)=>{
-    try{
+export const registerApiOperation = async (formData, setApiCalled, navigate, dispatch) => {
+    try {
         setApiCalled(true)
         const response = await apiCaller('POST', authEndPoints.REGISTER_API, formData)
 
@@ -128,24 +128,24 @@ export const registerApiOperation=async (formData,setApiCalled,navigate,dispatch
             throw new Error(response.data.msg);
         }
 
-        toast.success('User registered successfully',{
-            id:'Register-successs-1'
+        toast.success('User registered successfully', {
+            id: 'Register-successs-1'
         })
         dispatch(setRegisterData(null))
 
-        
+
         navigate('/login')
 
 
 
-    }catch(err){
-        console.log('Registration Error =>',err)
+    } catch (err) {
+        console.log('Registration Error =>', err)
         console.log(err.toString().split("Error: ")[1])
-        toast(`${err.toString().split("Error: ")[1]}`,{
-            id:'Register-Error-1',
-            icon:'😆',
-            style:{
-                minWidth:'280px'
+        toast(`${err.toString().split("Error: ")[1]}`, {
+            id: 'Register-Error-1',
+            icon: '😆',
+            style: {
+                minWidth: '280px'
             }
         })
         setApiCalled(false)
@@ -153,26 +153,46 @@ export const registerApiOperation=async (formData,setApiCalled,navigate,dispatch
     }
 }
 
-export const checkResetPasswordTokenApiOperation=async(params,setApiCalled,navigate)=>{
-    try{
-        console.log("Hello")
-        const token=params.resetToken
+export const checkResetPasswordTokenApiOperation = async (params, setApiCalled, navigate) => {
+    try {
+        const token = params.resetToken
         setApiCalled(true);
-        const result=await apiCaller('GET',authEndPoints.RESET_PASSWORD_VALID_TOKEN(token))
+        const result = await apiCaller('GET', authEndPoints.RESET_PASSWORD_VALID_TOKEN(token))
         setApiCalled(false)
-        console.log(result);
-    }catch(err){
+        
+        return result;
+    } catch (err) {
         setApiCalled(false)
-        console.log("Error",err);
-        // navigate("/")
+        console.log("Error", err);
+        navigate("/error")
     }
 }
 
-export const resetPasswordApiOperation=async(formData)=>{
-    try{
-       const apiResult= await apiCaller('POST',authEndPoints.RESET_PASSWORD,formData);
-    
-    }catch(err){
-        console.log("Error Message",err)
+export const resetPasswordApiOperation = async (formData,navigate) => {
+    try {
+        const apiResult = await toast.promise(apiCaller('POST', authEndPoints.RESET_PASSWORD, formData),
+            {
+                loading: 'Please Wait while resetting 🙏',
+                success: 'Password  has been reset 😎',
+                error:'Something went wrong, try again'
+            },
+            {
+                style: {
+                    minWidth: '299px',
+                }
+            },
+            {
+                success: { icon: '🔥' },
+                error: {
+                    icon: '❌'
+                }
+            }
+        )
+        
+    return apiResult
+
+    } catch (err) {
+        console.log("Error Message", err)
+        navigate('/');
     }
 }

@@ -4,7 +4,7 @@ import React,{useEffect, useState} from 'react'
 import { useNavigate, useParams} from 'react-router-dom'
 import { useForm } from "react-hook-form"
 import { FaArrowLeft } from "react-icons/fa6";
-import { checkResetPasswordTokenApiOperation } from '../../services/operations/authFunctions';
+import { checkResetPasswordTokenApiOperation,resetPasswordApiOperation } from '../../services/operations/authFunctions';
 import ModalLoader from './ModalLoader';
 
 const ResetPasswordPage = () => {
@@ -19,17 +19,12 @@ const ResetPasswordPage = () => {
     } } = useForm();
 
 
-    
-    const validateResetToken=async ()=>{
-    //    const result= await checkResetPasswordTokenApiOperation(params,setAppiCalled,navigate)
-    //    console.log(result);
-    }
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         const formData={...data,token:params.resetToken};
-        console.log(formData);
-        // validateResetToken();
-
+        const result=await resetPasswordApiOperation(formData,navigate)
+        console.log(result);
+        navigate('/login')
         reset()
     }
 
@@ -39,7 +34,7 @@ const ResetPasswordPage = () => {
             console.log(result);
         };
         fetchData();
-    },[])
+    },[]) 
 
 
 
@@ -48,16 +43,16 @@ const ResetPasswordPage = () => {
     return (
         <div className='tw-bg-richblack-900 tw-mt-[77px] tw-min-h-[92.2vh] tw-flex tw-justify-center tw-items-center tw-relative '>
 
-            <div className='tw-max-w-[500px] tw-px-[10px] '>
+            <div className='tw-max-w-[500px tw-px-[10px] '>
                 <h1 className='2xs:tw-text-[22px] sm:tw-text-[30px] tw-font-[600] tw-text-richblack-5'>Choose a new Password</h1>
                 <p className='tw-text-[13px] sm:tw-text-[17px] tw-text-richblack-100 tw-mt-[10px] tw-font-[400]'>
                     Almost done, Enter your new password and you are <br />all set.
                 </p>
 
-                <form className='tw-mt-[24px] tw-flex tw-flex-col tw-gap-y-[20px]' onSubmit={handleSubmit(onSubmit)} >
+                <form className='tw-mt-[24px]  tw-space-y-[23px]' onSubmit={handleSubmit(onSubmit)} >
                     <div className='tw-flex tw-flex-col'>
                         <label className='tw-text-richblack-5 tw-text-[14px] xs:tw-text-[16px] tw-mb-[20px] tw-font-[300]'>New Password <sup className='tw-ml-[2px] tw-text-pink-200'>*</sup></label>
-                        <input type='text' className=' tw-p-[12px] tw-rounded-[8px] tw-shadow-sm tw-shadow-[#ffffffd9] tw-bg-richblack-800 tw-text-[16px] tw-text-richblack-200 tw-outline-none '
+                        <input type='password' className='tw-w-full tw-p-[12px] tw-rounded-[8px] tw-shadow-sm tw-shadow-[#ffffffd9] tw-bg-richblack-800 tw-text-[16px] tw-text-richblack-200 tw-outline-none '
                             {
                             ...register('password', {
                                 required: { value: true, message: 'Password is required' },
@@ -71,7 +66,7 @@ const ResetPasswordPage = () => {
                     </div>
                     <div className='tw-flex tw-flex-col'>
                         <label className='tw-text-richblack-5 tw-text-[14px] xs:tw-text-[16px] tw-mb-[20px] tw-font-[300]'>Confirm new password <sup className='tw-ml-[2px] tw-text-pink-200'>*</sup></label>
-                        <input type='text' className=' tw-p-[12px] tw-rounded-[8px] tw-shadow-sm tw-shadow-[#ffffffd9] tw-bg-richblack-800 tw-text-[16px] tw-text-richblack-200 tw-outline-none '
+                        <input type='password' className='tw-w-full tw-p-[12px] tw-rounded-[8px] tw-shadow-sm tw-shadow-[#ffffffd9] tw-bg-richblack-800 tw-text-[16px] tw-text-richblack-200 tw-outline-none '
                             {
                             ...register('confirmPassword', {
                                 required: { value: true, message: "Confirm password is required" },

@@ -103,7 +103,7 @@ exports.resetPasswordTokenValid = async (req, resp) => {
 
 
         if (userDetails.resetPasswordExpires < Date.now()) {
-            return resp.json({
+            return resp.status(401).json({
                 success: "Failed",
                 message: 'Token is expired, please regenerate your token',
             });
@@ -137,7 +137,7 @@ exports.resetPassword = async (req, resp) => {
         const { token, password, confirmPassword } = req.body
 
         if (!password || !token || !confirmPassword) {
-            return resp.status(200).json({
+            return resp.status(401).json({
                 status: "Failed",
                 msg: "All Fields are required in Reset Password !"
             })
@@ -145,7 +145,7 @@ exports.resetPassword = async (req, resp) => {
 
         // Password Validation
         if (password !== confirmPassword) {
-            return resp.json({
+            return resp.status(401).json({
                 success: false,
                 message: 'Password not matching',
             });
@@ -163,10 +163,10 @@ exports.resetPassword = async (req, resp) => {
 
         // Token time Check
         if (userDetails.resetPasswordExpires < Date.now()) {
-            return resp.json({
+            return resp.status(401).json({
                 success: "Failed",
                 message: 'Token is expired, please regenerate your token',
-            });
+            })
         }
 
         // If token not expired and valid
@@ -180,6 +180,10 @@ exports.resetPassword = async (req, resp) => {
             { new: true }
         )
         console.log("Updated Data :", updatedData)
+        updatedData.resetPasswordExpires=undefined;
+        updatedData.token=undefined;
+        updatedData.save();
+        console.log("After Resetting ",updatedData)
 
         return resp.status(200).json({
             status: "Success",
