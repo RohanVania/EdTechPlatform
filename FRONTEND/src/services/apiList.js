@@ -5,7 +5,9 @@ export const authEndPoints={
     LOGIN_API:'/auth/login',
     FORGOT_PASSWORD_TOKEN_API:'/auth/reset-password-token',
     SEND_OTP_API:'/auth/sendotp',
-    REGISTER_API:'/auth/signup'
+    REGISTER_API:'/auth/signup',
+    RESET_PASSWORD_VALID_TOKEN:(resetToken)=>`/auth/reset-password/${resetToken}`,
+    RESET_PASSWORD:'/auth/reset-password'
 }
 
 
