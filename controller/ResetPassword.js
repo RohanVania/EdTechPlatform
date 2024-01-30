@@ -33,9 +33,9 @@ exports.resetPasswordToken = async (req, resp) => {
 
         // generate token
         const token = crypto.randomUUID()
-        
+
         //** Front End Link  */
-        const url = `http://localhost:3002/update-password/${token}`
+        const url = `http://localhost:3002/reset-password/${token}`
 
         // Update in model with token and resetPasswordExpires
 
@@ -75,6 +75,54 @@ exports.resetPasswordToken = async (req, resp) => {
 }
 
 // Reset Password page
+
+
+exports.resetPasswordTokenValid = async (req, resp) => {
+    try {
+        // console.log("Params Object",req.params);
+        const { resetToken } = req.params;
+
+        if (!resetToken) {
+            return resp.status(401).json({
+                status: 'Failed',
+                msg: 'Reset Token missing, you are not authorized',
+            })
+        }
+
+        //* Token is always unique
+        const userDetails = await User.findOne({ token: resetToken });
+        // console.log(userDetails);
+
+        //* If nothing found token doesn't exist or invalid
+        if (!userDetails) {
+            return resp.status(401).json({
+                status: 'Failed',
+                msg: 'Invalid Reset token',
+            })
+        }
+
+
+        if (userDetails.resetPasswordExpires < Date.now()) {
+            return resp.json({
+                success: "Failed",
+                message: 'Token is expired, please regenerate your token',
+            });
+        }
+
+        return resp.status(200).json({
+            status:'Success',
+            msg:'You are authorized to reset the password',
+        })
+
+    } catch (err) {
+        console.log(err);
+        return resp.status(500).json({
+            success: "Failed",
+            message: 'Something went wrong while checking reset token',
+            errormsg: err
+        })
+    }
+}
 
 // When, we click on reset password link we are taken to
 // page where we have to enter password which then updates
@@ -128,6 +176,7 @@ exports.resetPassword = async (req, resp) => {
             { token: token },
             //Update following fields
             { password: hashedPassword },
+
             { new: true }
         )
         console.log("Updated Data :", updatedData)

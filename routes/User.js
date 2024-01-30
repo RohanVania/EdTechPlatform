@@ -3,7 +3,7 @@ const router = express.Router();
 
 // Importing Handler functions
 const { signUp, login, changePassword, sendOtp } = require("../controller/Auth")
-const { resetPassword, resetPasswordToken } = require("../controller/ResetPassword");
+const { resetPassword, resetPasswordToken,resetPasswordTokenValid } = require("../controller/ResetPassword");
 
 
 // Importing Middleware
@@ -31,6 +31,7 @@ router.post("/changepassword", auth, changePassword)
 // User can also reset password
 
 router.post("/reset-password-token", resetPasswordToken);
+router.get("/reset-password/:resetToken",resetPasswordTokenValid)
 router.post("/reset-password", resetPassword);
 
 

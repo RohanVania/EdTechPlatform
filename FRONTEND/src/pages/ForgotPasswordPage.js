@@ -33,7 +33,7 @@ function ForgotPasswordPage() {
             const result = await forgotPasswordApiOperation(formData, setEmailSent, setApiCalled, dispatch);
             console.log(result);
         }
-
+        reset();
     }
 
     //** What the response is receieved whether email is sent make the state true */
@@ -66,7 +66,8 @@ function ForgotPasswordPage() {
                             (errors.email && errors.email.type === 'pattern' && <p className='tw-text-pink-200 tw-mt-3'>{errors.email.message} <sup className='tw-text-pink-200'>*</sup></p>)
                         }
                         {
-                            !apiCalled ? <button onClick={handleSubmit(onSubmit)} className='tw-p-[12px] tw-mt-[30px] tw-rounded-[8px] tw-bg-yellow-50 tw-w-full tw-text-richblack-900 tw-text-[15px] xs:tw-text-[18px] tw-font-[500] active:tw-scale-[.9] tw-transition-all tw-disbale' >Send</button>
+                            !apiCalled ? 
+                            <button onClick={handleSubmit(onSubmit)} className='tw-p-[12px] tw-mt-[30px] tw-rounded-[8px] tw-bg-yellow-50 tw-w-full tw-text-richblack-900 tw-text-[15px] xs:tw-text-[18px] tw-font-[500] active:tw-scale-[.9] tw-transition-all tw-disbale' >Send</button>
                                 : <p className='tw-p-[12px] tw-mt-[30px] tw-rounded-[8px] tw-bg-yellow-50 tw-cursor-not-allowed tw-w-full tw-text-richblack-900 tw-text-[15px] xs:tw-text-[18px] tw-font-[500]  tw-text-center tw-opacity-[0.6]' >Send</p>
                         }
                     </form>

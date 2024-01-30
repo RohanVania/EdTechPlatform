@@ -60,7 +60,7 @@ function App() {
         <Route path='/signup' element={<SignUpPage />} />
         <Route path='/contact' element={<ContactPage />} />
         <Route path='/forgotpassword' element={<ForgotPasswordPage />} />
-        <Route path='/update-password/:resetToken' element={<ResetPasswordPage/>}/>
+        <Route path='/reset-password/:resetToken' element={<ResetPasswordPage/>}/>
 
 
         <Route element={<ProtectedRoute />}>

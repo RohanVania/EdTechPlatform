@@ -153,3 +153,26 @@ export const registerApiOperation=async (formData,setApiCalled,navigate,dispatch
     }
 }
 
+export const checkResetPasswordTokenApiOperation=async(params,setApiCalled,navigate)=>{
+    try{
+        console.log("Hello")
+        const token=params.resetToken
+        setApiCalled(true);
+        const result=await apiCaller('GET',authEndPoints.RESET_PASSWORD_VALID_TOKEN(token))
+        setApiCalled(false)
+        console.log(result);
+    }catch(err){
+        setApiCalled(false)
+        console.log("Error",err);
+        // navigate("/")
+    }
+}
+
+export const resetPasswordApiOperation=async(formData)=>{
+    try{
+       const apiResult= await apiCaller('POST',authEndPoints.RESET_PASSWORD,formData);
+    
+    }catch(err){
+        console.log("Error Message",err)
+    }
+}

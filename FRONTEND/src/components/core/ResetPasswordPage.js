@@ -1,29 +1,54 @@
 
 
-import React from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import React,{useEffect, useState} from 'react'
+import { useNavigate, useParams} from 'react-router-dom'
 import { useForm } from "react-hook-form"
 import { FaArrowLeft } from "react-icons/fa6";
+import { checkResetPasswordTokenApiOperation } from '../../services/operations/authFunctions';
+import ModalLoader from './ModalLoader';
 
 const ResetPasswordPage = () => {
+    
     const navigate = useNavigate();
     const params = useParams();
 
+    const [apiCalled,setAppiCalled]=useState(false);
+    
     const { register, handleSubmit, watch, reset, formState: {
         errors
     } } = useForm();
 
-    const onSubmit = (data) => {
-        console.log(data)
+
+    
+    const validateResetToken=async ()=>{
+    //    const result= await checkResetPasswordTokenApiOperation(params,setAppiCalled,navigate)
+    //    console.log(result);
     }
 
+    const onSubmit = (data) => {
+        const formData={...data,token:params.resetToken};
+        console.log(formData);
+        // validateResetToken();
 
-    console.log(params);
+        reset()
+    }
+
+    useEffect( ()=>{
+        const fetchData = async () => {
+            const result =  await checkResetPasswordTokenApiOperation(params,setAppiCalled,navigate)
+            console.log(result);
+        };
+        fetchData();
+    },[])
+
+
+
+
 
     return (
-        <div className='tw-bg-richblack-900 tw-mt-[77px] tw-min-h-[92.2vh] tw-flex tw-justify-center tw-items-center tw-relative'>
+        <div className='tw-bg-richblack-900 tw-mt-[77px] tw-min-h-[92.2vh] tw-flex tw-justify-center tw-items-center tw-relative '>
 
-            <div className='tw-max-w-[500px] tw-px-[10px]  '>
+            <div className='tw-max-w-[500px] tw-px-[10px] '>
                 <h1 className='2xs:tw-text-[22px] sm:tw-text-[30px] tw-font-[600] tw-text-richblack-5'>Choose a new Password</h1>
                 <p className='tw-text-[13px] sm:tw-text-[17px] tw-text-richblack-100 tw-mt-[10px] tw-font-[400]'>
                     Almost done, Enter your new password and you are <br />all set.
@@ -71,10 +96,11 @@ const ResetPasswordPage = () => {
                 </p>
             </div>
 
-            {/* <p className='tw-text-richblack-5 tw-mt-[30px] tw-flex tw-gap-2 tw-items-center tw-w-fit tw-text-[14px] xs:tw-text-base tw-cursor-pointer '>
-                    <FaArrowLeft />
-                    Back to Login
-                </p> */}
+            {
+                apiCalled && <ModalLoader/>
+            }
+                
+                
 
         </div>
     )
