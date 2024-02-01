@@ -76,7 +76,7 @@ function VerifyEmailPage() {
                     />
                     {
                         otperror &&
-                        <p className='tw-text-white tw-mt-5 tw-text-red-500'>All fields are required</p>
+                        <p className=' tw-mt-5 tw-text-red-500'>All fields are required</p>
                     }
                     {
                         !false ? <button className=' tw-p-[12px] tw-mt-[30px] tw-rounded-[8px] tw-bg-yellow-50 tw-w-full tw-text-richblack-900 tw-text-[15px] xs:tw-text-[18px]  active:tw-scale-[.9] tw-transition-all tw-font-normal' >Verify and Register</button>
