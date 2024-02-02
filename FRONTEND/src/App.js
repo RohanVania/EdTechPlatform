@@ -18,14 +18,16 @@ import { getAllCategories } from "./services/operations/publicFunction";
 import ModalLoader from "./components/core/ModalLoader";
 import DashBoardPage from "./pages/DashBoardPage";
 import ResetPasswordPage from "./components/core/ResetPasswordPage";
+import MyProfile from "./components/dashboard/MyProfile";
 
 
 function App() {
 
   const categoryDataresult = useQuery({
     queryKey: ['categories'],
-    staleTime: Infinity,
+    // staleTime: Infinity,
     queryFn: getAllCategories,
+    
   })
 
 
@@ -65,7 +67,7 @@ function App() {
 
         <Route element={<ProtectedRoute />}>
           <Route element={<DashBoardPage />}  >
-            <Route path="/dashboard/my-profile" element={<h1 className="tw-text-white">My Profile</h1>} />
+            <Route path="/dashboard/my-profile" element={<MyProfile/>} />
             <Route path="/dashboard/settings" element={<h1 className="tw-text-white">Settings</h1>} />
             <Route path="/dashboard/enrolled-courses" element={<h1 className="tw-text-white">Enrolled Courses</h1>}/>
             <Route path="/dashboard/purchase-history" element={<h1 className="tw-text-white">Purschase History</h1>}/>

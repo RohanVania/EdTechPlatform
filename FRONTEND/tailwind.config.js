@@ -138,6 +138,7 @@ module.exports = {
         '3xs':'225px',
         '2xs':'340px',
         'xs':'500px',
+        'dashboard-imgsetter':'574px',
 
         
 

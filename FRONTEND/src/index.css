@@ -22,3 +22,9 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+.info{
+  grid-template-columns: repeat(auto-fit,minmax(280px,auto));
+  row-gap: 30px;
+  column-gap: 15px;
+}
