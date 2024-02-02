@@ -6,6 +6,7 @@ import { Outlet } from 'react-router-dom'
 
 //* This route is protected 
 function DashBoardPage() {
+  
 
 
   return (

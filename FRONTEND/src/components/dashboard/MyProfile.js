@@ -1,7 +1,8 @@
 
 
 import React from 'react'
-import { FaEdit } from "react-icons/fa";
+import DisplayImageandEdit from "../../components/dashboard/DisplayImageandEdit";
+import DisplayInfo from "../../components/dashboard/DisplayInfo";
 
 
 function MyProfile() {
@@ -10,21 +11,14 @@ function MyProfile() {
             <div className=' tw-px-[10px] tw-py-[22px] tw-mb-5'>
                 <h1 className='tw-text-[22px] sm:tw-text-[24px] md:tw-text-[29px] tw-font-[400]'>My Profile</h1>
             </div>
-            <div className=' tw-flex tw-flex-col  tw-items-center'>
+            <div className=' tw-flex tw-flex-col tw-gap-y-5  tw-items-center'>
+                {/* <div className='tw-flex tw-flex-col  tw-flex-wrap tw-gap-y-6 tw-border-[1px] tw-border-richblack-700 tw-bg-richblack-800 tw-w-full tw-p-3 md:tw-p-8 md:tw-px-12 tw-justify-between tw-items-center tw-py-8 tw-rounded-md'> */}
+                        <DisplayImageandEdit />
+                        <DisplayImageandEdit />
 
-                <div className='tw-flex tw-flex-wrap tw-gap-y-6 tw-border-[1px] tw-border-richblack-700 tw-bg-richblack-800 tw-w-full tw-p-3 md:tw-p-8 md:tw-px-12 tw-justify-between tw-items-center tw-py-8 tw-rounded-md'>
-                    <div className='tw-flex tw-gap-x-4 tw-items-center  '>
-                        <img src='https://gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50' className=' tw-w-[44px] dashboard-imgsetter:tw-w-[60px] xl:tw-w-[78px] tw-aspect-square tw-rounded-full' />
-                        <div className='tw-flex tw-flex-col tw-gap-y-1'>
-                            <h1 className='tw-capitalize md:tw-text-[15px] xl:tw-text-[18px]  tw-text-richblack-5'>Rohan Vania</h1>
-                            <p className=' tw-text-[12px] dashboard-imgsetter:tw-text-[12px] xl:tw-text-[16px] tw-lowercase tw-text-richblack-300'>KeithClaclaws@gmail.com</p>
-                        </div>
-                    </div>
-                    <button className='tw-bg-yellow-50 tw-font-semibold tw-rounded-md  tw-flex tw-items-center tw-px-6 tw-h-[40px]  dashboard-imgsetter:tw-h-[50px] tw-gap-x-2 sm:tw-text-[17px] tw-text-richblack-900 '>
-                        <FaEdit /> 
-                        Edit
-                    </button>
-                </div>
+                {/* </div> */}
+                <DisplayInfo/>
+
 
             </div>
         </div>
