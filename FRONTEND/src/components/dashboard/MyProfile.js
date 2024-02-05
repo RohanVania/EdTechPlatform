@@ -3,9 +3,12 @@
 import React from 'react'
 import DisplayImageandEdit from "../../components/dashboard/DisplayImageandEdit";
 import DisplayInfo from "../../components/dashboard/DisplayInfo";
+import { useSelector } from 'react-redux';
 
 
 function MyProfile() {
+    const global=useSelector((state)=>state);
+    console.log(global)
     return (
         <div className=''>
             <div className=' tw-px-[10px] tw-py-[22px] tw-mb-5'>
@@ -15,7 +18,6 @@ function MyProfile() {
                 {/* <div className='tw-flex tw-flex-col  tw-flex-wrap tw-gap-y-6 tw-border-[1px] tw-border-richblack-700 tw-bg-richblack-800 tw-w-full tw-p-3 md:tw-p-8 md:tw-px-12 tw-justify-between tw-items-center tw-py-8 tw-rounded-md'> */}
                         <DisplayImageandEdit />
                         <DisplayImageandEdit showabout={true} />
-
                 {/* </div> */}
                 <DisplayInfo/>
 

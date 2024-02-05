@@ -20,7 +20,7 @@ function SideBar() {
                 {
 
                     sidebarLinks.map((el) => {
-                        console.log(el);
+                        // console.log(el);
                         if (el.id === 1 || el.type === 'Student')
                             return <SideBarLink key={el.id} linkData={el} />
                         
