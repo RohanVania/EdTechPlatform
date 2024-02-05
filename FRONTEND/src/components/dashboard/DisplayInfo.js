@@ -4,9 +4,9 @@ import { FaEdit } from "react-icons/fa";
 
 function DisplayInfo() {
     return (
-        <div className='tw-flex tw-flex-col tw-gap-y-4   tw-flex-wrap tw-gap-y-6 tw-border-[1px] tw-border-richblack-700 tw-bg-richblack-800 tw-w-full tw-p-3 md:tw-p-8 md:tw-px-12 tw-justify-between tw-items-center tw-py-8 tw-rounded-md'>
+        <div className='tw-flex tw-flex-col tw-gap-y-4   tw-flex-wrap tw-border-[1px] tw-border-richblack-700 tw-bg-richblack-800 tw-w-full tw-p-3 md:tw-p-8 md:tw-px-12 tw-justify-between tw-items-center tw-py-8 tw-rounded-md'>
 
-            <div className='tw-flex tw-flex-wrap tw-justify-between  tw-w-full tw-items-center'>
+            <div className='tw-flex tw-flex-wrap tw-justify-between tw-gap-y-4  tw-w-full tw-items-center'>
                 <h1 className='tw-capitalize md:tw-text-[15px] xl:tw-text-[19px]  tw-text-richblack-5 tw-font-semibold'>Personal Details</h1>
                 <button className='tw-bg-yellow-50 tw-font-semibold tw-rounded-md  tw-flex tw-items-center tw-px-6 tw-h-[40px]  dashboard-imgsetter:tw-h-[50px] tw-gap-x-2 sm:tw-text-[17px] tw-text-richblack-900 '>
                     <FaEdit />
@@ -14,7 +14,7 @@ function DisplayInfo() {
                 </button>
             </div>
 
-            <div className=' tw-w-full tw-grid  info  tw-gap-y-4 '>
+            <div className=' tw-w-full  tw-grid  info  tw-gap-y-4 tw-mb-[60px]  '>
                 <div className='tw-flex tw-flex-col tw-gap-y-1'>
                     <h3 className='tw-text-richblack-100'>First Name</h3>
                     <p className='tw-text-richblack-400'>Pranay</p>

@@ -14,7 +14,7 @@ function MyProfile() {
             <div className=' tw-flex tw-flex-col tw-gap-y-5  tw-items-center'>
                 {/* <div className='tw-flex tw-flex-col  tw-flex-wrap tw-gap-y-6 tw-border-[1px] tw-border-richblack-700 tw-bg-richblack-800 tw-w-full tw-p-3 md:tw-p-8 md:tw-px-12 tw-justify-between tw-items-center tw-py-8 tw-rounded-md'> */}
                         <DisplayImageandEdit />
-                        <DisplayImageandEdit />
+                        <DisplayImageandEdit showabout={true} />
 
                 {/* </div> */}
                 <DisplayInfo/>
