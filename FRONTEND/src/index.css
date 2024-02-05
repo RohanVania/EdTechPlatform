@@ -24,7 +24,7 @@ input[type=number] {
 }
 
 .info{
-  grid-template-columns: repeat(auto-fit,minmax(280px,auto));
+  grid-template-columns: repeat(auto-fill,minmax(220px,auto));
   row-gap: 30px;
   column-gap: 15px;
 }
