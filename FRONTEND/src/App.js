@@ -19,6 +19,7 @@ import ModalLoader from "./components/core/ModalLoader";
 import DashBoardPage from "./pages/DashBoardPage";
 import ResetPasswordPage from "./components/core/ResetPasswordPage";
 import MyProfile from "./components/dashboard/MyProfile";
+import Settings from "./components/dashboard/Settings";
 
 
 function App() {
@@ -27,7 +28,7 @@ function App() {
     queryKey: ['categories'],
     // staleTime: Infinity,
     queryFn: getAllCategories,
-    
+
   })
 
 
@@ -62,19 +63,19 @@ function App() {
         <Route path='/signup' element={<SignUpPage />} />
         <Route path='/contact' element={<ContactPage />} />
         <Route path='/forgotpassword' element={<ForgotPasswordPage />} />
-        <Route path='/reset-password/:resetToken' element={<ResetPasswordPage/>}/>
+        <Route path='/reset-password/:resetToken' element={<ResetPasswordPage />} />
 
 
         <Route element={<ProtectedRoute />}>
           <Route element={<DashBoardPage />}  >
-            <Route path="/dashboard/my-profile" element={<MyProfile/>} />
-            <Route path="/dashboard/settings" element={<h1 className="tw-text-white">Settings</h1>} />
-            <Route path="/dashboard/enrolled-courses" element={<h1 className="tw-text-white">Enrolled Courses</h1>}/>
-            <Route path="/dashboard/purchase-history" element={<h1 className="tw-text-white">Purschase History</h1>}/>
-          <Route />
-        <Route />
-
+              <Route path="/dashboard/my-profile" element={<MyProfile />} />
+              <Route path="/dashboard/settings" element={<Settings/>} />
+              <Route path="/dashboard/enrolled-courses" element={<h1 className="tw-text-white">Enrolled Courses</h1>} />
+              <Route path="/dashboard/purchase-history" element={<h1 className="tw-text-white">Purschase History</h1>} />
+              <Route />
+              <Route />
           </Route>
+          
           <Route element={<Test />} path="/test" />
           <Route element={<VerifyEmailPage />} path="/verify-email" />
         </Route>

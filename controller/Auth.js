@@ -284,8 +284,8 @@ exports.login = async (req, resp) => {
             // we update the object
             // send token and password 
             user.password = undefined;
-            user.token = token;
-            console.log("User Modified", user)
+            // user.token = token;
+            console.log("User Logged", user)
 
             // generate cookie
 
@@ -302,7 +302,7 @@ exports.login = async (req, resp) => {
                 status(200).json({
                     success: "Success",
                     token,
-                    // user,
+                    user,
                     message: 'User Logged in successfully !',
                 })
 
