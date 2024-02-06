@@ -274,7 +274,7 @@ exports.login = async (req, resp) => {
             }
 
             const tokenOptions = {
-                expiresIn: "24h"
+                expiresIn: "1d"
             }
 
              
@@ -291,8 +291,8 @@ exports.login = async (req, resp) => {
 
             const cookieOptions = {
                 // expires in 3days
-                expiresIn:"1min", 
-                // expires: new Date(Date.now() + 3 * 24 * 60 * 1000),
+                // expiresIn:"24hr", Expires in 24hr from the current time
+                expires: new Date(Date.now() + 1 * 24 * 60 * 1000),
                 httpOnly: true,
             }
 
