@@ -36,6 +36,7 @@ app.use(fileuploader({
 
 
 
+
 // Router Middleware
 app.use("/api/v1/auth", userRoutes)
 app.use("/api/v1/profile", userProfileRoutes)

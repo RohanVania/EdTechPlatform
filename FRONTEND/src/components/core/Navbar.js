@@ -1,16 +1,26 @@
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import logo from "../../assets/Logo/Logo-Full-Light.png"
 import { NavbarLinks } from '../../data/navbar-links';
 import { TfiMenu } from "react-icons/tfi";
 import { MdOutlineArrowDropDown } from "react-icons/md";
+import { FaCartShopping } from "react-icons/fa6";
+import { VscDashboard } from "react-icons/vsc";
+import { IoMdArrowDropdown } from "react-icons/io";
+import { MdLogout } from "react-icons/md";
+import { useSelector } from 'react-redux';
 
 function Navbar({ categoryData }) {
+    const { token } = useSelector((state) => state.auth);
+    // console.log("Navbar log =>",token)
     const location = useLocation();
     const [open, setOpen] = useState(false);
+    const [profileOpen, setProfileOpen] = useState(false);
 
     const categories = categoryData;
+
+
 
     return (
         <>
@@ -37,7 +47,7 @@ function Navbar({ categoryData }) {
                                                 {el.title}
                                             </Link>
                                             {
-                                                categories.length !== 0 && <MdOutlineArrowDropDown />
+                                                categories.length !== 0 && <MdOutlineArrowDropDown className='tw-cursor-pointer' />
                                             }
                                         </div>
                                         {
@@ -62,51 +72,74 @@ function Navbar({ categoryData }) {
 
                     </ul>
 
-                    <div className='tw-flex tw-gap-x-4  navbarmd:tw-hidden'>
-                        {
-                            location.pathname === '/login' &&
-                            <Link to='/signup'>
-                                <button className='tw-px-[14px] tw-py-[10px] tw-border-[1px] tw-border-richblack-700 tw-rounded-[8px]'>Sign Up</button>
-                            </Link>
-                        }
-                        {
-                            location.pathname === '/signup' &&
-                            <Link to='/login'>
-                                <button className='tw-px-[14px] tw-py-[10px] tw-border-[1px] tw-border-richblack-700 tw-rounded-[8px]'>Login</button>
-                            </Link>
+                    {
+                        // Does our application have a cookie that is not expired
+                        !token ?
 
-                        }
-                        {
-                            location.pathname !== '/signup' && location.pathname !== '/login' && <>
-                                <Link to="/login">
-                                    <button className='tw-px-[21px] tw-py-[10px] tw-border-[1px] tw-border-richblack-700 tw-rounded-[8px]'>Login</button>
-                                </Link>
-                                <Link to="/signup">
-                                    <button className='tw-px-[14px] tw-py-[10px] tw-border-[1px] tw-border-richblack-700 tw-rounded-[8px]'>Sign Up</button>
-                                </Link>
-                            </>
+                            <div className='tw-flex tw-gap-x-4  navbarmd:tw-hidden'>
+                                {
+                                    location.pathname === '/login' &&
+                                    <Link to='/signup'>
+                                        <button className='tw-px-[14px] tw-py-[10px] tw-border-[1px] tw-border-richblack-700 tw-rounded-[8px]'>Sign Up</button>
+                                    </Link>
+                                }
+                                {
+                                    location.pathname === '/signup' &&
+                                    <Link to='/login'>
+                                        <button className='tw-px-[14px] tw-py-[10px] tw-border-[1px] tw-border-richblack-700 tw-rounded-[8px]'>Login</button>
+                                    </Link>
 
-                        }
+                                }
+                                {
+                                    location.pathname !== '/signup' && location.pathname !== '/login' && <>
+                                        <Link to="/login">
+                                            <button className='tw-px-[21px] tw-py-[10px] tw-border-[1px] tw-border-richblack-700 tw-rounded-[8px]'>Login</button>
+                                        </Link>
+                                        <Link to="/signup">
+                                            <button className='tw-px-[14px] tw-py-[10px] tw-border-[1px] tw-border-richblack-700 tw-rounded-[8px]'>Sign Up</button>
+                                        </Link>
+                                    </>
 
-                    </div>
+                                }
 
-                    {/* <div className='tw-flex tw-gap-x-4  navbarmd:tw-hidden'>
-                            {
-                                location.pathname !== '/login' &&
-                                <Link to='/signup'>
-                                <button className='tw-px-[14px] tw-py-[10px] tw-border-[1px] tw-border-richblack-700 tw-rounded-[8px]'>Sign Up</button>
-                                </Link>
-                            }
-                        {
-                            location.pathname !== '/signup' &&
-                            <Link to='/login'>
-                                <button className='tw-px-[14px] tw-py-[10px] tw-border-[1px] tw-border-richblack-700 tw-rounded-[8px]'>Login</button>
-                            </Link>
+                            </div>
+                            :
 
-                        }
-                       
+                            <div className='tw-flex tw-gap-x-5  navbarmd:tw-hidden  tw-relative'>
+                                {
 
-                    </div> */}
+                                    <Link to='/dashboard/cart' onClick={()=>setProfileOpen(false)}>
+                                        <button className='tw-bg-red-20 tw-h-full   '>
+                                            <FaCartShopping className='tw-w-[25px] tw-h-[25px] tw-object-cover' />
+                                        </button>
+                                    </Link>
+                                }
+                                {
+                                        <button className='  tw-h-full tw-flex tw-justify-center tw-gap-x-0 tw-items-center tw-relative ' onClick={() => setProfileOpen((prev) => !prev)}>
+                                            <img className='tw-rounded-full tw-object-cover  tw-w-[35px] tw-aspect-square' src='https://gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50' />
+                                            <IoMdArrowDropdown />
+                                        </button>
+                                }
+                                {
+                                    profileOpen && <ul className='tw-bg-richblack-800 tw-absolute  tw-top-[44px] tw-right-[0px] tw-flex tw-flex-col tw-rounded-md tw-overflow-hidden tw-border-[1px] tw-border-richblack-700 '>
+                                        <Link to='/dashboard/my-profile' onClick={()=>setProfileOpen(false)}>
+                                            <li className='tw-flex tw-items-center tw-gap-x-1 tw-cursor-pointer  tw-py-[10px] tw-px-[12px] tw-text-sm tw-text-richblack-100 hover:tw-bg-richblack-700 hover:tw-text-richblack-25 '>
+                                                <VscDashboard />
+                                                <p>Dashboard</p>
+                                            </li>
+                                        </Link>
+
+                                        <li className='tw-flex tw-items-center tw-gap-x-1 tw-cursor-pointer    tw-py-[10px] tw-px-[12px] tw-text-sm tw-text-richblack-100 hover:tw-bg-richblack-700 hover:tw-text-richblack-25 '>
+                                            <MdLogout />
+                                            <p>Logout</p>
+                                        </li>
+                                    </ul>
+                                }
+
+
+                            </div>
+                    }
+
 
                     <div className='tw-w-[45px] tw-aspect-square tw-bg-orange-4 tw-cursor-pointer navbarmd:tw-block tw-hidden' onClick={() => setOpen((prev) => !prev)}>
                         <TfiMenu className='tw-w-full tw-h-full tw-object-cover tw-p-2' />
