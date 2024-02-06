@@ -7,8 +7,8 @@ import { useSelector } from 'react-redux';
 
 
 function MyProfile() {
-    const global=useSelector((state)=>state);
-    console.log(global)
+    // const global=useSelector((state)=>state);
+    // console.log(global)
     return (
         <div className=''>
             <div className=' tw-px-[10px] tw-py-[22px] tw-mb-5'>

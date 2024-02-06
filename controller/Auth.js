@@ -293,8 +293,7 @@ exports.login = async (req, resp) => {
                 // expires in 3days
                 expiresIn:"1min", 
                 // expires: new Date(Date.now() + 3 * 24 * 60 * 1000),
-
-                httpOnly: false,
+                httpOnly: true,
             }
 
             resp.cookie("token", token, cookieOptions).
@@ -434,5 +433,45 @@ exports.changePassword = async (req, resp) => {
             msg: " Error in changing password",
             error: error
         })
+    }
+}
+
+
+
+exports.checkAlreadyLoggedIn=async (req,resp)=>{
+    try{
+        const token = req.cookies.token;
+        // console.log("Auth Token Check =>",token);
+        if(!token){
+            return resp.status(200).json({
+                status:'Failed',
+                msg:"Token is missing"
+            })
+        }
+
+        try{
+            const decode=jwtToken.verify(token,process.env.JWT_SECRET);
+            return resp.status(200).json({
+                status:'Success',
+                msg:'User is authenticated',
+                data:decode
+            })
+        }catch(err){
+            return resp.status(200).json({
+                status:'Failed',
+                msg:"Token is Invalid.",
+                tokenError:err
+            })
+        }
+
+
+    }catch(error){
+        console.log(error);
+        return resp.status(200).json({
+            status:'Failed',
+            msg:'Something went wrong while checking already logged in the function',
+            errormsg:error
+        })
+
     }
 }

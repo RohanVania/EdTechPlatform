@@ -104,7 +104,32 @@ exports.deleteAccount = async (req, resp) => {
     }
 }
 
-// If someone wants to see alll details 
+// Get Individual User Data, the one who is logged in
+exports.getUserDetail=async(req,resp)=>{
+    try{
+    const {id,email}=req.user;
+       const userDetail= await User.findOne({
+       _id:id,
+       email:email
+       })
+       userDetail.password=null;
+    //    console.log("User Individual Detail =>",userDetail);
+       return resp.json({
+        status:'success',
+        userDetail:userDetail
+       })
+    }
+    catch(err){
+        console.log(err);
+        return resp.status(200).json({
+            status:'Failed',
+            error:err
+        })
+
+    }
+}
+
+// If someone wants to see all Users details 
 
 exports.getAlluserDetails = async (req, resp) => {
     try {

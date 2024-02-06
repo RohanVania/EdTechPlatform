@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 import { apiCaller } from "../apiconnector"
 import { authEndPoints } from "../apiList"
-import { setLoading, setRegisterData } from "../../slices/authSlice"
+import { setLoading, setRegisterData, setToken } from "../../slices/authSlice"
 import {setUser} from "../../slices/profileSlice"
 
 export const loginApiOperation = async (formdata, navigate, dispatch) => {
@@ -16,6 +16,8 @@ export const loginApiOperation = async (formdata, navigate, dispatch) => {
         })
         dispatch(setLoading(false));
         console.log(response)
+        dispatch(setToken(response.data.token))
+
         dispatch(setUser(response.data.user));
         localStorage.setItem('user',JSON.stringify(response.data.user));
         navigate('/dashboard/my-profile')

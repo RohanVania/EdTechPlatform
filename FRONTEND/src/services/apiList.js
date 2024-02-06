@@ -12,5 +12,6 @@ export const authEndPoints={
 
 
 export const publicApi={
-    SHOW_ALL_CATEGORY:'/course/showAllCategories'
+    SHOW_ALL_CATEGORY:'/course/showAllCategories',
+    CHECK_ALREADY_LOGGED_IN:'/auth/checkalreadyLoggedIn',
 }
