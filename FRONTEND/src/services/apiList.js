@@ -10,7 +10,12 @@ export const authEndPoints={
     RESET_PASSWORD:'/auth/reset-password'
 }
 
+//* User API URLS
+export const userApiEndpoints={
+    CHANGE_PASSWORD_API:'/auth/changepassword',
+}
 
+//* Public API URLS
 export const publicApi={
     SHOW_ALL_CATEGORY:'/course/showAllCategories',
     CHECK_ALREADY_LOGGED_IN:'/auth/checkalreadyLoggedIn',
