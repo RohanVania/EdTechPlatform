@@ -39,7 +39,7 @@ function LoginForm({ usertype }) {
         <form className='tw-flex tw-flex-col tw-gap-y-7 ' onSubmit={handleSubmit(onSubmit)}>
             <div className='tw-flex tw-flex-col tw-gap-y-3'>
                 <label className='tw-text-richblack-5 tw-text-[16px]'>Email Address <sup className='tw-ml-[2px] tw-text-pink-200'>*</sup></label>
-                <input type='email' placeholder='Enter email address' className='tw-rounded-[8px] tw-p-[12px] tw-rounded-[8px] tw-shadow-sm tw-shadow-[#ffffffd9] tw-bg-richblack-800 tw-text-[16px] tw-text-richblack-200 tw-outline-none '
+                <input type='email' placeholder='Enter email address' className='tw-rounded-[8px] tw-p-[12px]  tw-shadow-sm tw-shadow-[#ffffffd9] tw-bg-richblack-800 tw-text-[16px] tw-text-richblack-200 tw-outline-none '
                     {...register('email', {
                         required: { value: true, message: 'Email address is required' },
                         validate: {
@@ -58,7 +58,7 @@ function LoginForm({ usertype }) {
             </div>
             <div className='tw-flex tw-flex-col tw-gap-y-3 tw-relative'>
                 <label className='tw-text-richblack-5 tw-text-[16px]'>Password <sup className='tw-ml-[2px] tw-text-pink-200'>*</sup></label>
-                <input type={visible ? 'text' : 'password'} placeholder='Enter your Password' className='tw-rounded-[8px] tw-p-[12px] tw-rounded-[8px] tw-shadow-sm tw-shadow-[#ffffffd9] tw-bg-richblack-800 tw-text-[16px] tw-text-richblack-200 tw-outline-none '
+                <input type={visible ? 'text' : 'password'} placeholder='Enter your Password' className=' tw-p-[12px] tw-rounded-[8px] tw-shadow-sm tw-shadow-[#ffffffd9] tw-bg-richblack-800 tw-text-[16px] tw-text-richblack-200 tw-outline-none '
                     {...register('password',{
                         required:{value:true,message:'Password is required'}
                     })}

@@ -3,6 +3,7 @@ import React from 'react'
 import DisplayImageandEdit from './DisplayImageandEdit'
 import ChangeImage from './ChangeImage' 
 import ChangeProfileInfo from './ChangeProfileInfo'
+import ChangePassword from './ChangePassword'
 function Settings() {
   return (
     <div className=''>
@@ -14,6 +15,7 @@ function Settings() {
                         {/* <DisplayImageandEdit /> */}
                         <ChangeImage/>
                         <ChangeProfileInfo/>
+                        <ChangePassword/>
 
                 {/* </div> */}
 
