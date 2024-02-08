@@ -342,14 +342,15 @@ exports.changePassword = async (req, resp) => {
         // Since we are changing it means we are already logged in, to change we first have to check is old password corect or not
 
         const token = req.cookies.token || req.body.token || req.headers("Authorization").replace("Bearer ", "");
+        console.log(token);
 
         // We have sent in auth middleware to next with req.user and user has {token} 
         const userDetails = await User.findById(req.user.id);
 
         // Get old password, new password, and confirm new password from req.body
-        const { oldPassword, newPassword, confirmNewPassword } = req.body;
+        const { oldPassword, newPassword } = req.body;
 
-        if (!oldPassword || !newPassword || !confirmNewPassword) {
+        if (!oldPassword || !newPassword ) {
             return resp.status(200).json({
                 status: "Failed",
                 msg: "All Fields are required in changepassword !"
@@ -368,23 +369,20 @@ exports.changePassword = async (req, resp) => {
             })
         }
         //verify old password matches one in database
-
-
         // If passsword matches 
 
         // Verify newPassword and confirmPassword Matches
-        if (newPassword !== confirmNewPassword) {
-            return resp.status(200).json({
-                status: "Failed",
-                msg: "New Password and Confirm Password don't match ! Try Again"
-            })
-        }
+
+        // if (newPassword !== confirmNewPassword) {
+        //     return resp.status(200).json({
+        //         status: "Failed",
+        //         msg: "New Password and Confirm Password don't match ! Try Again"
+        //     })
+        // }
 
         const newHashedPassword = await bcrypt.hash(newPassword, 10);
 
-
         // Everything matches update Db entry
-
         const updatedUserDetails = await User.findByIdAndUpdate({ _id: req.user.id },
             {
                 password: newHashedPassword
@@ -402,7 +400,6 @@ exports.changePassword = async (req, resp) => {
               //Change to Password Update Template Later
                 "Password Update",
                 "Your Password is Updated Successfully"
-
             )
             console.log("Email sent successfully:", mailResponse);
 

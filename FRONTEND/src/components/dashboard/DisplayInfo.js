@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 function DisplayInfo() {
     const navigate = useNavigate();
     const profileState = useSelector((state) => state.profile?.userData)
-    console.log(profileState)
+    // console.log(profileState)
     return (
         <div className='tw-flex tw-flex-col tw-gap-y-4   tw-flex-wrap tw-border-[1px] tw-border-richblack-700 tw-bg-richblack-800 tw-w-full tw-p-3 md:tw-p-8 md:tw-px-12 tw-justify-between tw-items-center tw-py-8 tw-rounded-md'>
 

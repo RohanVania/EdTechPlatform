@@ -59,6 +59,7 @@ exports.updateProfile = async (req, resp) => {
     }
 }
 
+
 // Delete Profile
 
 exports.deleteAccount = async (req, resp) => {

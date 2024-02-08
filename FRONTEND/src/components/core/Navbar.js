@@ -13,6 +13,11 @@ import { useSelector } from 'react-redux';
 
 function Navbar({ categoryData }) {
     const { token } = useSelector((state) => state.auth);
+    const {userData} = useSelector((state) => state.profile);
+
+    // console.log(token)
+
+
     // console.log("Navbar log =>",token)
     const location = useLocation();
     const [open, setOpen] = useState(false);
@@ -116,7 +121,7 @@ function Navbar({ categoryData }) {
                                 }
                                 {
                                         <button className='  tw-h-full tw-flex tw-justify-center tw-gap-x-0 tw-items-center tw-relative ' onClick={() => setProfileOpen((prev) => !prev)}>
-                                            <img className='tw-rounded-full tw-object-cover  tw-w-[35px] tw-aspect-square' src='https://gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50' />
+                                            <img className='tw-rounded-full tw-object-cover  tw-w-[35px] tw-aspect-square' src={`${userData?.image}`} />
                                             <IoMdArrowDropdown />
                                         </button>
                                 }

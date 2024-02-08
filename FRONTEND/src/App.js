@@ -14,7 +14,7 @@ import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import Test from "./pages/Test";
 import VerifyEmailPage from "./pages/VerifyEmailPage";
 import { useQuery } from "react-query";
-import { getAllCategories,checkAuthenticated } from "./services/operations/publicFunction";
+import { getAllCategories, checkAuthenticated } from "./services/operations/publicFunction";
 import ModalLoader from "./components/core/ModalLoader";
 import DashBoardPage from "./pages/DashBoardPage";
 import ResetPasswordPage from "./components/core/ResetPasswordPage";
@@ -25,26 +25,28 @@ import { useDispatch, useSelector } from "react-redux";
 
 function App() {
 
-  const dispatch=useDispatch();
-  const {token}=useSelector((state)=>state.auth);
-
+  const dispatch = useDispatch();
+  const { token } = useSelector((state) => state.auth);
+  // console.log("Token Present=>",token)
+  const check = useSelector((state) => state);
+  // console.log("Check all states =>",check)
   const categoryDataresult = useQuery({
     queryKey: ['categories'],
     // staleTime: Infinity,
     queryFn: getAllCategories,
   })
 
-  const alreadyLoggedIn=useQuery({
-    queryKey:['alreadyLoggedIn'],
-    queryFn:()=>{
-      checkAuthenticated(dispatch,token)
+  const alreadyLoggedIn = useQuery({
+    queryKey: ['alreadyLoggedIn'],
+    queryFn: () => {
+      checkAuthenticated(dispatch, token)
     },
-    staleTime:Infinity,
+    staleTime: Infinity,
   })
 
 
 
-  if (categoryDataresult.isLoading || alreadyLoggedIn.isLoading ) {
+  if (categoryDataresult.isLoading || alreadyLoggedIn.isLoading) {
     return <div className="tw-bg-richblack-900 tw-min-h-[100vh] tw-flex tw-justify-center tw-items-center tw-text-white tw-relative">
       <ModalLoader />
     </div>
@@ -69,7 +71,7 @@ function App() {
 
       <Routes>
         <Route path='/' element={<HomePage />} />
-        
+
         <Route path='/courses' element={<CoursePage />} />
         <Route path='/about' element={<AboutUsPage />} />
         <Route path='/login' element={<LoginPage />} />
@@ -81,12 +83,12 @@ function App() {
 
         <Route element={<ProtectedRoute />}>
           <Route element={<DashBoardPage />}  >
-              <Route path="/dashboard/my-profile" element={<MyProfile />} />
-              <Route path="/dashboard/settings" element={<Settings/>} />
-              <Route path="/dashboard/enrolled-courses" element={<h1 className="tw-text-white">Enrolled Courses</h1>} />
-              <Route path="/dashboard/purchase-history" element={<h1 className="tw-text-white">Purschase History</h1>} />
+            <Route path="/dashboard/my-profile" element={<MyProfile />} />
+            <Route path="/dashboard/settings" element={<Settings />} />
+            <Route path="/dashboard/enrolled-courses" element={<h1 className="tw-text-white">Enrolled Courses</h1>} />
+            <Route path="/dashboard/purchase-history" element={<h1 className="tw-text-white">Purschase History</h1>} />
           </Route>
-          
+
           <Route element={<Test />} path="/test" />
           <Route element={<VerifyEmailPage />} path="/verify-email" />
         </Route>
