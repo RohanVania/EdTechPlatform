@@ -22,27 +22,30 @@ const { imageUploader } = require("../utils/imageUploader");
 
 exports.updateProfile = async (req, resp) => {
     try {
-        const { about="", dateOfBirth="", contactNumber=""
-            , gender="" // Form Data
-        } = req.body;
         const id = req.user.id;
+        const { about, dateOfBirth, contactNumber
+            , gender // Form Data
+        } = req.body;
 
         // Find the Profile by Id
         const userDetails = await User.findById(id);
         //  additional detail ke andar id rakhi hai
 
         const profile = await Profile.findById(userDetails.additionalDetails);
+        
         profile.dateOfBirth = dateOfBirth;
         profile.about = about;
         profile.contactNumber = contactNumber;
         profile.gender = gender;
 
         const updatedDocument = await profile.save();
+        
+        const entireUpdateProfile=await User.findById(id).populate('additionalDetails').exec();
         return resp.status(200).json(
             {
                 status: "Success",
                 msg: "Profile updated successfully !",
-                updatedDocument: updatedDocument
+                updatedDocument: entireUpdateProfile
             }
         )
 
@@ -52,12 +55,13 @@ exports.updateProfile = async (req, resp) => {
         return resp.status(200).json(
             {
                 status: "Failed",
-                msg: "error while updating profile",
+                msg: "Error while updating profile",
                 error: error
             }
         )
     }
 }
+
 
 
 // Delete Profile
@@ -164,6 +168,7 @@ exports.getAlluserDetails = async (req, resp) => {
 exports.updateDisplayPicture = async (req, resp) => {
     try {
         const displayPicture = req.files.displayPicture;
+
         const userId = req.user.id;
 
         const image = await imageUploader(
@@ -172,7 +177,6 @@ exports.updateDisplayPicture = async (req, resp) => {
             1000,
             1000
         )
-        console.log(image);
 
         const updatedProfile = await User.findByIdAndUpdate(
             userId,
@@ -182,7 +186,10 @@ exports.updateDisplayPicture = async (req, resp) => {
             {
                 new: true
             }
-        )
+        ).populate('additionalDetails').exec();
+
+        updatedProfile.password=undefined;
+
 
         return resp.status(200).json(
             {

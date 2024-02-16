@@ -19,7 +19,7 @@ exports.auth = async (req, resp, next) => {
         if (!token) {
             return resp.status(200).json({
                 status: "Failed",
-                msg: "Token is Missing !"
+                msg: "Token is Missing"
             })
         }
 
