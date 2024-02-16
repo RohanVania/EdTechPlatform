@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 function DisplayImageandEdit({ showabout }) {
     const navigate = useNavigate();
     const profileState = useSelector((state) => state.profile?.userData)
+
+
     
     return (
         <div className=' tw-gap-y-4 tw-border-[1px] tw-border-richblack-700 tw-bg-richblack-800 tw-w-full tw-p-3 md:tw-p-8 md:tw-px-12  tw-py-8 tw-rounded-md'>

@@ -31,13 +31,8 @@ function ChangeImage() {
             return
         }
 
-        const result = await changeImageOperation(file, dispatch, setApiCalled)
-
-
-        console.log(imagefile);
-        console.log(imgPreview)
-
-
+        const fileData={displayPicture:imagefile}
+        const result = await changeImageOperation(fileData, dispatch, setApiCalled)
 
     }
 

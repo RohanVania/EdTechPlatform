@@ -2,6 +2,7 @@ import React from 'react'
 import { FaEdit } from "react-icons/fa";
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import moment from "moment"
 
 
 function DisplayInfo() {
@@ -22,29 +23,43 @@ function DisplayInfo() {
             <div className=' tw-w-full  tw-grid  info  tw-gap-y-4 tw-mb-[60px]  '>
                 <div className='tw-flex tw-flex-col tw-gap-y-1'>
                     <h3 className='tw-text-[15x] 2xs:tw-text-[15px] sm:tw-text-[16px] xl:tw-text-[16px]  tw-text-richblack-300'>First Name</h3>
-                    <p className='tw-text-[14px]  2xs:tw-text-[15px] sm:tw-text-[16px] xl:tw-text-[16px]  tw-text-richblack-300'>{profileState?.firstName}</p>
+                    <p className='tw-text-[14px]  2xs:tw-text-[14px] sm:tw-text-[14px] xl:tw-text-[15px]  tw-text-richblack-300'>{profileState?.firstName}</p>
                 </div>
                 <div className='tw-flex tw-flex-col tw-gap-y-1'>
 
                     <h3 className='tw-text-[15x] 2xs:tw-text-[15px] sm:tw-text-[16px] xl:tw-text-[16px]  tw-text-richblack-300'>Last Name</h3>
-                    <p className='tw-text-[14px]  2xs:tw-text-[15px] sm:tw-text-[16px] xl:tw-text-[16px]  tw-text-richblack-300'>{profileState?.lastName}</p>
+                    <p className='tw-text-[14px]  2xs:tw-text-[14px] sm:tw-text-[14px] xl:tw-text-[15px]  tw-text-richblack-300'>{profileState?.lastName}</p>
                 </div>
                 <div className='tw-flex tw-flex-col tw-gap-y-1'>
 
                     <h3 className='tw-text-[15x] 2xs:tw-text-[15px] sm:tw-text-[16px] xl:tw-text-[16px]  tw-text-richblack-300'>Email</h3>
-                    <p className='tw-text-[14px]  2xs:tw-text-[15px] sm:tw-text-[16px] xl:tw-text-[16px]  tw-text-richblack-300'>{profileState?.email}</p>
+                    <p className='tw-text-[14px]  2xs:tw-text-[14px] sm:tw-text-[14px] xl:tw-text-[15px]  tw-text-richblack-300'>{profileState?.email}</p>
                 </div>
+                {
+                    profileState?.additionalDetails?.contactNumber &&
+                    <div className='tw-flex tw-flex-col tw-gap-y-1'>
+                        <h3 className='tw-text-[15x] 2xs:tw-text-[15px] sm:tw-text-[16px] xl:tw-text-[16px]  tw-text-richblack-300'>Phone Number</h3>
+                        <p className='tw-text-[14px]  2xs:tw-text-[14px] sm:tw-text-[14px] xl:tw-text-[15px]  tw-text-richblack-300'>{profileState?.additionalDetails?.contactNumber}</p>
+                    </div>
+                }
                 {
                     profileState?.additionalDetails?.dateOfBirth &&
                     <div className='tw-flex tw-flex-col tw-gap-y-1'>
-                        <h3 className='tw-text-richblack-100'>Phone Number</h3>
-                        <p className='tw-text-richblack-400'>(+91) 12345 67890</p>
+                        <h3 className='tw-text-[15x] 2xs:tw-text-[15px] sm:tw-text-[16px] xl:tw-text-[16px]  tw-text-richblack-300'>Date of Birth</h3>
+                        <p className='tw-text-[14px]  2xs:tw-text-[14px] sm:tw-text-[14px] xl:tw-text-[15px]  tw-text-richblack-300'>{moment(profileState?.additionalDetails?.dateOfBirth).format('LL')}</p>
+                    </div>
+                }
+                {
+                    profileState?.additionalDetails?.gender && profileState?.additionalDetails?.gender !=='no' &&
+                    <div className='tw-flex tw-flex-col tw-gap-y-1'>
+                        <h3 className='tw-text-[15x] 2xs:tw-text-[15px] sm:tw-text-[16px] xl:tw-text-[16px]  tw-text-richblack-300'>Gender</h3>
+                        <p className='tw-text-[14px]  2xs:tw-text-[14px] sm:tw-text-[14px] xl:tw-text-[15px]  tw-text-richblack-300 tw-capitalize'>{profileState?.additionalDetails?.gender}</p>
                     </div>
                 }
             </div>
 
 
-          
+
         </div>
     )
 }

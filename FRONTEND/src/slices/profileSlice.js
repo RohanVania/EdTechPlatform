@@ -2,10 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const initiState={
-    loading:false,
+    changeProfileFlag:false,
     userData: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null,    
     // userData:  null,    
-
 }   
 
 const profileSlice=createSlice({
@@ -14,6 +13,12 @@ const profileSlice=createSlice({
     reducers:{
         setUser:(state,action)=>{
             state.userData=action.payload;
+        },
+        updateUser:(state,action)=>{
+            state.userData = action.payload;
+        },
+        setChangeProfileFlag:(state,action)=>{
+            state.changeProfileFlag=action.payload
         }
 
     }
@@ -21,4 +26,4 @@ const profileSlice=createSlice({
 })
 
 export default profileSlice.reducer;
-export const {setUser}=profileSlice.actions;
+export const {setUser,updateUser,setChangeProfileFlag}=profileSlice.actions;
