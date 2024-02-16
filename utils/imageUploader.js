@@ -20,7 +20,7 @@ exports.imageUploader = async (file, folder, height, quality) => {
         options.resoure_type = "auto";
 
 
-        return await cloudinary.uploader.upload(file.tempFilePath, {resource_type:"video"});
+        return await cloudinary.uploader.upload(file.tempFilePath,{folder:'RohanMegaProject',resource_type:'auto'});
 
     } catch (error) {
         console.log("Error while uploading file to cloudinary")

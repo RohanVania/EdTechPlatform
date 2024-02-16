@@ -172,7 +172,8 @@ exports.updateDisplayPicture = async (req, resp) => {
             1000,
             1000
         )
-        console.log("Image =>",image);
+        console.log(image);
+
         const updatedProfile = await User.findByIdAndUpdate(
             userId,
             {
