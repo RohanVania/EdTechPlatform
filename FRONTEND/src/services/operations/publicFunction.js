@@ -33,6 +33,5 @@ export const checkAuthenticated = async (dispatch, token) => {
     }
     catch (err) {
         console.log(err);
-
     }
 }

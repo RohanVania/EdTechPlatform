@@ -24,7 +24,6 @@ function ChangePassword() {
 
 
     async function submitData(formData) {
-        console.log("Calling Submit")
         const result=await changePasswordApiOperation(formData,setApiCalled);        
         if(result.data.status){
             reset();
@@ -121,7 +120,7 @@ function ChangePassword() {
                             <p>Save</p>
                         </button>:
                     <button className='tw-bg-yellow-50 tw-font-semibold tw-rounded-md  tw-flex tw-items-center tw-px-4 xs:tw-px-6 tw-h-[40px] xs:tw-h-[40px]   dashboard-imgsetter:tw-h-[44px] tw-gap-x-2 tw-text-[13px] 2xs:tw-text-[13px]  sm:tw-text-[17px]  tw-text-richblack-900'>
-                        <p>...Saving</p>
+                        <p>... Saving</p>
                     </button>
                     }
                 </div>

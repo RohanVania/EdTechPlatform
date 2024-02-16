@@ -28,7 +28,7 @@ function App() {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth);
   // console.log("Token Present=>",token)
-  const check = useSelector((state) => state);
+  // const check = useSelector((state) => state);
   // console.log("Check all states =>",check)
   const categoryDataresult = useQuery({
     queryKey: ['categories'],

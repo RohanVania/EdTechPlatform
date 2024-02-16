@@ -17,7 +17,6 @@ export const loginApiOperation = async (formdata, navigate, dispatch) => {
         dispatch(setLoading(false));
         console.log(response)
         console.log(response.data.token);
-        
         dispatch(setUser(response.data.user));
         dispatch(setToken(response.data.token))
         localStorage.setItem('user',JSON.stringify(response.data.user));

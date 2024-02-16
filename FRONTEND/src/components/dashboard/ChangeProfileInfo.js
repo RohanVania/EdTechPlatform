@@ -1,9 +1,14 @@
-import React from 'react'
+import React,{useRef} from 'react'
+import { useSelector } from 'react-redux';
 import AboutForm from '../aboutPage/AboutForm'
 import { useNavigate } from 'react-router-dom'
 
 function ChangeProfileInfo() {
-    const navigate=useNavigate();
+    const test=useRef('Rohan');
+    const navigate = useNavigate();
+    const profileState = useSelector((state) => state.profile?.userData)
+    // console.log("Change Profile =>",profileState)
+
     return (
         <div className='tw-flex tw-flex-col tw-w-full sm:tw-px-[48px] tw-flex-wrap sm:tw-py-[32px]  tw-gap-x-5 tw-gap-y-5  tw-p-3 tw-py-[20px] tw-rounded-md tw-border-[1px] tw-border-richblack-700 tw-bg-richblack-800  tw-text-richblack-5 tw-bg-[#161d29]'>
 
@@ -15,7 +20,7 @@ function ChangeProfileInfo() {
                             <label className='tw-text-[16px] '>
                                 First Name
                             </label>
-                            <input type='text' className='input tw-outline-none tw-w-ful tw-bg-richblack-700 videobanner:tw-w-ful tw-w-full' />
+                            <input type='text' className='input tw-outline-none tw-w-ful tw-bg-richblack-700 videobanner:tw-w-ful tw-w-full' ref={test} />
                         </div>
                         <div className='tw-flex tw-flex-col tw-gap-y-3 tw-flex-1'>
                             <label className='tw-text-[16px] '>
@@ -36,7 +41,16 @@ function ChangeProfileInfo() {
                             <label className='tw-text-[16px] '>
                                 Gender
                             </label>
-                            <input type='text' className='input tw-outline-none tw-w-ful tw-bg-richblack-700 videobanner:tw-w-ful tw-w-full' />
+                            {/* <input type='text' className='input tw-outline-none tw-w-ful tw-bg-richblack-700 videobanner:tw-w-ful tw-w-full' /> */}
+                            <select className='input tw-outline-none tw-w-ful tw-bg-richblack-700 videobanner:tw-w-ful tw-w-full' >
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Others</option>
+                                <option>Prefer not to say</option>
+
+
+                            </select>
+
                         </div>
                     </div>
 
@@ -57,7 +71,7 @@ function ChangeProfileInfo() {
 
                 </form>
                 <div className='tw-mt-[40px] tw-flex tw-gap-x-2 tw-justify-end'>
-                    <button className='tw-bg-richblack-700 tw-font-semibold tw-rounded-md  tw-flex tw-items-center tw-px-4 xs:tw-px-6 tw-h-[40px] xs:tw-h-[40px]   dashboard-imgsetter:tw-h-[44px] tw-gap-x-2 tw-text-[13px] 2xs:tw-text-[13px]  sm:tw-text-[17px]  tw-text-richblack-5' onClick={()=>navigate('/dashboard/my-profile')}>
+                    <button className='tw-bg-richblack-700 tw-font-semibold tw-rounded-md  tw-flex tw-items-center tw-px-4 xs:tw-px-6 tw-h-[40px] xs:tw-h-[40px]   dashboard-imgsetter:tw-h-[44px] tw-gap-x-2 tw-text-[13px] 2xs:tw-text-[13px]  sm:tw-text-[17px]  tw-text-richblack-5' onClick={() => navigate('/dashboard/my-profile')}>
                         Cancel
                     </button>
                     <button className='tw-bg-yellow-50 tw-font-semibold tw-rounded-md  tw-flex tw-items-center tw-px-4 xs:tw-px-6 tw-h-[40px] xs:tw-h-[40px]   dashboard-imgsetter:tw-h-[44px] tw-gap-x-2 tw-text-[13px] 2xs:tw-text-[13px]  sm:tw-text-[17px]  tw-text-richblack-900 '>
