@@ -1,8 +1,8 @@
 import toast from "react-hot-toast";
 import { apiCaller } from "../apiconnector"
 import { authEndPoints } from "../apiList"
-import { setLoading, setRegisterData, setToken } from "../../slices/authSlice"
-import {setUser} from "../../slices/profileSlice"
+import { setLoading, setRegisterData, setToken,setLogout } from "../../slices/authSlice"
+import { setUser } from "../../slices/profileSlice"
 
 export const loginApiOperation = async (formdata, navigate, dispatch) => {
     dispatch(setLoading(true))
@@ -16,10 +16,10 @@ export const loginApiOperation = async (formdata, navigate, dispatch) => {
         })
         dispatch(setLoading(false));
         console.log(response)
-        console.log(response.data.token);
+        // console.log(response.data.token);
         dispatch(setUser(response.data.user));
         dispatch(setToken(response.data.token))
-        localStorage.setItem('user',JSON.stringify(response.data.user));
+        localStorage.setItem('user', JSON.stringify(response.data.user));
         navigate('/dashboard/my-profile')
         return response
 
@@ -138,8 +138,6 @@ export const registerApiOperation = async (formData, setApiCalled, navigate, dis
             id: 'Register-successs-1'
         })
         dispatch(setRegisterData(null))
-
-
         navigate('/login')
 
 
@@ -165,7 +163,7 @@ export const checkResetPasswordTokenApiOperation = async (params, setApiCalled, 
         setApiCalled(true);
         const result = await apiCaller('GET', authEndPoints.RESET_PASSWORD_VALID_TOKEN(token))
         setApiCalled(false)
-        
+
         return result;
     } catch (err) {
         setApiCalled(false)
@@ -174,13 +172,13 @@ export const checkResetPasswordTokenApiOperation = async (params, setApiCalled, 
     }
 }
 
-export const resetPasswordApiOperation = async (formData,navigate) => {
+export const resetPasswordApiOperation = async (formData, navigate) => {
     try {
         const apiResult = await toast.promise(apiCaller('POST', authEndPoints.RESET_PASSWORD, formData),
             {
                 loading: 'Please Wait while resetting 🙏',
                 success: 'Password  has been reset 😎',
-                error:'Something went wrong, try again'
+                error: 'Something went wrong, try again'
             },
             {
                 style: {
@@ -194,11 +192,29 @@ export const resetPasswordApiOperation = async (formData,navigate) => {
                 }
             }
         )
-        
-    return apiResult
+
+        return apiResult
 
     } catch (err) {
         console.log("Error Message", err)
         navigate('/');
     }
 }
+
+
+export const logoutOperation = async (dispatch) => {
+    try {
+        const axiosResponse = await apiCaller('GET', authEndPoints.LOGOUT_API)
+        localStorage.clear();
+        console.log(axiosResponse)
+        dispatch(setLogout(false))
+        toast.success("Successfully logged  out",{
+            id:"logout-success-1"
+        })
+        return axiosResponse;
+    } catch (err) {
+        console.log(err)
+        return err
+    }
+}
+

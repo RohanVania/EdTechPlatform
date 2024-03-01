@@ -2,7 +2,7 @@ const express = require("express")
 const router = express.Router();
 
 // Importing Handler functions
-const { signUp, login, changePassword, sendOtp,checkAlreadyLoggedIn } = require("../controller/Auth")
+const { signUp, login, changePassword, sendOtp,checkAlreadyLoggedIn,logout } = require("../controller/Auth")
 const { resetPassword, resetPasswordToken,resetPasswordTokenValid } = require("../controller/ResetPassword");
 
 
@@ -33,6 +33,7 @@ router.post("/changepassword", auth, changePassword)
 router.post("/reset-password-token", resetPasswordToken);
 router.get("/reset-password/:resetToken",resetPasswordTokenValid)
 router.post("/reset-password", resetPassword);
+router.get("/logout",logout)
 
 router.get("/checkalreadyLoggedIn",checkAlreadyLoggedIn);
 

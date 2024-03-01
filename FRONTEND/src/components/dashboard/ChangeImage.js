@@ -43,7 +43,7 @@ function ChangeImage() {
                 <img src={imgPreview || `${profileState?.image}`} className=' tw-object-cover   tw-w-[67px] tw-h-[67px] xs:tw-w-[75px] xs:tw-h-[80px]  tw-rounded-full' alt='user' />
             </div>
             <div className='tw-flex tw-flex-col tw-gap-y-3 tw-justify-center '>
-                <h1 className='tw-'>Change Picture</h1>
+                <h1 className='tw-text-[20px]'>Change Picture</h1>
                 <div className='tw-flex tw-gap-x-2'>
                     <input type='file' ref={fileRef} className='tw-hidden' onChange={handleFileChange} />
                     <button className='tw-bg-richblack-700 tw-font-semibold tw-rounded-md  tw-flex tw-items-center tw-px-4 xs:tw-px-6 tw-h-[40px] xs:tw-h-[40px]   dashboard-imgsetter:tw-h-[44px] tw-gap-x-2 tw-text-[13px] 2xs:tw-text-[13px]  sm:tw-text-[17px]  tw-text-richblack-5' onClick={handleclick}>

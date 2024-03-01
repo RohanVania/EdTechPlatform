@@ -20,7 +20,7 @@ function LoginForm({ usertype }) {
 
 
     const onSubmit =  async (formdata) => {
-        formdata={...formdata,usertype}
+        formdata={...formdata,accountType:usertype}
         // console.log(formdata)
         const result= await loginApiOperation(formdata,navigate,dispatch);
         console.log(result)
