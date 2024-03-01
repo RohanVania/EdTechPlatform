@@ -18,7 +18,7 @@ export const getAllCategories = async () => {
 export const checkAuthenticated = async (dispatch, token) => {
     try {
         const { data } = await apiCaller('GET', publicApi.CHECK_ALREADY_LOGGED_IN);
-        console.log(data)
+        console.log("Check Authenticated =>",data)
 
         if (data.status === "Success") {
             if (!token) {

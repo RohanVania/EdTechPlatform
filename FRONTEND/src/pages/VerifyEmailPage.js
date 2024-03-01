@@ -16,6 +16,8 @@ function VerifyEmailPage() {
     const { registerData } = useSelector((state) => state.auth);
     const dispatch=useDispatch();
     const navigate = useNavigate();
+
+    //* This is protecting the Route
     useEffect(() => {
         if (!registerData) {
             navigate('/signup')

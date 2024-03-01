@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/core/Navbar";
 import { HomePage } from "./pages/HomePage";
@@ -21,13 +21,15 @@ import ResetPasswordPage from "./components/core/ResetPasswordPage";
 import MyProfile from "./components/dashboard/MyProfile";
 import Settings from "./components/dashboard/Settings";
 import { useDispatch, useSelector } from "react-redux";
+import { setLogout } from "./slices/authSlice";
+import {logoutOperation} from "./services/operations/authFunctions"
 
 
 function App() {
 
   const dispatch = useDispatch();
-  const { token } = useSelector((state) => state.auth);
-  // console.log("Token Present=>",token)
+  const authGlobalState = useSelector((state) => state.auth);
+  const navigate=useNavigate();
   // const check = useSelector((state) => state);
   // console.log("Check all states =>",check)
   const categoryDataresult = useQuery({
@@ -39,7 +41,7 @@ function App() {
   const alreadyLoggedIn = useQuery({
     queryKey: ['alreadyLoggedIn'],
     queryFn: () => {
-      checkAuthenticated(dispatch, token)
+      checkAuthenticated(dispatch, authGlobalState.token)
     },
     staleTime: Infinity,
   })
@@ -57,45 +59,84 @@ function App() {
       Error
     </div>
   }
+  
 
 
   const toastconfiguration = {
     position: 'top-center',
   }
 
+  function handleLogoutCancel(){
+    dispatch(setLogout(false))
+  }
+
+  async function handleLogout(){
+    try{
+      const response=await logoutOperation(dispatch);
+      if(response.data.status==="Success"){
+        navigate('/')
+      }
+
+    } catch(err){
+      console.log(err)
+    } 
+  }
+
   return (
-    <div className="tw-font-inter tw-bg-richblack-900 tw-h-full  tw-relative">
-      <Toaster position="top-center" toastOptions={toastconfiguration} />
-      <Navbar categoryData={categoryDataresult.data.data} />
-      <ScrollToTop />
+    <>
+      { authGlobalState.logout &&
+        <div className="tw-bg-[rgba(0,0,0,0.2)] tw-filter  tw-fixed tw-top-0 tw-bottom-0 tw-z-[1000] tw-h-full tw-w-full tw-backdrop-blur-md tw-flex tw-justify-center tw-items-center ">
 
-      <Routes>
-        <Route path='/' element={<HomePage />} />
+          <div className=" tw-bg-richblack-800 tw-max-w-[900px]  tw-m-5  tw-text-white tw-flex tw-flex-col tw-p-6 tw-rounded-lg tw-border tw-border-richblack-400 tw-gap-y-3">
+            <h1 className=" tw-font-semibold tw-text-richblack-5  tw-text-[20px] 2xs:tw-text-[22px]  sm:tw-text-3xl">Are You Sure ?</h1>
+            <p className="tw-text-richblack-200  tw-text-[14px] 2xs:tw-text-[15px]  sm:tw-text-[19px]">You will be logged out of your account</p>
+            <div className="tw-flex tw-mt-3 tw-gap-x-4">
+              <button className='tw-bg-yellow-50 tw-font-semibold tw-rounded-md  tw-flex tw-items-center tw-px-4 xs:tw-px-6 tw-py-2 xs:tw-py-2 tw-gap-x-2 tw-text-[13px] 2xs:tw-text-[15px]  sm:tw-text-[17px]  tw-text-richblack-900' onClick={handleLogout}>
+                Logout
+              </button>
+              <button className='tw-bg-richblack-200 tw-font-semibold tw-rounded-md  tw-flex tw-items-center tw-px-4 xs:tw-px-6 tw-gap-x-2 tw-text-[13px] 2xs:tw-text-[15px]  sm:tw-text-[17px]  tw-text-richblack-900' onClick={handleLogoutCancel} >
+                Cancel
+              </button>
+            </div>
+          </div>
 
-        <Route path='/courses' element={<CoursePage />} />
-        <Route path='/about' element={<AboutUsPage />} />
-        <Route path='/login' element={<LoginPage />} />
-        <Route path='/signup' element={<SignUpPage />} />
-        <Route path='/contact' element={<ContactPage />} />
-        <Route path='/forgotpassword' element={<ForgotPasswordPage />} />
-        <Route path='/reset-password/:resetToken' element={<ResetPasswordPage />} />
+        </div>
+      }
 
+      <div className="tw-font-inter tw-bg-richblack-900 tw-h-full  tw-relative">
+        <Toaster position="top-center" toastOptions={toastconfiguration} />
+        <Navbar categoryData={categoryDataresult.data.data} />
+        <ScrollToTop />
 
-        <Route element={<ProtectedRoute />}>
-          <Route element={<DashBoardPage />}  >
-            <Route path="/dashboard/my-profile" element={<MyProfile />} />
-            <Route path="/dashboard/settings" element={<Settings />} />
-            <Route path="/dashboard/enrolled-courses" element={<h1 className="tw-text-white">Enrolled Courses</h1>} />
-            <Route path="/dashboard/purchase-history" element={<h1 className="tw-text-white">Purschase History</h1>} />
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+
+          <Route path='/courses' element={<CoursePage />} />
+          <Route path='/about' element={<AboutUsPage />} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/signup' element={<SignUpPage />} />
+          <Route path='/contact' element={<ContactPage />} />
+          <Route path='/forgotpassword' element={<ForgotPasswordPage />} />
+          <Route path='/reset-password/:resetToken' element={<ResetPasswordPage />} />
+          <Route element={<VerifyEmailPage />} path="/verify-email" />
+
+          <Route element={<ProtectedRoute />}>
+            <Route element={<DashBoardPage />}  >
+              <Route path="/dashboard/my-profile" element={<MyProfile />} />
+              <Route path="/dashboard/settings" element={<Settings />} />
+              <Route path="/dashboard/enrolled-courses" element={<h1 className="tw-text-white">Enrolled Courses</h1>} />
+              <Route path="/dashboard/purchase-history" element={<h1 className="tw-text-white">Purschase History</h1>} />
+              <Route path="/dashboard/my-courses" element={<h1 className="tw-text-white">My Courses</h1>} />
+              <Route path="/dashboard/add-course" element={<h1 className="tw-text-white">Add Course</h1>} />
+            </Route>
+
+            <Route element={<Test />} path="/test" />
           </Route>
 
-          <Route element={<Test />} path="/test" />
-          <Route element={<VerifyEmailPage />} path="/verify-email" />
-        </Route>
-
-        <Route path="*" element={<div className="tw-text-white tw-mt-[90px]">Not Found</div>} />
-      </Routes>
-    </div >
+          <Route path="*" element={<div className="tw-text-white tw-mt-[90px]">Not Found</div>} />
+        </Routes>
+      </div >
+    </>
   );
 }
 

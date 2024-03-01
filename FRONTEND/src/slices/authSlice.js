@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { json } from "react-router-dom";
 
 const initialState={
+    logout:false,
     loading:false,
     token:localStorage.getItem('token')?json.parse(localStorage.getItem("token")):null,
     registerData:null
@@ -21,6 +22,9 @@ const authSlice=createSlice({
 
         setToken:(state,action)=>{
             state.token=action.payload;
+        },
+        setLogout:(state,action)=>{
+            state.logout=action.payload
         }
 
     }
@@ -30,4 +34,4 @@ const authSlice=createSlice({
 
 export default authSlice.reducer;
 
-export const {setLoading,setToken,setRegisterData}=authSlice.actions;
+export const {setLoading,setToken,setRegisterData,setLogout}=authSlice.actions;

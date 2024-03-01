@@ -231,10 +231,10 @@ exports.signUp = async (req, resp) => {
 exports.login = async (req, resp) => {
     try {
         // fetch data
-        const { email, password } = req.body
+        const { email, password,accountType } = req.body
 
         // validation for fields required
-        if (!email || !password) {
+        if (!email || !password ||!accountType) {
             return resp.status(200).json({
                 status: "Failed",
                 msg: "All fields are required in login !",
@@ -243,7 +243,7 @@ exports.login = async (req, resp) => {
 
         // check if email exists in database
         // We also populate additionDetails
-        const user = await User.findOne({ email: email })
+        const user = await User.findOne({ email: email,accountType:accountType })
             .populate("additionalDetails")
             .exec()
 
@@ -292,7 +292,7 @@ exports.login = async (req, resp) => {
             const cookieOptions = {
                 // expires in 3days
                 // expiresIn:"24hr", Expires in 24hr from the current time
-                expires: new Date(Date.now() + 1 * 24 * 60 * 1000),
+                expires: new Date(Date.now() + 1 * 24 * 60 *60* 1000),
                 httpOnly: true,
             }
 
@@ -469,6 +469,23 @@ exports.checkAlreadyLoggedIn=async (req,resp)=>{
             msg:'Something went wrong while checking already logged in the function',
             errormsg:error
         })
+
+    }
+}
+
+
+// logout functionality
+
+exports.logout=(req,resp)=>{
+    try{
+        console.log(req.cookies.token);
+        resp.clearCookie("token")
+        return resp.status(200).json({
+            status:"Success"
+        });
+       
+    }
+    catch(err){
 
     }
 }

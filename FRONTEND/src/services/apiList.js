@@ -7,7 +7,8 @@ export const authEndPoints={
     SEND_OTP_API:'/auth/sendotp',
     REGISTER_API:'/auth/signup',
     RESET_PASSWORD_VALID_TOKEN:(resetToken)=>`/auth/reset-password/${resetToken}`,
-    RESET_PASSWORD:'/auth/reset-password'
+    RESET_PASSWORD:'/auth/reset-password',
+    LOGOUT_API:'/auth/logout'
 }
 
 //* User API URLS
