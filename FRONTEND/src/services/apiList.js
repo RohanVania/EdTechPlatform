@@ -15,7 +15,8 @@ export const authEndPoints={
 export const userApiEndpoints={
     CHANGE_PASSWORD_API:'/auth/changepassword',
     CHANGE_IMAGE_API:'/profile/updateDisplayPicture',
-    CHANGE_PROFILE_INFO_API:'/profile/updateProfile'
+    CHANGE_PROFILE_INFO_API:'/profile/updateProfile',
+    DELETE_ACCOUNT_API:'/profile/deleteProfile'
 }
 
 //* Public API URLS

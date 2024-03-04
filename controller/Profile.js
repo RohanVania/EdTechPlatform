@@ -89,7 +89,7 @@ exports.deleteAccount = async (req, resp) => {
         // TODO: Unenroll User From All the Enrolled Courses
         // Now Delete User
         await User.findByIdAndDelete(id);
-
+        resp.clearCookie("token")
         return resp.status(200).json(
             {
                 status: "Success",

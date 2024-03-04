@@ -1,7 +1,8 @@
 import toast from "react-hot-toast";
 import { apiCaller } from "../apiconnector";
 import { userApiEndpoints } from "../apiList"
-import {updateUser,setChangeProfileFlag} from "../../slices/profileSlice"
+import {updateUser,setChangeProfileFlag, setUser} from "../../slices/profileSlice"
+import { setToken, setdeleteAccount } from "../../slices/authSlice";
 
 export const changePasswordApiOperation = async (formData, setApiCalled) => {
     try {
@@ -107,3 +108,32 @@ export const changeProfileInfo = async (formData,dispatch) => {
 
     }
 }
+
+
+
+//* Has Bugs
+export const deleteOperation=async(dispatch)=>{
+    try{
+       const axiosResponse= await apiCaller('DELETE',userApiEndpoints.DELETE_ACCOUNT_API)
+       localStorage.clear();
+        if(axiosResponse?.data?.data?.status==="Success"){
+            toast.success('Account deleted successfully 😁',{
+                id:'Delete-account-1'
+            })
+            dispatch(setToken(null))
+            dispatch(setUser(null))
+        }
+        
+        dispatch(setdeleteAccount(false))
+        return axiosResponse       
+        
+    }catch(err){
+        console.log(err);
+        dispatch(setdeleteAccount(false))
+        toast.error('Something went wrong 😪',{
+            id:'Delete-error-1'
+        })
+        return err
+    }
+}
+
