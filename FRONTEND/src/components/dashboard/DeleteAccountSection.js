@@ -1,7 +1,17 @@
 import React from 'react'
 import { ImBin } from "react-icons/im";
+import { useDispatch } from 'react-redux';
+import { setdeleteAccount } from '../../slices/authSlice';
 
 function DeleteAccountSection() {
+    const dispatch=useDispatch();
+
+
+    function handleDeleteAccount(){
+        dispatch(setdeleteAccount(true))
+    }
+
+
     return (
         <div className='tw-flex tw-flex-col tw-w-full sm:tw-px-[48px] tw-flex-wrap sm:tw-py-[32px]  tw-gap-x-5 tw-gap-y-5  tw-p-3 tw-py-[20px] tw-rounded-md tw-border-[1px] tw-border-richblack-700 tw-bg-pink-900  tw-text-richblack-5 '>
 
@@ -15,7 +25,7 @@ function DeleteAccountSection() {
                         <p>Would you like to delete account?</p>
                         <p>This account contains Paid Courses, Deleting your account will remove all the contents associated with it.</p>
                     </div>
-                    <p className='tw-mt-3 tw-italic tw-text-pink-300 tw-cursor-pointer tw-text-[14px] xs:tw-text-[14px]'>I want to delete my account.</p>
+                    <p className='tw-mt-3 tw-italic tw-text-pink-300 tw-cursor-pointer tw-text-[14px] xs:tw-text-[14px] ' onClick={handleDeleteAccount}>I want to delete my account.</p>
                 </div>
             </div>
 

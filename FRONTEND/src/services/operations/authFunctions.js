@@ -208,6 +208,8 @@ export const logoutOperation = async (dispatch) => {
         localStorage.clear();
         console.log(axiosResponse)
         dispatch(setLogout(false))
+        dispatch(setToken(null))
+        dispatch(setUser(null))
         toast.success("Successfully logged  out",{
             id:"logout-success-1"
         })

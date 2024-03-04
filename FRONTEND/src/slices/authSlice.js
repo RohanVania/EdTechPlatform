@@ -5,7 +5,8 @@ const initialState={
     logout:false,
     loading:false,
     token:localStorage.getItem('token')?json.parse(localStorage.getItem("token")):null,
-    registerData:null
+    registerData:null,
+    deleteAccount:false
 }
 
 const authSlice=createSlice({
@@ -25,6 +26,9 @@ const authSlice=createSlice({
         },
         setLogout:(state,action)=>{
             state.logout=action.payload
+        },
+        setdeleteAccount:(state,action)=>{
+            state.deleteAccount=action.payload
         }
 
     }
@@ -34,4 +38,4 @@ const authSlice=createSlice({
 
 export default authSlice.reducer;
 
-export const {setLoading,setToken,setRegisterData,setLogout}=authSlice.actions;
+export const {setLoading,setToken,setRegisterData,setLogout,setdeleteAccount}=authSlice.actions;

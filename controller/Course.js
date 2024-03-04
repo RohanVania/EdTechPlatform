@@ -9,7 +9,8 @@ const { imageUploader } = require("../utils/imageUploader")
 exports.createCourse = async (req, resp) => {
     try {
 
-        const userId = req.user.id;
+        // const userId = req.user.id;
+        const userid=req?.user?.id;
 
         let {
             courseName,
@@ -25,8 +26,8 @@ exports.createCourse = async (req, resp) => {
         } = req.body
 
         // file for thumbnail
-        const thumbnail = req.files.thumbnailImage;
-
+        
+        const thumbnail = req.files?.thumbnailImage;
         // validation
         if (!courseName || !courseDescription || !whatYouWillLearn || !price || !tag || !thumbnail || !category) {
             return resp.status(200).json({
@@ -35,6 +36,8 @@ exports.createCourse = async (req, resp) => {
             })
         }
 
+        
+
         // Course not yet published
         if (!status || status === undefined) {
             status = "Draft";
@@ -42,7 +45,7 @@ exports.createCourse = async (req, resp) => {
 
         // Check for Instructor
         // the query, filtering the results to only return users with an account type of "Instructor".
-        const instructorDetails = await User.findById(userId,
+        const instructorDetails = await User.findById(userid,
             {
                 accountType: "Instructor"
             }
@@ -61,6 +64,12 @@ exports.createCourse = async (req, resp) => {
         // validate Category also
 
         const categoryData=await Category.findOne({name:category});
+        if(!categoryData){
+            return resp.status(200).json({
+                status:"Failed",
+                message:"Given Category doesn't exists"
+            })
+        }
 
         const categoryDetails = await Category.findById(categoryData._id);
         if (!categoryDetails) {
@@ -69,7 +78,22 @@ exports.createCourse = async (req, resp) => {
                 msg: "Category details not found or is Invalid!"
             })
         }
-        // If all good upload file to cloudinary
+
+        // If the instructor already has a course with same name inform him
+
+        const alreadyCourseWithSameName=await Course.findOne({
+            courseName:courseName,
+            instructor:userid
+        })
+
+        if(alreadyCourseWithSameName){
+            return resp.status(200).json({
+                status:"Failed",
+                message:"Instructor has already created, course with same name"
+            })
+        }
+
+        // If all good upload file to cloudinary 
         const thumbnailImage = await imageUploader(thumbnail, process.env.FOLDER_NAME)
         console.log("ThumbNail Image =>",thumbnailImage);
 
