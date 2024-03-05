@@ -16,7 +16,6 @@ import VerifyEmailPage from "./pages/VerifyEmailPage";
 import { useQuery } from "react-query";
 import { getAllCategories, checkAuthenticated } from "./services/operations/publicFunction";
 import ModalLoader from "./components/core/ModalLoader";
-import AddCourseLayout from  "./components/addCourse/AddCourseLayout";
 import DashBoardPage from "./pages/DashBoardPage";
 import ResetPasswordPage from "./components/core/ResetPasswordPage";
 import MyProfile from "./components/dashboard/MyProfile";
@@ -25,7 +24,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLogout, setdeleteAccount } from "./slices/authSlice";
 import { logoutOperation } from "./services/operations/authFunctions"
 import { deleteOperation } from "./services/operations/userFunctions";
-
+import CourseAddLayout from "./components/addCourse/CourseAddLayout";
 
 function App() {
 
@@ -164,7 +163,7 @@ function App() {
               <Route path="/dashboard/enrolled-courses" element={<h1 className="tw-text-white">Enrolled Courses</h1>} />
               <Route path="/dashboard/purchase-history" element={<h1 className="tw-text-white">Purschase History</h1>} />
               <Route path="/dashboard/my-courses" element={<h1 className="tw-text-white">My Courses</h1>} />
-              <Route path="/dashboard/add-course" element={<AddCourseLayout/>} />
+              <Route path="/dashboard/add-course" element={<CourseAddLayout/>} />
             </Route>
 
             <Route element={<Test />} path="/test" />
