@@ -133,3 +133,16 @@
 
 /* Loader */
 
+::-webkit-scrollbar {
+    width: 3px;
+    height: 5px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #afb2bf;
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+  }
