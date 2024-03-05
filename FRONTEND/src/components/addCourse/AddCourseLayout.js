@@ -1,9 +1,9 @@
 import React from 'react'
 import CourseTip from './CourseTip'
-
+import {queryClient} from "../../index"
 function AddCourseLayout() {
-
-
+    const {data:categories}=queryClient.getQueryData('categories');
+    console.log(categories)
 
     return (
         <div className='tw-pt-[40px] '>
@@ -28,12 +28,14 @@ function AddCourseLayout() {
                         </div>
                         <div className='tw-flex tw-flex-col'>
                             <label className='tw-mb-3 tw-text-sm tw-text-richblack-5'>Course Category<sup className='tw-text-pink-400'>*</sup></label>
-                            <select className='input tw-outline-none tw-w-ful tw-bg-richblack-700 videobanner:tw-w-ful tw-w-full'>
-                                <option value="" disabled hidden>Choose</option>
-                                <option value='male'>Male</option>
-                                <option value='female'>Female</option>
-                                <option value='others'>Others</option>
-                                <option value='no'>Prefer not to say</option>
+                            <select  className='input tw-outline-none tw-w-ful tw-bg-richblack-700 videobanner:tw-w-ful tw-w-full'>
+                                <option value="" disabled  hidden>Choose</option>
+                                {
+                                    categories.map((el,indx)=>{
+                                        return <option key={indx} value={el.name}>{el.name}</option>
+                                    })
+                                }
+                              
                             </select>
 
                         </div>
