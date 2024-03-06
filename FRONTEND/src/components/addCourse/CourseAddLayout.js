@@ -14,7 +14,7 @@ function CourseAddLayout() {
     const methods = useForm({
         defaultValues: {
             category: "",
-            tag:[]
+            tag:[],
         }
     })
 

@@ -1,6 +1,6 @@
 
 import React, { useState, useRef } from 'react'
-import { useFormContext } from 'react-hook-form';
+import { useFormContext,useFieldArray } from 'react-hook-form';
 import { FaChevronRight } from "react-icons/fa6";
 import { FiUploadCloud } from "react-icons/fi";
 import { queryClient } from "../../index"
@@ -9,34 +9,53 @@ import { queryClient } from "../../index"
 function Step1Form() {
     const { data: categories } = queryClient.getQueryData('categories');
 
-    const { register, trigger, watch, setError, getValues, setValue, formState: { errors } } = useFormContext();
+    const { register, trigger, watch, control, setError, getValues, setValue, formState: { errors } } = useFormContext();
+    const {fields,append,remove}=useFieldArray({
+        control,
+        name:'tag',
+        rules:{
+            minLength:1,
+            required:true
+        }
+            
+    })
 
-    const [Taginput, setTagInput] = useState('');
-    const [tags, setTags] = useState([]);
 
-
-    const [requirementinput, setRequirementInput] = useState("");
-    const [requirements, setRequirements] = useState([]);
-
+    const [filemissing, setFileMissing] = useState(false)
+    const [Taginput, setTagInput] = useState('');  //* Tag Input
+    const [tags, setTags] = useState([]);          //* Tag Array
+    const [requirementinput, setRequirementInput] = useState(""); //* Requirement Input
+    const [requirements, setRequirements] = useState([]);   //* Requirement Array
     const [imagefile, setImageFile] = useState(null);
     const [imgpreview, setImgPreview] = useState(null);
-
     const inputfile = useRef(null)
+
+    const [nextStepperCalled,setNextStepperCalled]=useState(false) //* Next button pressed
 
     function handleChange(e) {
         const { value } = e.target;
         setTagInput(value);
     }
 
+    // function handleKeyDown(e) {
+    //     const { key } = e;
+    //     const trimmedInput = Taginput.trim();
+    //     if (key === 'Enter' && Taginput.length) {
+    //         e.preventDefault();
+    //         setTags((prev) => [...prev, trimmedInput]);
+    //         setTagInput('');
+    //         setValue('tag', '');
+    //     }
+    // }
+
     function handleKeyDown(e) {
-        const tagvalue = getValues('tag');
         const { key } = e;
-        const trimmedInput = Taginput.trim();
-        if (key === 'Enter' && Taginput.length) {
+        const trimmedInput=Taginput.trim();
+        if(key==='Enter' && Taginput.length){
             e.preventDefault();
-            setTags((prev) => [...prev, trimmedInput]);
-            setTagInput('');
-            setValue('tag', '');
+          getValues('tag');
+          append(trimmedInput);
+          setTagInput("")
         }
     }
 
@@ -82,8 +101,15 @@ function Step1Form() {
     }
 
     async function Step1FormSubmit() {
-        const isValid = await trigger(['courseName', 'courseDescription', 'price', 'category', 'whatYouWillLearn',  'instructions'])
+        console.log("Fields",fields)
+       
+        console.log(getValues('tag'));
+        const isValid = await trigger(['courseName', 'courseDescription', 'price', 'category', 'whatYouWillLearn', 'instructions','tag'])
 
+        console.log(errors)
+        // if (isValid) {
+            // console.log("Call Add Course API")
+        // }
 
     }
 
@@ -149,18 +175,25 @@ function Step1Form() {
                 <label className='tw-mb-3 tw-text-sm tw-text-richblack-5'>Tags<sup className='tw-text-pink-200 tw-ml-1'>*</sup></label>
                 <div id='tag-area' className='tw-flex tw-flex-wrap tw-mb-2 '>
                     {
-                        tags.map((el, indx) => {
-                            return <div key={indx} className='tw-m-1 tw-flex tw-items-center tw-rounded-full tw-bg-yellow-400 tw-px-2 tw-py-1 tw-text-sm tw-text-richblack-5'>
-                                {el}
-                                <button type='button' className='tw-ml-2 focus:tw-outline-none' onClick={() => handleTagDelete(indx)}>&times;</button>
+                        fields?.map((el, indx) => {
+                            return <div key={el.id} className='tw-m-1 tw-flex tw-items-center tw-rounded-full tw-bg-yellow-400 tw-px-2 tw-py-1 tw-text-sm tw-text-richblack-5'>
+                                {
+                                    (Object.values(el).slice(0,-1)).join("")
+                                }
+                                {/* <button type='button' className='tw-ml-2 focus:tw-outline-none' onClick={() => handleTagDelete(indx)}>&times;</button> */}
+                                <button type='button' className='tw-ml-2 focus:tw-outline-none' onClick={() => remove(indx)}>&times;</button>
+                                
                             </div>
                         })
                     }
 
                 </div>
                 <input type="text" value={Taginput} className='tw-bg-richblack-700 tw-text-[#999DAA] formshadow' placeholder='Enter Tags and press enter' onChange={handleChange} onKeyDown={handleKeyDown}
+                 
                 />
-                
+                {
+                      errors.tag && <p className='tw-text-sm tw-mt-3 tw-ml-1 tw-text-pink-500'>Atleast one tag required<sup className='tw-text-pink-400 tw-ml-1'>*</sup></p>
+                }
             </div>
             <div className='tw-fex tw-flex-col'>
                 <label className='tw-text-sm tw-text-richblack-5'>Course Thumbnail<sup className='tw-text-pink-200 tw-ml-1'>*</sup></label>
@@ -193,7 +226,7 @@ function Step1Form() {
                             </div>
                     }
                 </div>
-                {
+                {filemissing &&
                     <p className='tw-text-sm tw-mt-3 tw-ml-1 tw-text-pink-500'>Thumbnail is required<sup className='tw-text-pink-400 tw-ml-1'>*</sup></p>
                 }
             </div>
@@ -212,10 +245,10 @@ function Step1Form() {
             <div className='tw-flex tw-flex-col'>
                 <label className='tw-mb-3 tw-text-sm tw-text-richblack-5'>Requirements / Instructions <sup className='tw-text-pink-200 tw-ml-1'>*</sup></label>
                 <input type='text' className=' tw-bg-richblack-700 tw-text-[#999DAA] formshadow ' placeholder='Enter Requirements or Instructions'
-                    // onChange={(e) => setRequirementInput(e.target.value)} 
-                   
+                // onChange={(e) => setRequirementInput(e.target.value)} 
+
                 />
-                
+
                 <button type='button' className='tw-mt-3 tw-font-semibold tw-text-yellow-50 tw-p-1 tw-mr-auto' onClick={addRequirement} >Add</button>
                 <div id='instructions-area' className='tw-max-w-[500px'>
                     <ul className='tw-flex tw-flex-col tw-gap-y-1  tw-break-all'>
