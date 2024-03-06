@@ -15,6 +15,7 @@ function CourseAddLayout() {
         defaultValues: {
             category: "",
             tag:[],
+            instructions:[],
         }
     })
 
