@@ -5,7 +5,7 @@ const initialState={
     savedcourse:null,
     course:null,
     editCourse:false,
-
+    loading:false
 }
 
 const addcourseSlice=createSlice({
