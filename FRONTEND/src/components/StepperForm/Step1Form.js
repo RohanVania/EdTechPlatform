@@ -1,6 +1,6 @@
 
 import React, { useState, useRef } from 'react'
-import { useFormContext,useFieldArray } from 'react-hook-form';
+import { useFormContext, useFieldArray } from 'react-hook-form';
 import { FaChevronRight } from "react-icons/fa6";
 import { FiUploadCloud } from "react-icons/fi";
 import { queryClient } from "../../index"
@@ -9,69 +9,63 @@ import { queryClient } from "../../index"
 function Step1Form() {
     const { data: categories } = queryClient.getQueryData('categories');
 
+    const [Taginput, setTagInput] = useState('');  //* Tag Input
+    const [requirementinput, setRequirementInput] = useState(""); //* Requirement Input
+    const [filemissing, setFileMissing] = useState(false)
+    const [imagefile, setImageFile] = useState(null);
+    const [imgpreview, setImgPreview] = useState(null);
+
     const { register, trigger, watch, control, setError, getValues, setValue, formState: { errors } } = useFormContext();
-    const {fields,append,remove}=useFieldArray({
+    const { fields, append, remove } = useFieldArray({
         control,
-        name:'tag',
-        rules:{
-            minLength:1,
-            required:true
+        name: 'tag',
+        rules: {
+            minLength: 1,
+            required: true
         }
-            
+
+    })
+
+    const { fields: instructions, append: add, remove: rem } = useFieldArray({
+        control,
+        name: 'instructions',
+        rules: {
+            minLength: 1,
+            required: true
+        }
     })
 
 
-    const [filemissing, setFileMissing] = useState(false)
-    const [Taginput, setTagInput] = useState('');  //* Tag Input
-    const [tags, setTags] = useState([]);          //* Tag Array
-    const [requirementinput, setRequirementInput] = useState(""); //* Requirement Input
-    const [requirements, setRequirements] = useState([]);   //* Requirement Array
-    const [imagefile, setImageFile] = useState(null);
-    const [imgpreview, setImgPreview] = useState(null);
-    const inputfile = useRef(null)
 
-    const [nextStepperCalled,setNextStepperCalled]=useState(false) //* Next button pressed
+    
+    const inputfile = useRef(null)
 
     function handleChange(e) {
         const { value } = e.target;
         setTagInput(value);
     }
 
-    // function handleKeyDown(e) {
-    //     const { key } = e;
-    //     const trimmedInput = Taginput.trim();
-    //     if (key === 'Enter' && Taginput.length) {
-    //         e.preventDefault();
-    //         setTags((prev) => [...prev, trimmedInput]);
-    //         setTagInput('');
-    //         setValue('tag', '');
-    //     }
-    // }
-
     function handleKeyDown(e) {
         const { key } = e;
-        const trimmedInput=Taginput.trim();
-        if(key==='Enter' && Taginput.length){
+        const trimmedInput = Taginput.trim();
+        if (key === 'Enter' && Taginput.length) {
             e.preventDefault();
-          getValues('tag');
-          append(trimmedInput);
-          setTagInput("")
+            getValues('tag');
+            append(trimmedInput);
+            setTagInput("")
         }
     }
 
-    function handleTagDelete(index) {
-        setTags(prev => prev.filter((tag, i) => i !== index))
-    }
+  
 
     function addRequirement() {
         const trimmedinput = requirementinput.trim();
-        setRequirements(prev => [...prev, trimmedinput])
+        console.log(trimmedinput)
+        add(trimmedinput);
         setRequirementInput("")
     }
 
-    function handleDeleteRequirements(index) {
-        setRequirements(prev => prev.filter((el, i) => i !== index))
-    }
+    
 
     function InvokeFileUpload() {
         inputfile.current.click();
@@ -101,15 +95,16 @@ function Step1Form() {
     }
 
     async function Step1FormSubmit() {
-        console.log("Fields",fields)
-       
-        console.log(getValues('tag'));
-        const isValid = await trigger(['courseName', 'courseDescription', 'price', 'category', 'whatYouWillLearn', 'instructions','tag'])
+        // console.log("Fields", fields)
+        // console.log(getValues('tag'));
+        // console.log(getValues('instructions'))
+        const isValid = await trigger(['courseName', 'courseDescription', 'price', 'category', 'whatYouWillLearn', 'instructions', 'tag'])
 
-        console.log(errors)
-        // if (isValid) {
-            // console.log("Call Add Course API")
-        // }
+        // console.log(errors)
+
+        if (isValid) {
+         console.log("Go to Step 2 form");
+        }
 
     }
 
@@ -178,21 +173,21 @@ function Step1Form() {
                         fields?.map((el, indx) => {
                             return <div key={el.id} className='tw-m-1 tw-flex tw-items-center tw-rounded-full tw-bg-yellow-400 tw-px-2 tw-py-1 tw-text-sm tw-text-richblack-5'>
                                 {
-                                    (Object.values(el).slice(0,-1)).join("")
+                                    (Object.values(el).slice(0, -1)).join("")
                                 }
                                 {/* <button type='button' className='tw-ml-2 focus:tw-outline-none' onClick={() => handleTagDelete(indx)}>&times;</button> */}
                                 <button type='button' className='tw-ml-2 focus:tw-outline-none' onClick={() => remove(indx)}>&times;</button>
-                                
+
                             </div>
                         })
                     }
 
                 </div>
                 <input type="text" value={Taginput} className='tw-bg-richblack-700 tw-text-[#999DAA] formshadow' placeholder='Enter Tags and press enter' onChange={handleChange} onKeyDown={handleKeyDown}
-                 
+
                 />
                 {
-                      errors.tag && <p className='tw-text-sm tw-mt-3 tw-ml-1 tw-text-pink-500'>Atleast one tag required<sup className='tw-text-pink-400 tw-ml-1'>*</sup></p>
+                    errors.tag && <p className='tw-text-sm tw-mt-3 tw-ml-1 tw-text-pink-500'>Atleast one tag required<sup className='tw-text-pink-400 tw-ml-1'>*</sup></p>
                 }
             </div>
             <div className='tw-fex tw-flex-col'>
@@ -244,18 +239,24 @@ function Step1Form() {
             </div>
             <div className='tw-flex tw-flex-col'>
                 <label className='tw-mb-3 tw-text-sm tw-text-richblack-5'>Requirements / Instructions <sup className='tw-text-pink-200 tw-ml-1'>*</sup></label>
-                <input type='text' className=' tw-bg-richblack-700 tw-text-[#999DAA] formshadow ' placeholder='Enter Requirements or Instructions'
-                // onChange={(e) => setRequirementInput(e.target.value)} 
+                <input type='text' value={requirementinput} className=' tw-bg-richblack-700 tw-text-[#999DAA] formshadow ' placeholder='Enter Requirements or Instructions'
+                onChange={(e) => setRequirementInput(e.target.value)} 
 
                 />
+                {
+                    errors.instructions && <p className='tw-text-sm tw-mt-3 tw-ml-1 tw-text-pink-500'>Atleast one Instruction required<sup className='tw-text-pink-400 tw-ml-1'>*</sup></p>
+                }
 
                 <button type='button' className='tw-mt-3 tw-font-semibold tw-text-yellow-50 tw-p-1 tw-mr-auto' onClick={addRequirement} >Add</button>
                 <div id='instructions-area' className='tw-max-w-[500px'>
                     <ul className='tw-flex tw-flex-col tw-gap-y-1  tw-break-all'>
                         {
-                            requirements.map((el, indx) => {
-                                return <li key={indx} className='tw-text-gray-400 tw-ml-1'>{el}<button type='button' className='tw-cursor-pointer tw-p-1 tw-ml-2 tw-text-xs tw-text-pure-greys-300' onClick={() => handleDeleteRequirements(indx)} >clear</button></li>
+                            instructions?.map((el, indx) => {
+                                return <li key={indx} className='tw-text-gray-400 tw-ml-1'>{Object.values(el).slice(0, -1).join("")}<button type='button' className='tw-cursor-pointer tw-p-1 tw-ml-2 tw-text-xs tw-text-pure-greys-300' onClick={() => rem(indx)} >clear</button></li>
+                                
                             })
+
+                            
                         }
                     </ul>
                 </div>
