@@ -29,7 +29,7 @@ exports.createCourse = async (req, resp) => {
         
         const thumbnail = req.files?.thumbnailImage;
         // validation
-        if (!courseName || !courseDescription || !whatYouWillLearn || !price || !tag || !thumbnail || !category) {
+        if (!courseName || !courseDescription || !whatYouWillLearn || !price || !tag || !thumbnail || !category ||!instructions) {
             return resp.status(200).json({
                 status: "Failed",
                 msg: "Some fields that are missing are required while creating course !"
