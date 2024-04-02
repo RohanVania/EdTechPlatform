@@ -481,11 +481,17 @@ exports.logout=(req,resp)=>{
         console.log(req.cookies.token);
         resp.clearCookie("token")
         return resp.status(200).json({
-            status:"Success"
+            status:"Success",
+            msg:"Successfully Logged Out"
         });
        
     }
     catch(err){
-
+        console.log(err)
+        return resp.status(502).json({
+            status:'Failed',
+            msg:'Something went wrong in Logout',
+            data:err
+        })
     }
 }

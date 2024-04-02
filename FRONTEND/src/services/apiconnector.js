@@ -6,7 +6,7 @@ const axiosInstance=axios.create({
     baseURL:process.env.REACT_APP_API_BASE_URL,
 })
 
-
+//* Api Connector 
 export const apiCaller=(method,url,bodyData,header,params)=>{
     return axiosInstance({
         method:`${method}`,

@@ -9,6 +9,7 @@ function ProtectedRoute() {
     //* Here add the logic of access the global auth token from redux 
     let auth={'token':token}
     console.log(auth.token)
+    
   return (
         auth.token?<Outlet/>:<Navigate to='/login'/>
     )

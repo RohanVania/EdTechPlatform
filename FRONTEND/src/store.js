@@ -2,16 +2,35 @@ import {configureStore} from  "@reduxjs/toolkit"
 import rootReducers from "./reducer"
 
 
+//* Since we want to create a reset functionality I commented this
+// const store=configureStore({
+//     reducer:rootReducers
+// })
+
+const appReducers=rootReducers;
+
+const customRootReducer=(state,action)=>{
+    console.log("Root =>",state,action)
+    if(action.type==='logout'){
+        console.log("Calling Logout",state)
+        state=undefined;
+    }
+    return appReducers(state,action)
+}
+
 const store=configureStore({
-    reducer:rootReducers
+    reducer:customRootReducer
 })
 
-//* In our case we have multiple states, so we have multiple reducer that why we combine all reducers and pass it as a single object to the store
 
+
+//* In our case we have multiple states, so we have multiple reducer that why we combine all reducers and pass it as a single object to the store
 //* Redux toolkit by default has a combine reducer, I am just using the function for understanding.
 
 
 export {store}
+
+
 
 /**
  *  STEPS IN REDUX TOOLKIT

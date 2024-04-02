@@ -7,6 +7,7 @@ import { sidebarLinks } from "../../data/dashboard-links"
 import { NavLink, useLocation } from 'react-router-dom';
 import { useSelector,useDispatch } from 'react-redux';
 import {setLogout} from "../../slices/authSlice"
+import { logoutOperation } from '../../services/operations/authFunctions';
 
 function SideBar() {
     const dispatch=useDispatch();
@@ -17,7 +18,11 @@ function SideBar() {
     const active = location.pathname === '/dashboard/settings' ? 'tw-text-yellow-50 tw-border-b-[3px] md:tw-border-l-[3px] md:tw-border-b-0 tw-border-yellow-50' : 'hover:tw-bg-[#3d2a01] hover:tw-text-white'
 
     function handleLogout(){
+        console.log("Hello")
+        //~ To show Logout Model
         dispatch(setLogout(true))
+        // dispatch({type:'logout'})
+        // dispatch(setLogout(true))
     }
 
     return (
