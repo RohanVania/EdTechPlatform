@@ -4,6 +4,7 @@ import { userApiEndpoints } from "../apiList"
 import {updateUser,setChangeProfileFlag, setUser} from "../../slices/profileSlice"
 import { setToken, setdeleteAccount } from "../../slices/authSlice";
 
+//* Change Password Api Operation 
 export const changePasswordApiOperation = async (formData, setApiCalled) => {
     try {
         setApiCalled(true);
@@ -37,7 +38,7 @@ export const changePasswordApiOperation = async (formData, setApiCalled) => {
     }
 }
 
-
+//* Change Image Operation 
 export const changeImageOperation = async (file,dispatch,setApiCalled) => {
     try {
         setApiCalled(true);
@@ -74,6 +75,7 @@ export const changeImageOperation = async (file,dispatch,setApiCalled) => {
     }
 }
 
+//* Change Profile Info Api Operation 
 export const changeProfileInfo = async (formData,dispatch) => {
     try {
         dispatch(setChangeProfileFlag(true))

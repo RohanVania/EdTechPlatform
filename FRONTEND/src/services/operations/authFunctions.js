@@ -1,9 +1,11 @@
 import toast from "react-hot-toast";
 import { apiCaller } from "../apiconnector"
 import { authEndPoints } from "../apiList"
-import { setLoading, setRegisterData, setToken,setLogout } from "../../slices/authSlice"
+import { setLoading, setRegisterData, setToken, setLogout } from "../../slices/authSlice"
 import { setUser } from "../../slices/profileSlice"
 
+
+//* Login Api Operation 
 export const loginApiOperation = async (formdata, navigate, dispatch) => {
     dispatch(setLoading(true))
     try {
@@ -37,7 +39,7 @@ export const loginApiOperation = async (formdata, navigate, dispatch) => {
     }
 }
 
-
+//* Forgot Password Api Operation 
 export const forgotPasswordApiOperation = async (formdata, setEmailSent, setApiCalled, dispatch) => {
     try {
         dispatch(setLoading(true))
@@ -84,6 +86,8 @@ export const forgotPasswordApiOperation = async (formdata, setEmailSent, setApiC
 
 }
 
+
+//* Send Otp API Operation 
 export const sendOtpApiOperation = async (formData, setApiSent, dispatch) => {
     try {
         setApiSent(true)
@@ -125,6 +129,8 @@ export const sendOtpApiOperation = async (formData, setApiSent, dispatch) => {
     }
 }
 
+
+//* Register Api Operation
 export const registerApiOperation = async (formData, setApiCalled, navigate, dispatch) => {
     try {
         setApiCalled(true)
@@ -157,6 +163,7 @@ export const registerApiOperation = async (formData, setApiCalled, navigate, dis
     }
 }
 
+//* Check Reset Password
 export const checkResetPasswordTokenApiOperation = async (params, setApiCalled, navigate) => {
     try {
         const token = params.resetToken
@@ -172,6 +179,7 @@ export const checkResetPasswordTokenApiOperation = async (params, setApiCalled, 
     }
 }
 
+//* Reset Password Operation 
 export const resetPasswordApiOperation = async (formData, navigate) => {
     try {
         const apiResult = await toast.promise(apiCaller('POST', authEndPoints.RESET_PASSWORD, formData),
@@ -202,17 +210,21 @@ export const resetPasswordApiOperation = async (formData, navigate) => {
 }
 
 
+
+//* Logout Operation
 export const logoutOperation = async (dispatch) => {
     try {
         const axiosResponse = await apiCaller('GET', authEndPoints.LOGOUT_API)
-        localStorage.clear();
         console.log(axiosResponse)
-        dispatch(setLogout(false))
-        dispatch(setToken(null))
-        dispatch(setUser(null))
-        toast.success("Successfully logged  out",{
-            id:"logout-success-1"
-        })
+        dispatch({type:'logout'})
+        localStorage.clear();
+
+        if (axiosResponse.data.status === 'Success') {
+            toast.success("Successfully logged  out", {
+                id: "logout-success-1"
+            })
+        }
+
         return axiosResponse;
     } catch (err) {
         console.log(err)

@@ -101,7 +101,7 @@ function App() {
 
   return (
     <>
-      {authGlobalState.logout &&
+      {authGlobalState?.logout &&
         <div className="tw-bg-[rgba(0,0,0,0.2)] tw-filter  tw-fixed tw-top-0 tw-bottom-0 tw-z-[1000] tw-h-full tw-w-full tw-backdrop-blur-md tw-flex tw-justify-center tw-items-center ">
 
           <div className=" tw-bg-richblack-800 tw-max-w-[900px]  tw-m-5  tw-text-white tw-flex tw-flex-col tw-p-6 tw-rounded-lg tw-border tw-border-richblack-400 tw-gap-y-3">
@@ -120,7 +120,7 @@ function App() {
         </div>
       }
 
-      {authGlobalState.deleteAccount &&
+      {authGlobalState?.deleteAccount &&
         <div className="tw-bg-[rgba(0,0,0,0.2)] tw-filter  tw-fixed tw-top-0 tw-bottom-0 tw-z-[1000] tw-h-full tw-w-full tw-backdrop-blur-md tw-flex tw-justify-center tw-items-center ">
 
           <div className=" tw-bg-richblack-800 tw-max-w-[900px]  tw-m-5  tw-text-white tw-flex tw-flex-col tw-p-6 tw-rounded-lg tw-border tw-border-richblack-400 tw-gap-y-3">

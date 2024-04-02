@@ -3,7 +3,7 @@ import { apiCaller } from "../apiconnector"
 import { publicApi } from "../apiList"
 
 
-
+//* Get All Categories Api Operation 
 export const getAllCategories = async () => {
     try {
         const { data } = await apiCaller('GET', publicApi.SHOW_ALL_CATEGORY);
@@ -15,6 +15,7 @@ export const getAllCategories = async () => {
 }
 
 
+//* Check Authenticated Api Operation 
 export const checkAuthenticated = async (dispatch, token) => {
     try {
         const { data } = await apiCaller('GET', publicApi.CHECK_ALREADY_LOGGED_IN);
