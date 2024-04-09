@@ -24,7 +24,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLogout, setdeleteAccount } from "./slices/authSlice";
 import { logoutOperation } from "./services/operations/authFunctions"
 import { deleteOperation } from "./services/operations/userFunctions";
-import CourseAddLayout from "./components/addCourse/CourseAddLayout";
+import CourseAddLayout from "./components/course/CourseAddLayout";
+import MyCourses from "./components/course/MyCourses";
 
 function App() {
 
@@ -162,7 +163,7 @@ function App() {
               <Route path="/dashboard/settings" element={<Settings />} />
               <Route path="/dashboard/enrolled-courses" element={<h1 className="tw-text-white">Enrolled Courses</h1>} />
               <Route path="/dashboard/purchase-history" element={<h1 className="tw-text-white">Purschase History</h1>} />
-              <Route path="/dashboard/my-courses" element={<h1 className="tw-text-white">My Courses</h1>} />
+              <Route path="/dashboard/my-courses" element={<MyCourses/>} />
               <Route path="/dashboard/add-course" element={<CourseAddLayout/>} />
             </Route>
 

@@ -215,7 +215,7 @@ export const resetPasswordApiOperation = async (formData, navigate) => {
 export const logoutOperation = async (dispatch) => {
     try {
         const axiosResponse = await apiCaller('GET', authEndPoints.LOGOUT_API)
-        console.log(axiosResponse)
+        console.log(axiosResponse) 
         dispatch({type:'logout'})
         localStorage.clear();
 

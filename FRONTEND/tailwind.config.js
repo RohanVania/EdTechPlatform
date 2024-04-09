@@ -162,7 +162,9 @@ module.exports = {
 
       maxWidth: {
         maxContent: "1260px",
-        maxContentTab: "650px"
+        maxContentTab: "650px",
+        
+
       },
     },
   },
