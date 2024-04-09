@@ -158,12 +158,12 @@ module.exports = {
         // => @media (min-width: 1280px) { ... }
         '2xl': '1536px',
         // => @media (min-width: 1536px) { ... }
+        
       },
 
       maxWidth: {
         maxContent: "1260px",
         maxContentTab: "650px",
-        
 
       },
     },
