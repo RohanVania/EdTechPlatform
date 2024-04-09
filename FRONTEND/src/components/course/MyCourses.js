@@ -20,10 +20,10 @@ function MyCourses() {
                 <table className=" tw-w-full tw-py-3">
                     <thead className="">
                         <tr className=" lg:tw-flex-row tw-flex-col tw-flex-wrap tw-text-left tw-gap-x-3 tw-py-4  tw-px-2 tw-hidden xl:tw-flex ">
-                            <td className="tw-flex-1  tw-py-3 tw-px-3">Course</td>
-                            <td className="tw-flex-[0.1]  tw-py-3 tw-px-3">Duration</td>
-                            <td className="tw-flex-[0.1]  tw-py-3 tw-px-3">Price</td>
-                            <td className="tw-flex-[0.1]  tw-py-3 tw-px-3">Action</td>
+                            <td className="tw-flex-1  tw-py-3 tw-px-3  tw-font-[600] tw-text-[20px]">Course</td>
+                            <td className="tw-flex-[0.1]  tw-py-3 tw-px-3 tw-font-[600] tw-text-[20px]">Duration</td>
+                            <td className="tw-flex-[0.1]  tw-py-3 tw-px-3 tw-font-[600] tw-text-[20px]">Price</td>
+                            <td className="tw-flex-[0.1]  tw-py-3 tw-px-3 tw-font-[600] tw-text-[20px]">Action</td>
                         </tr>
                     </thead>
                     <tbody className="">
