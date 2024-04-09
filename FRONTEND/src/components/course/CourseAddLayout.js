@@ -2,10 +2,10 @@ import React, { useState, useRef } from 'react'
 import CourseTip from './CourseTip'
 
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
-import Step1Form from '../StepperForm/Step1Form';
+import Step1Form from '../stepperForm/Step1Form';
 import { useSelector } from 'react-redux';
-import Step2Form from '../StepperForm/Step2Form';
-import Step3Form from "../StepperForm/Step3Form"
+import Step2Form from '../stepperForm/Step2Form';
+import Step3Form from "../stepperForm/Step3Form"
 import { FaCheck } from "react-icons/fa";
 
 
