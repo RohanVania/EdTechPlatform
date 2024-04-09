@@ -36,8 +36,6 @@ exports.createCourse = async (req, resp) => {
             })
         }
 
-        
-
         // Course not yet published
         if (!status || status === undefined) {
             status = "Draft";

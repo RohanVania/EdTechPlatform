@@ -99,7 +99,6 @@ function Step1Form() {
         // console.log(getValues('tag'));
         // console.log(getValues('instructions'))
         const isValid = await trigger(['courseName', 'courseDescription', 'price', 'category', 'whatYouWillLearn', 'instructions', 'tag'])
-
         // console.log(errors)
 
         if (isValid) {
