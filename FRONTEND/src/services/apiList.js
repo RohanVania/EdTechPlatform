@@ -24,3 +24,9 @@ export const publicApi={
     SHOW_ALL_CATEGORY:'/course/showAllCategories',
     CHECK_ALREADY_LOGGED_IN:'/auth/checkalreadyLoggedIn',
 }
+
+//* Course API URLS
+
+export const courseApi={
+    MY_COURSES:'/course/mycourses'
+}

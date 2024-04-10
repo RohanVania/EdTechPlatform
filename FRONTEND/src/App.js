@@ -38,6 +38,7 @@ function App() {
     queryKey: ['categories'],
     // staleTime: Infinity,
     queryFn: getAllCategories,
+    refetchOnMount:true
   })
 
   const alreadyLoggedIn = useQuery({

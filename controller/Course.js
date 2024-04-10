@@ -1,6 +1,6 @@
 const User = require("../model/User");
 const Course = require("../model/Course")
-const Category=require("../model/Category");
+const Category = require("../model/Category");
 const { imageUploader } = require("../utils/imageUploader")
 
 
@@ -10,7 +10,7 @@ exports.createCourse = async (req, resp) => {
     try {
 
         // const userId = req.user.id;
-        const userid=req?.user?.id;
+        const userid = req?.user?.id;
 
         let {
             courseName,
@@ -26,10 +26,10 @@ exports.createCourse = async (req, resp) => {
         } = req.body
 
         // file for thumbnail
-        
+
         const thumbnail = req.files?.thumbnailImage;
         // validation
-        if (!courseName || !courseDescription || !whatYouWillLearn || !price || !tag || !thumbnail || !category ||!instructions) {
+        if (!courseName || !courseDescription || !whatYouWillLearn || !price || !tag || !thumbnail || !category || !instructions) {
             return resp.status(200).json({
                 status: "Failed",
                 msg: "Some fields that are missing are required while creating course !"
@@ -47,7 +47,7 @@ exports.createCourse = async (req, resp) => {
             {
                 accountType: "Instructor"
             }
-            );
+        );
 
         console.log("Instructor Details =>", instructorDetails);
 
@@ -61,11 +61,11 @@ exports.createCourse = async (req, resp) => {
         }
         // validate Category also
 
-        const categoryData=await Category.findOne({name:category});
-        if(!categoryData){
+        const categoryData = await Category.findOne({ name: category });
+        if (!categoryData) {
             return resp.status(200).json({
-                status:"Failed",
-                message:"Given Category doesn't exists"
+                status: "Failed",
+                message: "Given Category doesn't exists"
             })
         }
 
@@ -79,21 +79,21 @@ exports.createCourse = async (req, resp) => {
 
         // If the instructor already has a course with same name inform him
 
-        const alreadyCourseWithSameName=await Course.findOne({
-            courseName:courseName,
-            instructor:userid
+        const alreadyCourseWithSameName = await Course.findOne({
+            courseName: courseName,
+            instructor: userid
         })
 
-        if(alreadyCourseWithSameName){
+        if (alreadyCourseWithSameName) {
             return resp.status(200).json({
-                status:"Failed",
-                message:"Instructor has already created, course with same name"
+                status: "Failed",
+                message: "Instructor has already created, course with same name"
             })
         }
 
         // If all good upload file to cloudinary 
         const thumbnailImage = await imageUploader(thumbnail, process.env.FOLDER_NAME)
-        console.log("ThumbNail Image =>",thumbnailImage);
+        console.log("ThumbNail Image =>", thumbnailImage);
 
         // add Entry in course
         const newCourse = await Course.create({
@@ -152,8 +152,7 @@ exports.createCourse = async (req, resp) => {
     }
 }
 
-// Get All Courses
-
+//* Get All Courses
 exports.getAllCourses = async (req, resp) => {
     try {
         //TODO: change the below statement incrementally
@@ -190,8 +189,8 @@ exports.getAllCourses = async (req, resp) => {
 }
 
 
-// getCourseDetails
-// using course Id we fetche details and populate
+//* GetCourseDetails
+//* Using course Id we fetche details and populate
 
 exports.getCourseDetails = async (req, resp) => {
     try {
@@ -250,6 +249,32 @@ exports.getCourseDetails = async (req, resp) => {
             {
                 status: "Failed",
                 msg: "error in fetchting all detials of course",
+                errormsg: error
+            }
+        )
+    }
+}
+
+//* Get MyCourses
+
+exports.getMyCourses = async (req, resp) => {
+    try {
+        const { id } = req.user;
+        const mycoursesResult = await User.findById(id,{courses:1}).populate('courses')
+        // console.log("Course Details =>",mycoursesResult);
+        
+        return resp.status(200).json({
+            status: "Success",
+            message: 'Data for all my courses fetched successfully',
+            data: mycoursesResult
+        })
+    }
+    catch (error) {
+        console.log(error);
+        return resp.status(200).json(
+            {
+                status: "Failed",
+                msg: "Error in Fetching my courses for Instructor",
                 errormsg: error
             }
         )
