@@ -7,7 +7,7 @@ const router=express.Router();
 const{auth,isInstructor, isAdmin}=require("../middlewares/auth");
 
 //* Course Controller
-const {createCourse,getAllCourses, getCourseDetails}=require("../controller/Course");
+const {createCourse,getAllCourses, getCourseDetails,getMyCourses}=require("../controller/Course");
 
 //* Category Controller
 const {createCategory,showAllCategories,categoryPageDetails}=require("../controller/Category");
@@ -37,6 +37,8 @@ router.delete("/deleteSection",auth,isInstructor,deleteSection)
 router.post("/addSubSection",auth,isInstructor,createSubSection)
 router.delete("/deleteSubSection",auth,isInstructor,deleteSubSection)
 router.post("/updateSubSection",auth,isInstructor,updateSubSection)
+
+router.get("/mycourses",auth,isInstructor,getMyCourses)
 
 // ********************************************************************************************************
 //                                     Category routes (Only by Admin)
