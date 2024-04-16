@@ -26,7 +26,7 @@ function MyCourses() {
     }
 
     return (
-        <>
+        <> 
 
             <div>
 
