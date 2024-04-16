@@ -18,9 +18,10 @@ function CourseAddLayout() {
             category: "",
             tag: [],
             instructions: [],
+            section:[],
+
         }
     })
-
 
 
     return (

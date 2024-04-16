@@ -5,7 +5,8 @@ const initialState={
     savedcourse:null,
     course:null,
     editCourse:false,
-    loading:false
+    loading:false,
+    addLecture:false
 }
 
 const addcourseSlice=createSlice({
@@ -14,9 +15,13 @@ const addcourseSlice=createSlice({
     reducers:{
         setStep:(state,action)=>{
             state.step=action.payload
+        },
+        setAddLecture:(state,action)=>{
+            state.addLecture=!state.addLecture;
         }
+
     }
 })
 
-export const {setStep}=addcourseSlice.actions
+export const {setStep,setAddLecture}=addcourseSlice.actions
 export default addcourseSlice.reducer

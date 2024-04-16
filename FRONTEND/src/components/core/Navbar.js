@@ -29,7 +29,7 @@ function Navbar({ categoryData }) {
 
     return (
         <>
-            <div id='navbar' className='tw-bg-richblack-900  tw-min-h-[78px]  tw-flex tw-items-center tw-border-b-[0.7px] tw-border-richblack-700 tw-fixed tw-top-0 tw-w-full tw-z-[999] '>
+            <div id='navbar' className='tw-bg-richblack-900  tw-min-h-[78px]  tw-flex tw-items-center tw-border-b-[0.7px] tw-border-richblack-700 tw-sticky tw-top-0 tw-w-full tw-z-[999] '>
                 <nav className=' tw-w-[100%] xs:tw-w-11/12 tw-px-4 2xs:tw-px-5 xs:tw-px-4 md:tw-px-0  tw-flex navbarmd:tw-justify-between tw-justify-around tw-items-center tw-mx-auto tw-text-[16px] tw-font-[400] tw-text-richblack-25 '>
                     <div className='tw-bg-yellow-10 tw-w-[160px] tw-h-[32px] xs:tw-w-auto'>
                         <Link to="/">
