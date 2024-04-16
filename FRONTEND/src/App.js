@@ -26,6 +26,7 @@ import { logoutOperation } from "./services/operations/authFunctions"
 import { deleteOperation } from "./services/operations/userFunctions";
 import CourseAddLayout from "./components/course/CourseAddLayout";
 import MyCourses from "./components/course/MyCourses";
+import Modal from "./components/core/Modal";
 
 function App() {
 
@@ -38,7 +39,7 @@ function App() {
     queryKey: ['categories'],
     // staleTime: Infinity,
     queryFn: getAllCategories,
-    refetchOnMount:true
+    refetchOnMount: true
   })
 
   const alreadyLoggedIn = useQuery({
@@ -85,60 +86,62 @@ function App() {
     }
   }
 
- async function handleDeleteAccount(){
-    try{
-      const response=await deleteOperation(dispatch);
-      if(response?.data?.status==="Success"){
+  async function handleDeleteAccount() {
+    try {
+      const response = await deleteOperation(dispatch);
+      if (response?.data?.status === "Success") {
         navigate('/')
       }
-    }catch(err){
+    } catch (err) {
       console.log(err);
     }
   }
 
-  function handleDeleteCancel(){
+  function handleDeleteCancel() {
     dispatch(setdeleteAccount(false))
   }
-  
+
 
   return (
     <>
       {authGlobalState?.logout &&
-        <div className="tw-bg-[rgba(0,0,0,0.2)] tw-filter  tw-fixed tw-top-0 tw-bottom-0 tw-z-[1000] tw-h-full tw-w-full tw-backdrop-blur-md tw-flex tw-justify-center tw-items-center ">
+        <Modal btn1={"Logout"} btn2={"Cancel"} question={"Are You Sure ?"} text={"You will be logged out of your account"} handleLogout={handleLogout} handleLogoutCancel={handleLogoutCancel}/> 
+        // <div className="tw-bg-[rgba(0,0,0,0.2)] tw-filter  tw-fixed tw-top-0 tw-bottom-0 tw-z-[1000] tw-h-full tw-w-full tw-backdrop-blur-md tw-flex tw-justify-center tw-items-center ">
 
-          <div className=" tw-bg-richblack-800 tw-max-w-[900px]  tw-m-5  tw-text-white tw-flex tw-flex-col tw-p-6 tw-rounded-lg tw-border tw-border-richblack-400 tw-gap-y-3">
-            <h1 className=" tw-font-semibold tw-text-richblack-5  tw-text-[20px] 2xs:tw-text-[22px]  sm:tw-text-3xl">Are You Sure ?</h1>
-            <p className="tw-text-richblack-200  tw-text-[14px] 2xs:tw-text-[15px]  sm:tw-text-[19px]">You will be logged out of your account</p>
-            <div className="tw-flex tw-mt-3 tw-gap-x-4">
-              <button className='tw-bg-yellow-50 tw-font-semibold tw-rounded-md  tw-flex tw-items-center tw-px-4 xs:tw-px-6 tw-py-2 xs:tw-py-2 tw-gap-x-2 tw-text-[13px] 2xs:tw-text-[15px]  sm:tw-text-[17px]  tw-text-richblack-900' onClick={handleLogout}>
-                Logout
-              </button>
-              <button className='tw-bg-richblack-200 tw-font-semibold tw-rounded-md  tw-flex tw-items-center tw-px-4 xs:tw-px-6 tw-gap-x-2 tw-text-[13px] 2xs:tw-text-[15px]  sm:tw-text-[17px]  tw-text-richblack-900' onClick={handleLogoutCancel} >
-                Cancel
-              </button>
-            </div>
-          </div>
+        //   <div className=" tw-bg-richblack-800 tw-max-w-[900px]  tw-m-5  tw-text-white tw-flex tw-flex-col tw-p-6 tw-rounded-lg tw-border tw-border-richblack-400 tw-gap-y-3">
+        //     <h1 className=" tw-font-semibold tw-text-richblack-5  tw-text-[20px] 2xs:tw-text-[22px]  sm:tw-text-3xl">Are You Sure ?</h1>
+        //     <p className="tw-text-richblack-200  tw-text-[14px] 2xs:tw-text-[15px]  sm:tw-text-[19px]">You will be logged out of your account</p>
+        //     <div className="tw-flex tw-mt-3 tw-gap-x-4">
+        //       <button className='tw-bg-yellow-50 tw-font-semibold tw-rounded-md  tw-flex tw-items-center tw-px-4 xs:tw-px-6 tw-py-2 xs:tw-py-2 tw-gap-x-2 tw-text-[13px] 2xs:tw-text-[15px]  sm:tw-text-[17px]  tw-text-richblack-900' onClick={handleLogout}>
+        //         Logout
+        //       </button>
+        //       <button className='tw-bg-richblack-200 tw-font-semibold tw-rounded-md  tw-flex tw-items-center tw-px-4 xs:tw-px-6 tw-gap-x-2 tw-text-[13px] 2xs:tw-text-[15px]  sm:tw-text-[17px]  tw-text-richblack-900' onClick={handleLogoutCancel} >
+        //         Cancel
+        //       </button>
+        //     </div>
+        //   </div>
 
-        </div>
+        // </div>
       }
 
       {authGlobalState?.deleteAccount &&
-        <div className="tw-bg-[rgba(0,0,0,0.2)] tw-filter  tw-fixed tw-top-0 tw-bottom-0 tw-z-[1000] tw-h-full tw-w-full tw-backdrop-blur-md tw-flex tw-justify-center tw-items-center ">
+      <Modal btn1={"Delete"} btn2={"Cancel"} question={"Are You Sure ?"} text={"Your Account will be deleted permanently and all the data will be lost ?"} handleLogout={handleDeleteAccount} handleLogoutCancel={handleDeleteCancel}/> 
+        // <div className="tw-bg-[rgba(0,0,0,0.2)] tw-filter  tw-fixed tw-top-0 tw-bottom-0 tw-z-[1000] tw-h-full tw-w-full tw-backdrop-blur-md tw-flex tw-justify-center tw-items-center ">
 
-          <div className=" tw-bg-richblack-800 tw-max-w-[900px]  tw-m-5  tw-text-white tw-flex tw-flex-col tw-p-6 tw-rounded-lg tw-border tw-border-richblack-400 tw-gap-y-3">
-            <h1 className=" tw-font-semibold tw-text-richblack-5  tw-text-[20px] 2xs:tw-text-[22px]  sm:tw-text-3xl">Are You Sure ?</h1>
-            <p className=" tw-text-[14px] 2xs:tw-text-[15px]  sm:tw-text-[19px] tw-text-red-600">Your Account will be deleted permanently and all the data will be lost ?</p>
-            <div className="tw-flex tw-mt-3 tw-gap-x-4">
-              <button className='tw-bg-red-500 tw-text-white tw-font-semibold tw-rounded-md  tw-flex tw-items-center tw-px-4 xs:tw-px-6 tw-py-2 xs:tw-py-2 tw-gap-x-2 tw-text-[13px] 2xs:tw-text-[15px]  sm:tw-text-[17px]  ' onClick={handleDeleteAccount}>
-                Delete
-              </button>
-              <button className='tw-bg-richblack-200 tw-font-semibold tw-rounded-md  tw-flex tw-items-center tw-px-4 xs:tw-px-6 tw-gap-x-2 tw-text-[13px] 2xs:tw-text-[15px]  sm:tw-text-[17px]  tw-text-richblack-900' onClick={handleDeleteCancel} >
-                Cancel
-              </button>
-            </div>
-          </div>
+        //   <div className=" tw-bg-richblack-800 tw-max-w-[900px]  tw-m-5  tw-text-white tw-flex tw-flex-col tw-p-6 tw-rounded-lg tw-border tw-border-richblack-400 tw-gap-y-3">
+        //     <h1 className=" tw-font-semibold tw-text-richblack-5  tw-text-[20px] 2xs:tw-text-[22px]  sm:tw-text-3xl">Are You Sure ?</h1>
+        //     <p className=" tw-text-[14px] 2xs:tw-text-[15px]  sm:tw-text-[19px] tw-text-red-600">Your Account will be deleted permanently and all the data will be lost ?</p>
+        //     <div className="tw-flex tw-mt-3 tw-gap-x-4">
+        //       <button className='tw-bg-red-500 tw-text-white tw-font-semibold tw-rounded-md  tw-flex tw-items-center tw-px-4 xs:tw-px-6 tw-py-2 xs:tw-py-2 tw-gap-x-2 tw-text-[13px] 2xs:tw-text-[15px]  sm:tw-text-[17px]  ' onClick={handleDeleteAccount}>
+        //         Delete
+        //       </button>
+        //       <button className='tw-bg-richblack-200 tw-font-semibold tw-rounded-md  tw-flex tw-items-center tw-px-4 xs:tw-px-6 tw-gap-x-2 tw-text-[13px] 2xs:tw-text-[15px]  sm:tw-text-[17px]  tw-text-richblack-900' onClick={handleDeleteCancel} >
+        //         Cancel
+        //       </button>
+        //     </div>
+        //   </div>
 
-        </div>
+        // </div>
       }
 
       <div className="tw-font-inter tw-bg-richblack-900 tw-h-full  tw-relative">
@@ -164,8 +167,8 @@ function App() {
               <Route path="/dashboard/settings" element={<Settings />} />
               <Route path="/dashboard/enrolled-courses" element={<h1 className="tw-text-white">Enrolled Courses</h1>} />
               <Route path="/dashboard/purchase-history" element={<h1 className="tw-text-white">Purschase History</h1>} />
-              <Route path="/dashboard/my-courses" element={<MyCourses/>} />
-              <Route path="/dashboard/add-course" element={<CourseAddLayout/>} />
+              <Route path="/dashboard/my-courses" element={<MyCourses />} />
+              <Route path="/dashboard/add-course" element={<CourseAddLayout />} />
             </Route>
 
             <Route element={<Test />} path="/test" />
