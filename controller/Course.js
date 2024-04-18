@@ -5,7 +5,6 @@ const { imageUploader } = require("../utils/imageUploader")
 
 
 //* Create Course
-
 exports.createCourse = async (req, resp) => {
     try {
 
@@ -21,9 +20,7 @@ exports.createCourse = async (req, resp) => {
             category,
             //? Improvement 
             status,
-            instructions
-
-        } = req.body
+            instructions } = req.body
 
         // file for thumbnail
 
@@ -110,7 +107,6 @@ exports.createCourse = async (req, resp) => {
         })
 
         // add course in userSchema of instructor as well
-
         const updateUserDetails = await User.findByIdAndUpdate(
             { _id: instructorDetails._id },
             {
@@ -124,7 +120,6 @@ exports.createCourse = async (req, resp) => {
         )
 
         //update the TAG ka schema 
-
         const updateCategoryDetails = await Category.findByIdAndUpdate({ _id: categoryData._id },
             {
                 $push: {
@@ -260,9 +255,9 @@ exports.getCourseDetails = async (req, resp) => {
 exports.getMyCourses = async (req, resp) => {
     try {
         const { id } = req.user;
-        const mycoursesResult = await User.findById(id,{courses:1}).populate('courses')
+        const mycoursesResult = await User.findById(id, { courses: 1 }).populate('courses')
         // console.log("Course Details =>",mycoursesResult);
-        
+
         return resp.status(200).json({
             status: "Success",
             message: 'Data for all my courses fetched successfully',
@@ -278,5 +273,32 @@ exports.getMyCourses = async (req, resp) => {
                 errormsg: error
             }
         )
+    }
+}
+
+//* Delete Course by Id
+exports.deleteParticularCourse = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const response = await Course.findByIdAndDelete(id);
+        if(response===null){
+            return response.status(200).json({
+                status:"Success",
+                data:"Nothing",
+                msg:'Given course is already deleted'
+            })
+        }
+        return res.status(200).json({
+            status:"Success",
+            msg:"Course deleted successfully",
+        })
+    }
+    catch (err) {
+        console.log(err);
+        return res.status(200).json({
+            status:"Failed",
+            msg:"Error while deleting a course",
+            errmsg:err
+        })
     }
 }

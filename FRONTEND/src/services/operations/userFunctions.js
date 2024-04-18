@@ -80,12 +80,16 @@ export const changeProfileInfo = async (formData,dispatch) => {
     try {
         dispatch(setChangeProfileFlag(true))
         const response = await apiCaller('PUT', userApiEndpoints.CHANGE_PROFILE_INFO_API,formData)
+        let localstorageitem=JSON.parse(localStorage.getItem('user'))
         console.log(response)
         if(response.data.status==='Success'){
             dispatch(updateUser(response.data.updatedDocument));
             toast.success('Details changed successfully 🔥',{
                 id:'details-changed-1'
             });
+            localstorageitem={...response.data.updatedDocument};
+            localstorageitem.password=undefined;
+            localStorage.setItem('user',JSON.stringify(localstorageitem))
         }
         else{
             toast.error(response.data.msg,{
