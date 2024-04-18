@@ -14,6 +14,7 @@ import Vector from "../assets/Images/bghome.svg"
 import InstructorImage from "../assets/Images/Instructor.png"
 
 import Footer from '../components/core/Footer'
+import { useNavigate } from 'react-router-dom'
 
 
 const btndata1 = {
@@ -56,16 +57,19 @@ const btndata3 = {
 }
 
 export function HomePage() {
+
+  const navigate =useNavigate();
+
   return (
     <>
       {/* Section 1 */}
-      <div id='section1' className='tw-bg-red-20 tw-bg-richblack-900  tw-mt-[70px]'>
+      <div id='section1' className='tw-bg-red-20 tw-bg-richblack-900  sm:tw-mt-[40px]'>
 
         <div className='tw-px-3 tw-w-11/12 tw-mx-auto '>
           {/* BUTTON */}
-          <div className=' tw-px- tw-pt-[60px] tw-pb-[7px] md:tw-pb-[15px]  tw-text-richblack-200 tw-mx-auto'>
+          <div className=' tw-px- tw-pt-[60px] tw-pb-[7px] md:tw-pb-[15px]  tw-text-richblack-200 tw-mx-auto tw-cursor-pointer' onClick={()=>navigate("/signup")}>
             <div className='tw-flex tw-items-center tw-justify-center tw-gap-2 btn:tw-w-[260px] tw-shadow-[0_0px_6px_0px_rgba(255,255,255,0.3)]  tw-bg-[#161d29] tw-rounded-full tw-px-[6px] tw-py-[12px] tw-text-[11px] 3xs:tw-text-[13px] btnalign:tw-mx-auto btnalign:tw-text-[19px] btnalign:tw-w-[290px]'>
-              <div className='tw-px-1'>
+              <div className='tw-px-1 '>
                 Become an Instructor
               </div>
               <AiOutlineArrowRight />

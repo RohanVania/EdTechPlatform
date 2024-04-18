@@ -50,7 +50,7 @@ function DisplayInfo() {
                     </div>
                 }
                 {
-                    profileState?.additionalDetails?.gender && profileState?.additionalDetails?.gender !=='no' &&
+                    profileState?.additionalDetails?.gender &&
                     <div className='tw-flex tw-flex-col tw-gap-y-1'>
                         <h3 className='tw-text-[15x] 2xs:tw-text-[15px] sm:tw-text-[16px] xl:tw-text-[16px]  tw-text-richblack-300'>Gender</h3>
                         <p className='tw-text-[14px]  2xs:tw-text-[14px] sm:tw-text-[14px] xl:tw-text-[15px]  tw-text-richblack-300 tw-capitalize'>{profileState?.additionalDetails?.gender}</p>

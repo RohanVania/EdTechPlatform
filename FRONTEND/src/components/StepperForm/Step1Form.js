@@ -4,9 +4,15 @@ import { useFormContext, useFieldArray } from 'react-hook-form';
 import { FaChevronRight } from "react-icons/fa6";
 import { FiUploadCloud } from "react-icons/fi";
 import { queryClient } from "../../index"
+import { useDispatch, useSelector } from 'react-redux';
+import { setStep } from '../../slices/addcourseSlice';
 
 
 function Step1Form() {
+
+    const dispatch = useDispatch();
+    const globalAddCourseState = useSelector((state) => state?.addcourse);
+
     const { data: categories } = queryClient.getQueryData('categories');
 
     const [Taginput, setTagInput] = useState('');  //* Tag Input
@@ -16,6 +22,8 @@ function Step1Form() {
     const [imgpreview, setImgPreview] = useState(null);
 
     const { register, trigger, watch, control, setError, getValues, setValue, formState: { errors } } = useFormContext();
+
+    //* For Tag 
     const { fields, append, remove } = useFieldArray({
         control,
         name: 'tag',
@@ -26,6 +34,7 @@ function Step1Form() {
 
     })
 
+    //* For Instructions
     const { fields: instructions, append: add, remove: rem } = useFieldArray({
         control,
         name: 'instructions',
@@ -35,9 +44,6 @@ function Step1Form() {
         }
     })
 
-
-
-    
     const inputfile = useRef(null)
 
     function handleChange(e) {
@@ -56,7 +62,7 @@ function Step1Form() {
         }
     }
 
-  
+
 
     function addRequirement() {
         const trimmedinput = requirementinput.trim();
@@ -65,10 +71,10 @@ function Step1Form() {
         setRequirementInput("")
     }
 
-    
+
 
     function InvokeFileUpload() {
-        inputfile.current.click();
+        inputfile?.current?.click();
     }
 
     function handleFileChange(e) {
@@ -102,7 +108,11 @@ function Step1Form() {
         // console.log(errors)
 
         if (isValid) {
-         console.log("Go to Step 2 form");
+            console.log("Go to Step 2 form");
+            console.log("Form Filled Values => ", getValues())
+
+            
+            dispatch(setStep(2));
         }
 
     }
@@ -239,7 +249,7 @@ function Step1Form() {
             <div className='tw-flex tw-flex-col'>
                 <label className='tw-mb-3 tw-text-sm tw-text-richblack-5'>Requirements / Instructions <sup className='tw-text-pink-200 tw-ml-1'>*</sup></label>
                 <input type='text' value={requirementinput} className=' tw-bg-richblack-700 tw-text-[#999DAA] formshadow ' placeholder='Enter Requirements or Instructions'
-                onChange={(e) => setRequirementInput(e.target.value)} 
+                    onChange={(e) => setRequirementInput(e.target.value)}
 
                 />
                 {
@@ -252,10 +262,10 @@ function Step1Form() {
                         {
                             instructions?.map((el, indx) => {
                                 return <li key={indx} className='tw-text-gray-400 tw-ml-1'>{Object.values(el).slice(0, -1).join("")}<button type='button' className='tw-cursor-pointer tw-p-1 tw-ml-2 tw-text-xs tw-text-pure-greys-300' onClick={() => rem(indx)} >clear</button></li>
-                                
+
                             })
 
-                            
+
                         }
                     </ul>
                 </div>

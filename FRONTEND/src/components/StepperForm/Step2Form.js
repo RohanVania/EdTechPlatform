@@ -8,10 +8,17 @@ import { FiEdit2 } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
 import { FaChevronDown } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
+import { useDispatch } from 'react-redux';
+import { setStep } from '../../slices/addcourseSlice';
 
 
 function Step2Form() {
 
+  const dispatch=useDispatch();
+
+  function GoBack(){
+    dispatch(setStep(1))
+  }
 
 
   function createSection(event) {
@@ -88,7 +95,7 @@ function Step2Form() {
       </ul>
 
       <div className='tw-bg-red-40 tw-flex tw-gap-x-3 tw-justify-end'>
-        <button className='tw-cursor-pointer tw-px-[24px] tw-font-semibold  tw-py-[12px] tw-rounded-[8px] tw-text-center tw-text-richblack-5 tw-flex tw-justify-center tw-items-center tw-gap-x-2 tw-bg-richblack-700 '>
+        <button onClick={GoBack} className='tw-cursor-pointer tw-px-[24px] tw-font-semibold tw-py-[12px] tw-rounded-[8px] tw-text-center tw-text-richblack-5 tw-flex tw-justify-center tw-items-center tw-gap-x-2 tw-bg-richblack-700 '>
           <FaChevronLeft className='tw-text-[13px]' />
           Back
         </button>

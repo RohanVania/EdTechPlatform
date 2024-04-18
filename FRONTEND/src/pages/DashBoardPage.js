@@ -11,7 +11,7 @@ function DashBoardPage() {
 
   return (
     <>
-      <div className='tw-mt-[78px lg:tw-mt-[78px   tw-text-black  tw-mx-auto  tw-min-h-[92.1vh] lg:tw-min-h-[91.9vh]  tw-flex tw-bg-green-400'>
+      <div className='tw-mt-[78px lg:tw-mt-[78px   tw-text-black  tw-mx-auto  tw-min-h-[92.1vh] lg:tw-min-h-[91.9vh]  tw-flex '>
 
         {/* Modal */}
         {

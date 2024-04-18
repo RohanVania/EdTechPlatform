@@ -28,5 +28,6 @@ export const publicApi={
 //* Course API URLS
 
 export const courseApi={
-    MY_COURSES:'/course/mycourses'
+    MY_COURSES:'/course/mycourses',
+    DELETE_PARTICULAR_COURSE:(id)=>`/course/deleteCourse/${id}`,
 }
