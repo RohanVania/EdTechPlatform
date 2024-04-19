@@ -28,7 +28,7 @@ function SideBar() {
     return (
         <>
 
-            <div className=' tw-full tw-fixed tw-left-0 tw-right-0 tw-bottom-0 tw  md:tw-block md:tw-w-[252px] md:tw-sticky md:tw-bottom-0 md:tw-top-[78px] tw-bg-richblack-800 md:tw-h-[100%] md:tw-min-h-[92.1vh] '>
+            <div className=' tw-full tw-z-[998] tw-fixed tw-left-0 tw-right-0 tw-bottom-0    md:tw-w-[252px] md:tw-sticky md:tw-bottom- md:tw-bottom-[38px] tw-bg-richblack-800 md:tw-min-h-[100%]  '>
 
 
                 <ul className='tw-w-full tw-py-[0px] md:tw-py-[28px] tw-flex tw-flex-wrap md:tw-flex-col tw-justify-between  tw-text-richblack-200'>

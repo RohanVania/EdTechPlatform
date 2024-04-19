@@ -113,7 +113,7 @@ function App() {
       <Modal btn1={"Delete"} btn2={"Cancel"} question={"Are You Sure ?"} text={"Your Account will be deleted permanently and all the data will be lost ?"} handleLogout={handleDeleteAccount} handleLogoutCancel={handleDeleteCancel}/> 
       }
 
-      <div className="tw-font-inter tw-bg-richblack-900 tw-h-full  tw-relative">
+      <div className="tw-font-inter tw-bg-richblack-900 tw-h-auto  tw-relative tw-min-h-screen">
         <Toaster position="top-center" toastOptions={toastconfiguration} />
         <Navbar categoryData={categoryDataresult.data.data} />
         <ScrollToTop />

@@ -42,6 +42,7 @@ export const changePasswordApiOperation = async (formData, setApiCalled) => {
 export const changeImageOperation = async (file,dispatch,setApiCalled) => {
     try {
         setApiCalled(true);
+        let localStorageUser=JSON.parse(localStorage.getItem('user'));
         const response = await apiCaller('PUT', userApiEndpoints.CHANGE_IMAGE_API,file,{
             'Content-Type': 'multipart/form-data'
           })
@@ -50,6 +51,8 @@ export const changeImageOperation = async (file,dispatch,setApiCalled) => {
             toast.success('Image changed successfully 🔥',{
                 id:'image-changed-1'
             });
+            localStorageUser.image=response.data.data.image
+            localStorage.setItem('user',JSON.stringify(localStorageUser));
         }
         else{
             toast.error(response.data.msg,{
