@@ -99,6 +99,7 @@ function Step1Form() {
         setImageFile(imagefile);
         setImgPreview(URL.createObjectURL(imagefile));
     }
+    // Test
 
     async function Step1FormSubmit() {
         // console.log("Fields", fields)

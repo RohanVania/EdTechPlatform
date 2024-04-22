@@ -34,7 +34,7 @@ function Faq({ element }) {
                         <div className='tw-flex  tw-gap-x-2 tw-items-center tw-justify-center    btnalign:tw-text-[19px] tw-text-[19px] tw-px-1 '>
                             <FiEdit2 className=' tw-cursor-pointer' />
                             <MdDelete className=' tw-cursor-pointer' />
-                            <div className=' tw-border-l-[2px] tw-border-richblack-500  tw-pl-2 tw-flex tw-items-center tw-self-center btnalign:tw-block'>
+                            <div className=' tw-border-l-[2px] tw-border-richblack-500  tw-pl-2 tw-flex tw-items-center tw-self-center btnalign:tw-block tw-hidden'>
                                 <FaChevronDown className='  tw-self-start tw-cursor-pointer ' onClick={() => setOpen((prev) => !prev)} />
                             </div>
                         </div>

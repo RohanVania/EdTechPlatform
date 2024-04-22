@@ -55,7 +55,7 @@ function SideBar() {
                     </>
                 </ul>
                 <div className=' tw-hidden md:tw-block tw-border-b-[1px] tw-border-b-richblack-500  tw-px-[21px] tw-w-[80%] tw-mx-auto'></div>
-                <ul className='tw-w-full tw-py-[28px]  tw-flex md:tw-flex-col tw-text-richblack-200 tw-hidden md:tw-block '>
+                <ul className='tw-w-full tw-py-[28px]  tw-flex md:tw-flex-col tw-text-richblack-200 md:tw-block '>
                     <NavLink to="/dashboard/settings">
                         <li className={`${active} tw-flex tw-gap-x-[12px] tw-items-center tw-cursor-pointer   tw-px-[21px] tw-py-[12px]`}>
                             <div className=''>
