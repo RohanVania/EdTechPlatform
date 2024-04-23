@@ -20,18 +20,27 @@ exports.createCourse = async (req, resp) => {
             category,
             //? Improvement 
             status,
-            instructions } = req.body
+            instructions } = req.body;
+
+        // Parsingg back to object
+        tag=JSON.parse(tag);
+        instructions=JSON.parse(instructions);
 
         // file for thumbnail
 
         const thumbnail = req.files?.thumbnailImage;
+        
+            
         // validation
-        if (!courseName || !courseDescription || !whatYouWillLearn || !price || !tag || !thumbnail || !category || !instructions) {
+        if (!courseName || !courseDescription || !whatYouWillLearn || !price  || !thumbnail || !tag || !instructions ) {
+            console.log("hello missing")
             return resp.status(200).json({
                 status: "Failed",
                 msg: "Some fields that are missing are required while creating course !"
             })
         }
+
+        console.log("noi missing")
 
         // Course not yet published
         if (!status || status === undefined) {
@@ -84,7 +93,7 @@ exports.createCourse = async (req, resp) => {
         if (alreadyCourseWithSameName) {
             return resp.status(200).json({
                 status: "Failed",
-                message: "Instructor has already created, course with same name"
+                message: "Instructor has course, with same name"
             })
         }
 
