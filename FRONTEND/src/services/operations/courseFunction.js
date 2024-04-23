@@ -17,12 +17,44 @@ export const fetchMyCourses = async () => {
 
 
 //* Create Course
-export const addMyCourse=async ()=>{
+export const addMyCourse=async (formData)=>{
     try{
-                
-    }
+                console.log(formData);
+               const result= await apiCaller("POST",courseApi.ADD_COURSE,formData,{ 
+                    'Content-Type': 'multipart/form-data'
+               });
+               
+               if(result?.data?.status!="Failed"){
+                toast.success('Course added  🔥', {
+                    id: "course-1",
+                })
+               }
+
+               if(result?.data?.status=="Failed"){
+                toast.error(`${result.data.message} 😪`, {
+                    id: "courseAdd-error1",
+                    style: {
+                        minWidth: '185px',
+                        color: 'red',
+                        fontSize:'14px'
+                    },
+                    duration: '120'
+                })
+               }
+              
+               return result?.data;
+            }
     catch(err){
         console.log(err)
+        toast.error("Something went while adding course 😪", {
+            id: "course-add-error",
+            style: {
+                minWidth: '145px',
+                color: 'red',
+            },
+            duration: '120'
+        })
+        return err
     }
 }
 

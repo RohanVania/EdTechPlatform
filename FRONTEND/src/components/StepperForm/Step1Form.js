@@ -1,27 +1,30 @@
 
 import React, { useState, useRef } from 'react'
-import { useFormContext, useFieldArray } from 'react-hook-form';
+import { useFormContext, useFieldArray,Controller } from 'react-hook-form';
 import { FaChevronRight } from "react-icons/fa6";
 import { FiUploadCloud } from "react-icons/fi";
 import { queryClient } from "../../index"
 import { useDispatch, useSelector } from 'react-redux';
 import { setStep } from '../../slices/addcourseSlice';
+import { addMyCourse } from '../../services/operations/courseFunction';
+import { useQueryClient } from 'react-query';
 
 
 function Step1Form() {
-
+    const query = useQueryClient();
     const dispatch = useDispatch();
     const globalAddCourseState = useSelector((state) => state?.addcourse);
+    query.invalidateQueries({queryKey:"mycourses"})
 
     const { data: categories } = queryClient.getQueryData('categories');
-
+    const [addCourseSubmitCalled,setAddCourseSubmit]=useState(false);
     const [Taginput, setTagInput] = useState('');  //* Tag Input
     const [requirementinput, setRequirementInput] = useState(""); //* Requirement Input
-    const [filemissing, setFileMissing] = useState(false)
+    const [filemissing, setFileMissing] = useState(true)
     const [imagefile, setImageFile] = useState(null);
     const [imgpreview, setImgPreview] = useState(null);
-
-    const { register, trigger, watch, control, setError, getValues, setValue, formState: { errors } } = useFormContext();
+    
+    const { register, trigger, watch, control, setError, getValues, setValue, formState: { errors,touchedFields } } = useFormContext();
 
     //* For Tag 
     const { fields, append, remove } = useFieldArray({
@@ -62,15 +65,12 @@ function Step1Form() {
         }
     }
 
-
-
     function addRequirement() {
         const trimmedinput = requirementinput.trim();
-        console.log(trimmedinput)
+        // console.log(trimmedinput)
         add(trimmedinput);
         setRequirementInput("")
     }
-
 
 
     function InvokeFileUpload() {
@@ -81,11 +81,13 @@ function Step1Form() {
         let file = e.target.files[0]
         setImageFile(file);
         setImgPreview(URL.createObjectURL(file));
+        setFileMissing(false)
     }
 
     function handleImgCancel(e) {
-        setImageFile(null)
-        setImgPreview(null)
+        setImageFile(null);
+        setImgPreview(null);
+        setFileMissing(true)
     }
 
     function handleOndragOver(event) {
@@ -98,22 +100,31 @@ function Step1Form() {
         let imagefile = event.dataTransfer.files[0];
         setImageFile(imagefile);
         setImgPreview(URL.createObjectURL(imagefile));
+        setFileMissing(false)
     }
     // Test
 
     async function Step1FormSubmit() {
+        setAddCourseSubmit(true);
         // console.log("Fields", fields)
         // console.log(getValues('tag'));
         // console.log(getValues('instructions'))
+
         const isValid = await trigger(['courseName', 'courseDescription', 'price', 'category', 'whatYouWillLearn', 'instructions', 'tag'])
         // console.log(errors)
-
-        if (isValid) {
+       
+        if (filemissing!=true && isValid) {
             console.log("Go to Step 2 form");
-            console.log("Form Filled Values => ", getValues())
-
-            
+            const formFields=getValues();
+            const formObject={...formFields,tag:JSON.stringify(getValues('tag')),instructions:JSON.stringify(getValues('instructions')),thumbnailImage:imagefile};
+            const courseAddResult=await addMyCourse(formObject);
+            if(courseAddResult?.data.status==='Success'){
+                //* This query will update the myCourses as well
+                query.resetQueries({ queryKey:"mycourses"});
+                setAddCourseSubmit(false);
+            }
             dispatch(setStep(2));
+            
         }
 
     }
@@ -185,7 +196,6 @@ function Step1Form() {
                                 {
                                     (Object.values(el).slice(0, -1)).join("")
                                 }
-                                {/* <button type='button' className='tw-ml-2 focus:tw-outline-none' onClick={() => handleTagDelete(indx)}>&times;</button> */}
                                 <button type='button' className='tw-ml-2 focus:tw-outline-none' onClick={() => remove(indx)}>&times;</button>
 
                             </div>
@@ -202,6 +212,7 @@ function Step1Form() {
             </div>
             <div className='tw-fex tw-flex-col'>
                 <label className='tw-text-sm tw-text-richblack-5'>Course Thumbnail<sup className='tw-text-pink-200 tw-ml-1'>*</sup></label>
+               
                 <div id='filebox' className='tw-mt-5 tw-bg-richblack-700 tw-flex tw-min-h-[250px] tw-cursor-pointer tw-items-center tw-justify-center tw-rounded-md tw-border-2 tw-border-dotted tw-border-richblack-500'
                     onClick={InvokeFileUpload}
                     onDragOver={handleOndragOver}
@@ -231,9 +242,12 @@ function Step1Form() {
                             </div>
                     }
                 </div>
-                {filemissing &&
+
+
+                { addCourseSubmitCalled && filemissing &&
                     <p className='tw-text-sm tw-mt-3 tw-ml-1 tw-text-pink-500'>Thumbnail is required<sup className='tw-text-pink-400 tw-ml-1'>*</sup></p>
                 }
+
             </div>
             <div className='tw-flex tw-flex-col'>
                 <label className='tw-mb-3 tw-text-sm tw-text-richblack-5'>Benefits of the course<sup className='tw-text-pink-200 tw-ml-1'>*</sup></label>

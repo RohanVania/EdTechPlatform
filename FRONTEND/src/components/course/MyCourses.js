@@ -5,9 +5,11 @@ import { MdDelete } from "react-icons/md";
 import { useQuery, useQueryClient } from "react-query";
 import { fetchMyCourses, deleteACourse } from "../../services/operations/courseFunction";
 import ModalLoader from "../core/ModalLoader";
+import { useNavigate } from "react-router-dom";
 
 function MyCourses() {
     const query = useQueryClient();
+    const navigate=useNavigate();
 
     const { data, isLoading, isFetching } = useQuery({
         queryKey: 'mycourses',
@@ -23,10 +25,10 @@ function MyCourses() {
         console.log("Delete Course =>", el)
         const result = await deleteACourse(el._id);
         console.log(result)
-        if (result.data.status !== "Failed" && result.data.data !== null) {
+        // if (result.status !== "Success" && result.data !== null) {
             query.invalidateQueries({ queryKey: 'mycourses' });
-        }
-        console.log(result);
+        // }
+        // console.log(result);
     }
 
 
@@ -42,7 +44,7 @@ function MyCourses() {
 
                 <div className='tw-pt-[40px] tw-flex tw-bg-red-40 tw-flex-wrap  tw-justify-between tw-items-center tw-gap-y-4 '>
                     <h1 className='tw-text-3xl  tw-text-richblack-5 tw-font-medium  videobanner:tw-text-xl'>My Courses</h1>
-                    <button className=' tw-flex tw-gap-x-2 tw-px-4 videobanner:tw-px-4 tw-py-3  videobanner:tw-text-[14px] tw-font-semibold tw-text-yellow-50 hover:tw-text-black hover:tw-bg-yellow-50 tw-duration-100  tw-items-center tw-rounded-lg tw-border-yellow-50 tw-border-[1px]' >
+                    <button className=' tw-flex tw-gap-x-2 tw-px-4 videobanner:tw-px-4 tw-py-3  videobanner:tw-text-[14px] tw-font-semibold tw-text-yellow-50 hover:tw-text-black hover:tw-bg-yellow-50 tw-duration-100  tw-items-center tw-rounded-lg tw-border-yellow-50 tw-border-[1px]' onClick={()=>navigate('/dashboard/add-course')} >
                         Add Course
                         <LuPlusCircle className='tw-text-[21px] videobanner:tw-text-[16px]  tw-font-semibold' />
                     </button>

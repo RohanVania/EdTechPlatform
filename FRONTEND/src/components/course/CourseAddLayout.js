@@ -19,6 +19,7 @@ function CourseAddLayout() {
             tag: [],
             instructions: [],
             section:[],
+            
         }
     })
 
