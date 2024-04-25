@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 
 function Navbar({ categoryData }) {
     const { token } = useSelector((state) => state.auth);
-    const {userData} = useSelector((state) => state.profile);
+    const { userData } = useSelector((state) => state.profile);
 
     // console.log(token)
 
@@ -56,12 +56,16 @@ function Navbar({ categoryData }) {
                                             }
                                         </div>
                                         {
-                                            categories.length !== 0 && <div className='tw-min-w-fit  tw-flex-col tw-gap-y-1  tw-absolute tw-hidden tw-py-5 tw-px-4  tw-rounded-lg tw-bg-[#F1F2FF] tw-top-[65.1px] tw-left-[-13px] group-hover:tw-block  group-hover:tw-flex-col group-hover:tw-gap-y-1 '>
+                                            categories.length !== 0 && <div className='tw-min-w-fit  tw-flex-col tw-gap-y-1  tw-absolute tw-hidden tw-py-5 tw-px-4  tw-rounded-lg tw-bg-[#F1F2FF]  tw-top-[65.1px] tw-left-[-13px] group-hover:tw-block  group-hover:tw-flex-col group-hover:tw-gap-y-1 '>
                                                 {
                                                     categories.map((el, indx) => {
-                                                        return <a className='tw-cursor-pointer' key={`SubNavbar-${indx}`}>
-                                                            <h1 className='tw-whitespace-nowrap tw-px-4 tw-py-5 tw-bg-transparent  hover:tw-bg-richblack-50 tw-rounded-lg tw-text-black'>{el.name}</h1>
-                                                        </a>
+                                                        const display=el.name.trim(" ").split(" ").join("-");
+                                                        console.log(display)
+                                                        return <Link to={`catalog/${display}`}>
+                                                            <a className='tw-cursor-pointer' key={`SubNavbar-${indx}`}>
+                                                                <h1 className='tw-whitespace-nowrap tw-px-4 tw-py-5 tw-bg-transparent  hover:tw-bg-richblack-50 tw-rounded-lg tw-text-black tw-capitalize'>{el.name}</h1>
+                                                            </a>
+                                                        </Link>
                                                     })
                                                 }
 
@@ -113,21 +117,21 @@ function Navbar({ categoryData }) {
                             <div className='tw-flex tw-gap-x-5  navbarmd:tw-hidden  tw-relative'>
                                 {
 
-                                    <Link to='/dashboard/cart' onClick={()=>setProfileOpen(false)}>
+                                    <Link to='/dashboard/cart' onClick={() => setProfileOpen(false)}>
                                         <button className='tw-bg-red-20 tw-h-full   '>
                                             <FaCartShopping className='tw-w-[25px] tw-h-[25px] tw-object-cover' />
                                         </button>
                                     </Link>
                                 }
                                 {
-                                        <button className='  tw-h-full tw-flex tw-justify-center tw-gap-x-0 tw-items-center tw-relative ' onClick={() => setProfileOpen((prev) => !prev)}>
-                                            <img className='tw-rounded-full tw-object-cover  tw-w-[35px] tw-aspect-square' src={`${userData?.image}`} />
-                                            <IoMdArrowDropdown />
-                                        </button>
+                                    <button className='  tw-h-full tw-flex tw-justify-center tw-gap-x-0 tw-items-center tw-relative ' onClick={() => setProfileOpen((prev) => !prev)}>
+                                        <img className='tw-rounded-full tw-object-cover  tw-w-[35px] tw-aspect-square' src={`${userData?.image}`} />
+                                        <IoMdArrowDropdown />
+                                    </button>
                                 }
                                 {
                                     profileOpen && <ul className='tw-bg-richblack-800 tw-absolute  tw-top-[44px] tw-right-[0px] tw-flex tw-flex-col tw-rounded-md tw-overflow-hidden tw-border-[1px] tw-border-richblack-700 '>
-                                        <Link to='/dashboard/my-profile' onClick={()=>setProfileOpen(false)}>
+                                        <Link to='/dashboard/my-profile' onClick={() => setProfileOpen(false)}>
                                             <li className='tw-flex tw-items-center tw-gap-x-1 tw-cursor-pointer  tw-py-[10px] tw-px-[12px] tw-text-sm tw-text-richblack-100 hover:tw-bg-richblack-700 hover:tw-text-richblack-25 '>
                                                 <VscDashboard />
                                                 <p>Dashboard</p>

@@ -39,8 +39,9 @@ function App() {
     queryKey: ['categories'],
     // staleTime: Infinity,
     queryFn: getAllCategories,
+
     refetchOnMount: true,
-    refetchOnWindowFocus:false
+    refetchOnWindowFocus:true
   })
 
   const alreadyLoggedIn = useQuery({
@@ -128,6 +129,7 @@ function App() {
           <Route path='/contact' element={<ContactPage />} />
           <Route path='/forgotpassword' element={<ForgotPasswordPage />} />
           <Route path='/reset-password/:resetToken' element={<ResetPasswordPage />} />
+          <Route path='/catalog/:name' element={<h1>Hello Catalog</h1>}/>
           <Route element={<VerifyEmailPage />} path="/verify-email" />
 
           <Route element={<ProtectedRoute />}>

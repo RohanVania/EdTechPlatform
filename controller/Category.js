@@ -17,6 +17,9 @@ exports.createCategory = async (req, resp) => {
             )
         }
 
+        //* Check if the given Category name Already exists
+        
+
         const CategoryDetails = await Category.create({
             name: name,
             description: description,
