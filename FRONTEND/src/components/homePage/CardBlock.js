@@ -4,14 +4,14 @@ import { HiUsers } from "react-icons/hi2";
 
 function CardBlock({heading,para,level,content,active}) {
     
-    const activecard=active?"tw-bg-white shadow":"tw-bg-richblack-800";
+    const activecard=active?"tw-bg-white shadow":"tw-bg-richblack-800 hover:2xs:tw-scale-[1.075] tw-duration-700";
     const activeheading=active?"tw-text-black":"tw-text-richblue-5";
     const activesymbol=active?"tw-text-[#0F7A9D] tw-border-t-2 tw-border-dashed tw-border-[#0F7A9D]":"tw-text-richblack-300 tw-border-t-2 tw-border-dashed tw-border-richblack-300";
     const svgcolor=active?"#0F7A9D":"#6E7275"
 
     return (
-        <div className={`box ${activecard} tw-min-h-[280px] tw-max-w-[390px] tw-flex tw-flex-col tw-justify-between sm:tw-p-3 `}>
-            <div className='tw-pt-[24px] tw-pl-[14px] tw-pb-[20px] sm:tw-pb-[40px] tw-pr-[20px] tw-flex tw-flex-col  tw-gap-5  tw-text-left tw-flex-1 tw-text-richblack-300 '>
+        <div className={`box ${activecard} tw-min-h-[280px] tw-max-w-[390px] tw-flex tw-flex-col tw-justify-between sm:tw-p-3 tw-cursor-pointer `}>
+            <div className='tw-pt-[24px] tw-pl-[14px] tw-pb-[20px] sm:tw-pb-[40px] tw-pr-[20px] tw-flex tw-flex-col  tw-gap-5  tw-text-left tw-flex-1 tw-text-richblack-300  '>
                 <h1 className={`tw-font-inter tw-font-bold btnalign:tw-text-[17.9px] xs:tw-text-[21px] ${activeheading} `}>{heading}</h1>
             <p className='tw-text-[14px] btn:tw-text-[14.2px] btnalign:tw-text-[16.5px] xs:tw-text-[19px] '>
                     {para}
