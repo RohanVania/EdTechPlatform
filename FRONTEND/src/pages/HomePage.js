@@ -144,8 +144,22 @@ export function HomePage() {
                 description="Learn to Build Anything You Can Imagine"
               />
 
-              <div className=' tw-bg-red-300 tw-mt-4'>
-                buttons later
+              <div className='tw-mt-4 tw-mb-12 tw-text-[14px] sm:tw-text-base tw-w-[98% md:tw-w-[80%]  tw-mx-auto tw-flex tw-flex-col tw-bg-richblack-800 tw-items-center lg:tw-flex-row tw-justify-between tw-gap-x-3 tw-overflow-hidden tw-rounded-full tw-flex-wrap tw-px-0 tw-drop-shadow-[0_1.5px_rgba(255,255,255,0.25)]'>
+                <div className='tw-px-7 tw-bg-richblack-900 tw-text-center tw-text-richblack-5 tw-font-medium tw-rounded-full tw-py-3 tw-flex-1 tw-cursor-pointer tw-w-full tw-justify-center tw-items-center hover:tw-scale-[1.065] tw-duration-700'>
+                  Free
+                </div>
+                <div className=' tw-bg-richblack-900 tw-text-richblack-5 tw-text-center tw-font-medium lg:tw-rounded-full tw-py-3 tw-flex-1 tw-cursor-pointer tw-w-full hover:tw-scale-[1.065] tw-duration-700'>
+                  New to coding
+                </div>
+                <div className=' tw-bg-richblack-900 tw-text-richblack-5 tw-text-center tw-font-medium lg:tw-rounded-full tw-py-3 tw-flex-1 tw-cursor-pointer tw-w-full hover:tw-scale-[1.065] tw-duration-700'>
+                  Most popular
+                </div>
+                <div className=' tw-bg-richblack-900 tw-text-richblack-5 tw-text-center tw-font-medium lg:tw-rounded-full tw-py-3 tw-flex-1 tw-cursor-pointer tw-w-full hover:tw-scale-[1.065] tw-duration-700'>
+                  Skills paths
+                </div>
+                <div className=' tw-bg-richblack-900 tw-text-richblack-5 tw-text-center tw-font-medium lg:tw-rounded-full tw-py-3 tw-flex-1 tw-cursor-pointer tw-w-full hover:tw-scale-[1.065] tw-duration-700'>
+                  Career paths
+                </div>
               </div>
 
               <div className='flex-area tw-mt-10 tw-flex tw-flex-wrap tw-gap-y-[40px] tw-justify-center tw-gap-x-[3.5rem] '>

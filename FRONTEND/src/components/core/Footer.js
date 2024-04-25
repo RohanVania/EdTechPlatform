@@ -84,8 +84,22 @@ function Footer() {
             }
           </div>
         </div>
-        <div className='tw-border-t-2 tw-border-richblack-700 tw-bg-red-300 tw-min-h-[45px] '>
-          Made with ❤ by Rohan Vania 
+        <div className='tw-border-t-2 tw-border-richblack-700 tw-bg-red-30 tw-min-h-[45px] tw-text-richblack-100 tw-flex tw-flex-wrap tw-justify-between  tw-items-center'>
+
+          <div className='tw-flex tw-items-center tw-py-6 btnalign:tw-gap-x-5 tw-gap-x-1 tw-gap-y-4 btnalign:tw-text-[16px] tw-text-[14px]'>
+            <p className='btnalign:tw-px-3 tw-px-1'>Privacy policy</p>
+            <p className='btnalign:tw-px-3 tw-px-1 tw-border-l-2 tw-border-r-2 tw-border-richblack-700'>Cookie policy</p>
+            <p className='btnalign:tw-px-3 tw-px-1'>Terms </p>
+          </div>
+          
+          <p className='tw-bg-yellow-40 tw-py-4 md:tw-py-6 '>
+            Made with
+            <span className='tw-text-red-600 tw-mx-2'>
+              ❤
+            </span>
+            by Rohan Vania
+          </p>
+        
         </div>
       </div>
 
