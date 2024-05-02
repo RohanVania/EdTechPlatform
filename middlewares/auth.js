@@ -12,6 +12,7 @@ exports.auth = async (req, resp, next) => {
 
         // const token = req.cookies.token || req.body.token || req.header("Authorization").replace("Bearer ", "");
         // const token = req.cookies.token||req.header("Authorization").replace("Bearer ", "");
+
         
         const token = req.cookies.token;
         // console.log("Auth Middleware with token =>", token);

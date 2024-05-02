@@ -27,6 +27,8 @@ import { deleteOperation } from "./services/operations/userFunctions";
 import CourseAddLayout from "./components/course/CourseAddLayout";
 import MyCourses from "./components/course/MyCourses";
 import Modal from "./components/core/Modal";
+import { Suspense } from "react";
+import CategoryPage from "./pages/CategoryPage";
 
 function App() {
 
@@ -39,8 +41,9 @@ function App() {
     queryKey: ['categories'],
     // staleTime: Infinity,
     queryFn: getAllCategories,
+
     refetchOnMount: true,
-    refetchOnWindowFocus:false
+    refetchOnWindowFocus: true
   })
 
   const alreadyLoggedIn = useQuery({
@@ -70,7 +73,7 @@ function App() {
   }
 
   //* LOGOUT AND DELET ACCOUNT FUNCTIONALITY 
- 
+
   function handleLogoutCancel() {
     dispatch(setLogout(false))
   }
@@ -105,47 +108,50 @@ function App() {
 
   return (
     <>
-      {authGlobalState?.logout &&
-        <Modal btn1={"Logout"} btn2={"Cancel"} question={"Are You Sure ?"} text={"You will be logged out of your account"} handleLogout={handleLogout} handleLogoutCancel={handleLogoutCancel}/> 
-      }
+     
 
-      {authGlobalState?.deleteAccount &&
-      <Modal btn1={"Delete"} btn2={"Cancel"} question={"Are You Sure ?"} text={"Your Account will be deleted permanently and all the data will be lost ?"} handleLogout={handleDeleteAccount} handleLogoutCancel={handleDeleteCancel}/> 
-      }
+        {authGlobalState?.logout &&
+          <Modal btn1={"Logout"} btn2={"Cancel"} question={"Are You Sure ?"} text={"You will be logged out of your account"} handleLogout={handleLogout} handleLogoutCancel={handleLogoutCancel} />
+        }
 
-      <div className="tw-font-inter tw-bg-richblack-900 tw-h-auto  tw-relative tw-min-h-screen">
-        <Toaster position="top-center" toastOptions={toastconfiguration} />
-        <Navbar categoryData={categoryDataresult.data.data} />
-        <ScrollToTop />
+        {authGlobalState?.deleteAccount &&
+          <Modal btn1={"Delete"} btn2={"Cancel"} question={"Are You Sure ?"} text={"Your Account will be deleted permanently and all the data will be lost ?"} handleLogout={handleDeleteAccount} handleLogoutCancel={handleDeleteCancel} />
+        }
 
-        <Routes>
-          <Route path='/' element={<HomePage />} />
+        <div className="tw-font-inter tw-bg-richblack-900 tw-h-auto  tw-relative tw-min-h-screen">
+          <Toaster position="top-center" toastOptions={toastconfiguration} />
+          <Navbar categoryData={categoryDataresult.data.data} />
+          <ScrollToTop />
 
-          <Route path='/courses' element={<CoursePage />} />
-          <Route path='/about' element={<AboutUsPage />} />
-          <Route path='/login' element={<LoginPage />} />
-          <Route path='/signup' element={<SignUpPage />} />
-          <Route path='/contact' element={<ContactPage />} />
-          <Route path='/forgotpassword' element={<ForgotPasswordPage />} />
-          <Route path='/reset-password/:resetToken' element={<ResetPasswordPage />} />
-          <Route element={<VerifyEmailPage />} path="/verify-email" />
+          <Routes>
+            <Route path='/' element={<HomePage />} />
 
-          <Route element={<ProtectedRoute />}>
-            <Route element={<DashBoardPage />}  >
-              <Route path="/dashboard/my-profile" element={<MyProfile />} />
-              <Route path="/dashboard/settings" element={<Settings />} />
-              <Route path="/dashboard/enrolled-courses" element={<h1 className="tw-text-white">Enrolled Courses</h1>} />
-              <Route path="/dashboard/purchase-history" element={<h1 className="tw-text-white">Purschase History</h1>} />
-              <Route path="/dashboard/my-courses" element={<MyCourses />} />
-              <Route path="/dashboard/add-course" element={<CourseAddLayout />} />
+            <Route path='/courses' element={<CoursePage />} />
+            <Route path='/about' element={<AboutUsPage />} />
+            <Route path='/login' element={<LoginPage />} />
+            <Route path='/signup' element={<SignUpPage />} />
+            <Route path='/contact' element={<ContactPage />} />
+            <Route path='/forgotpassword' element={<ForgotPasswordPage />} />
+            <Route path='/reset-password/:resetToken' element={<ResetPasswordPage />} />
+            <Route path='/catalog/:catalogname' element={<CategoryPage/>} />
+            <Route element={<VerifyEmailPage />} path="/verify-email" />
+
+            <Route element={<ProtectedRoute />}>
+              <Route element={<DashBoardPage />}  >
+                <Route path="/dashboard/my-profile" element={<MyProfile />} />
+                <Route path="/dashboard/settings" element={<Settings />} />
+                <Route path="/dashboard/enrolled-courses" element={<h1 className="tw-text-white">Enrolled Courses</h1>} />
+                <Route path="/dashboard/purchase-history" element={<h1 className="tw-text-white">Purschase History</h1>} />
+                <Route path="/dashboard/my-courses" element={<MyCourses />} />
+                <Route path="/dashboard/add-course" element={<CourseAddLayout />} />
+              </Route>
+
+              <Route element={<Test />} path="/test" />
             </Route>
 
-            <Route element={<Test />} path="/test" />
-          </Route>
-
-          <Route path="*" element={<div className="tw-text-white tw-mt-[90px]">Not Found</div>} />
-        </Routes>
-      </div >
+            <Route path="*" element={<div className="tw-text-white tw-mt-[90px]">Not Found</div>} />
+          </Routes>
+        </div >
     </>
   );
 }
