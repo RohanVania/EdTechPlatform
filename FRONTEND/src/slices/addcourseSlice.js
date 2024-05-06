@@ -1,12 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState={
-    step:2,
+    step:1,
     savedcourse:null,
     course:null,
     editCourse:false,
-    loading:false,
-    addLecture:false
+    formSubmit:false
 }
 
 const addcourseSlice=createSlice({
@@ -18,10 +17,19 @@ const addcourseSlice=createSlice({
         },
         setAddLecture:(state,action)=>{
             state.addLecture=!state.addLecture;
+        },
+        setFormSubmit:(state,action)=>{
+            state.formSubmit=action.payload
+        },
+        setEditCourse:(state,action)=>{
+            state.editCourse=action.payload;
+        },
+        setCourse:(state,action)=>{
+            state.course=action.payload;
         }
 
     }
 })
 
-export const {setStep,setAddLecture}=addcourseSlice.actions
+export const {setStep,setAddLecture,setFormSubmit,setEditCourse,setCourse}=addcourseSlice.actions
 export default addcourseSlice.reducer

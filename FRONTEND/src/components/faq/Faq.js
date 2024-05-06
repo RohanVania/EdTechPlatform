@@ -13,7 +13,6 @@ function Faq({ element }) {
 
 
     const [open, setOpen] = useState(false);
-    console.log(element)
 
 
     return (
@@ -34,7 +33,7 @@ function Faq({ element }) {
                         <div className='tw-flex  tw-gap-x-2 tw-items-center tw-justify-center    btnalign:tw-text-[19px] tw-text-[19px] tw-px-1 '>
                             <FiEdit2 className=' tw-cursor-pointer' />
                             <MdDelete className=' tw-cursor-pointer' />
-                            <div className=' tw-border-l-[2px] tw-border-richblack-500  tw-pl-2 tw-flex tw-items-center tw-self-center btnalign:tw-block tw-hidden'>
+                            <div className=' tw-border-l-[2px] tw-border-richblack-500  tw-pl-2 tw-flex tw-items-center tw-self-center btnalign:tw-block '>
                                 <FaChevronDown className='  tw-self-start tw-cursor-pointer ' onClick={() => setOpen((prev) => !prev)} />
                             </div>
                         </div>
@@ -79,7 +78,7 @@ function Faq({ element }) {
                             }
 
                             <div className='tw-bg-red-40 tw-py-2  tw-px-1 tw-bg-red-40'>
-                                <button className=' tw-flex tw-items-center tw-gap-x-3 tw-text-yellow-50  tw-cursor-pointer tw-px-2 tw-py-1' onClick={() => setSubSectionArray((prev)=>[...prev,1])}>
+                                <button className=' tw-flex tw-items-center tw-gap-x-3 tw-text-yellow-50  tw-cursor-pointer tw-px-2 tw-py-1' onClick={() => console.log("Call Lecture Modal")}>
                                     <FaPlus className='tw-font-bold ' />
                                     Add Lecture
                                 </button>

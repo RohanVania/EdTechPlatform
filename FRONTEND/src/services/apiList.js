@@ -32,3 +32,10 @@ export const courseApi={
     DELETE_PARTICULAR_COURSE:(id)=>`/course/deleteCourse/${id}`,
     ADD_COURSE:'/course/createCourse'
 }
+
+//* Sectio API URLS
+
+export const sectionApi={
+    ADD_SECTION:`/course/addSection`,
+    
+}

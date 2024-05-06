@@ -60,8 +60,8 @@ function Navbar({ categoryData }) {
                                                 {
                                                     categories.map((el, indx) => {
                                                         const display=el.name.trim(" ").split(" ").join("-");
-                                                        console.log(display)
-                                                        return <Link to={`catalog/${display}`}>
+                                                        // console.log(display)
+                                                        return <Link to={`catalog/${display}`} key={indx}>
                                                             <a className='tw-cursor-pointer' key={`SubNavbar-${indx}`}>
                                                                 <h1 className='tw-whitespace-nowrap tw-px-4 tw-py-5 tw-bg-transparent  hover:tw-bg-richblack-50 tw-rounded-lg tw-text-black tw-capitalize'>{el.name}</h1>
                                                             </a>
