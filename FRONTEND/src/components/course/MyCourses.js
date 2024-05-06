@@ -111,7 +111,7 @@ function MyCourses() {
                                                         Action
                                                     </p>
                                                     <p className="tw-flex-1 tw-text-richblack-300 tw-text-[20px]  tw-flex xl:tw-gap-x-0 tw-gap-x-3 ">
-                                                        <FiEdit2 className=" tw-text-[30px] xl:tw-text-[25px]  tw-p-[2px] xl:tw-flex-1 tw-cursor-pointer hover:tw-scale-[1.2] tw-duration-200" />
+                                                        <FiEdit2 className=" tw-text-[30px] xl:tw-text-[25px]  tw-p-[2px] xl:tw-flex-1 tw-cursor-pointer hover:tw-scale-[1.2] tw-duration-200" onClick={()=>navigate('/dashboard/edit-course/12345')} />
                                                         <MdDelete className=" tw-text-[30px] xl:tw-text-[25px] tw-p-[2px] xl:tw-flex-1   tw-cursor-pointer hover:tw-scale-[1.2] tw-duration-200" onClick={() => { deleteCourse(el) }} />
                                                     </p>
                                                 </td>

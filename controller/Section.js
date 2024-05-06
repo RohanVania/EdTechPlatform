@@ -73,9 +73,9 @@ exports.createSection = async (req, resp) => {
 
     } catch (error) {
         console.log(error)
-        return resp.status(200).json({
+        return resp.status(302).json({
             status: "Failed",
-            msg: "Unable tp create Section, please try Again",
+            msg: "Unable to create Section, please try Again",
             errormsg: error
         })
     }

@@ -1,6 +1,7 @@
 import toast from "react-hot-toast";
 import { courseApi } from "../apiList";
 import { apiCaller } from "../apiconnector";
+import { setCourse} from "../../slices/addcourseSlice"
 
 //* My Courses Fetch Function
 export const fetchMyCourses = async () => {
@@ -17,9 +18,9 @@ export const fetchMyCourses = async () => {
 
 
 //* Create Course
-export const addMyCourse=async (formData)=>{
+export const addMyCourse=async (formData,dispatch)=>{
     try{
-                console.log(formData);
+               console.log(formData);
                const result= await apiCaller("POST",courseApi.ADD_COURSE,formData,{ 
                     'Content-Type': 'multipart/form-data'
                });
@@ -28,6 +29,8 @@ export const addMyCourse=async (formData)=>{
                 toast.success('Course added  🔥', {
                     id: "course-1",
                 })
+                dispatch(setCourse(result?.data?.data))
+
                }
 
                if(result?.data?.status=="Failed"){

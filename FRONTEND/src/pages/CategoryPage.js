@@ -76,18 +76,19 @@ function CategoryPage() {
 
             </section>
 
-            <section className='tw-w-11/12 tw-mx-auto sm:tw-max-w-[1410px]  tw-flex tw-flex-col tw-gap-y-12 tw-py-[100px]'>
-            <section>
+            <section className='tw-w-11/12 tw-mx-auto sm:tw-max-w-[1410px]  tw-flex tw-flex-col tw-gap-y-[80px] tw-py-[100px]'>
+                <section>
                     {/* Heading */}
                     <div className='tw-mb-10'>
                         <h1 className='tw-text-richblack-5 tw-text-[21px] 2xs:tw-text-[23px] sm:tw-text-[30px]'>Courses to get you started</h1>
+
                     </div>
                     {/* Swiper Section  */}
                     <div className='tw-bg-gray-30'>
                         <Swiper
                             loop={true}
                             autoplay={{
-                                delay:2000,
+                                delay: 4000,
                                 disableOnInteraction: false,
                                 pauseOnMouseEnter: true,
                             }}
@@ -101,19 +102,19 @@ function CategoryPage() {
                             breakpoints={{
                                 '@0.00': {
                                     slidesPerView: 1,
-                                    spaceBetween: 10,
+                                    // spaceBetween: 10,
                                 },
                                 '@0.75': {
                                     slidesPerView: 2,
-                                    spaceBetween: 20,
+                                    // spaceBetween: 20,
                                 },
                                 '@1.00': {
                                     slidesPerView: 3,
-                                    spaceBetween: 40,
+                                    spaceBetween: 15,
                                 },
                                 '@1.50': {
                                     slidesPerView: 4,
-                                    spaceBetween: 50,
+                                    spaceBetween: 15,
                                 },
                             }}
                             modules={[Autoplay, Pagination, Navigation]}
@@ -121,7 +122,7 @@ function CategoryPage() {
                         >
                             {
                                 Array.from({ length: 10 }).map((el, indx) => {
-                                    return <SwiperSlide className='tw-flex tw-justify-center tw-items-center'>
+                                    return <SwiperSlide className='tw-flex tw-justify-center tw-items-center' key={`swiper-${indx}`}>
                                         <Card />
                                     </SwiperSlide>
                                 })
@@ -134,14 +135,15 @@ function CategoryPage() {
                 <section>
                     {/* Heading */}
                     <div className='tw-mb-10'>
-                        <h1 className='tw-text-richblack-5 tw-text-[21px] 2xs:tw-text-[23px] sm:tw-text-[30px]'>Courses to get you started</h1>
+                        <h1 className='tw-text-richblack-5 tw-text-[21px] 2xs:tw-text-[23px] sm:tw-text-[30px]'>Top courses in Python and Web Development</h1>
+
                     </div>
                     {/* Swiper Section  */}
                     <div className='tw-bg-gray-30'>
                         <Swiper
                             loop={true}
                             autoplay={{
-                                delay:2000,
+                                delay: 3000,
                                 disableOnInteraction: false,
                                 pauseOnMouseEnter: true,
                             }}
@@ -155,19 +157,19 @@ function CategoryPage() {
                             breakpoints={{
                                 '@0.00': {
                                     slidesPerView: 1,
-                                    spaceBetween: 10,
+                                    // spaceBetween: 10,
                                 },
                                 '@0.75': {
                                     slidesPerView: 2,
-                                    spaceBetween: 20,
+                                    // spaceBetween: 20,
                                 },
                                 '@1.00': {
                                     slidesPerView: 3,
-                                    spaceBetween: 40,
+                                    spaceBetween: 15,
                                 },
                                 '@1.50': {
                                     slidesPerView: 4,
-                                    spaceBetween: 50,
+                                    spaceBetween: 15,
                                 },
                             }}
                             modules={[Autoplay, Pagination, Navigation]}
@@ -175,13 +177,27 @@ function CategoryPage() {
                         >
                             {
                                 Array.from({ length: 10 }).map((el, indx) => {
-                                    return <SwiperSlide className='tw-flex tw-justify-center tw-items-center'>
+                                    return <SwiperSlide className='tw-flex tw-justify-center tw-items-center' key={`swiper-${indx}`}>
                                         <Card />
                                     </SwiperSlide>
                                 })
                             }
 
                         </Swiper>
+                    </div>
+                </section>
+
+                <section className=''>
+                    <div className='tw-mb-10'>
+                        <h1 className='tw-text-richblack-5 tw-text-[21px] 2xs:tw-text-[23px] sm:tw-text-[30px]'>Frequently bought Together</h1>
+                    </div>
+                    <div className='gridcategorycontainer tw-flex tw-flex-wrap '>
+                        <Card className="tw-w-full tw-max-w-none" imgheight={"tw-h-[350px]"} />
+                        <Card className="tw-w-full tw-max-w-none" imgheight={"tw-h-[350px]"} />
+                        <Card className="tw-w-full tw-max-w-none" imgheight={"tw-h-[350px]"} />
+                        <Card className="tw-w-full tw-max-w-none" imgheight={"tw-h-[350px]"} />
+                        <Card className="tw-w-full tw-max-w-none" imgheight={"tw-h-[350px]"} />
+                        <Card className="tw-w-full tw-max-w-none" imgheight={"tw-h-[350px]"} />
                     </div>
                 </section>
 

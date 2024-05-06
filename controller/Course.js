@@ -297,6 +297,10 @@ exports.deleteParticularCourse = async (req, res) => {
                 msg:'Given course is already deleted'
             })
         }
+
+        //* Also delete it course from user table entry in courses
+        
+
         return res.status(200).json({
             status:"Success",
             msg:"Course deleted successfully",

@@ -2,10 +2,11 @@
 
 import React from 'react'
 
-function Card() {
+function Card({className,imgheight}) {
+    const styles=className;
     return (
-        <div className='tw-flex tw-flex-col tw-gap-y-4 tw-max-w-[330px] tw-min-h-[430px]   tw-pb-12 tw-bg-transparent'>
-            <div className='tw-h-[201px] tw-bg-yellow-25 tw-rounded-lg tw-overflow-hidden tw-cursor-pointer'>
+        <div className={`tw-flex tw-flex-col tw-gap-y-4 tw-max-w-[330px tw-min-h-[374px]   tw-pb-12 tw-bg-transparen ${styles} tw-bg-red-40 tw-w-ful`}>
+            <div className={`tw-h-[251px]  tw-rounded-lg tw-overflow-hidden tw-cursor-pointer ${imgheight} `}>
                 <img src='https://res.cloudinary.com/dbr73rpz9/image/upload/v1688630790/images/computers-others-wallpaper-preview_suhi9b.jpg' className='tw-object-cover tw-w-full tw-h-full' />
             </div>
             <div className='tw-px-1 tw-text-center 2xs:tw-text-left tw-flex tw-flex-col  tw-gap-2 xs:tw-mt-0 tw-mt-3  '>
