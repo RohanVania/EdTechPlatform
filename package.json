@@ -5,11 +5,13 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "nodemon index",
-        "": ""
+        "frontend":"cd FRONTEND && npm start",
+        "start:both": "concurrently --names FrontEnd,BackEnd -c \"bgBlue.bold,bgMagenta.bold\" \" npm run frontend\" \"npm start\""
     },
     "dependencies": {
         "bcrypt": "^5.1.0",
         "cloudinary": "^1.37.1",
+        "concurrently": "^8.2.2",
         "cookie-parser": "^1.4.6",
         "cors": "^2.8.5",
         "dotenv": "^16.3.1",
