@@ -181,7 +181,7 @@ exports.signUp = async (req, resp) => {
             contactNumber: null
         })
 
-        // !! LEFT to do approve
+        // !! LEFT to do approve asdas
         // Then we save the entry in User
         const user = await User.create({
             firstName,
