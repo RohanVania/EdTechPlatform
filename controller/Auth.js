@@ -172,7 +172,7 @@ exports.signUp = async (req, resp) => {
 
         // We do this so, in profile handler we dont need to create additionaldetails and then save 
 
-        // Instead we just update
+        // Instead we just updatea
 
         const profileDetails = await Profile.create({
             gender: null,
@@ -181,7 +181,7 @@ exports.signUp = async (req, resp) => {
             contactNumber: null
         })
 
-        // !! LEFT to do approve
+        // !! LEFT to do approve asdas
         // Then we save the entry in User
         const user = await User.create({
             firstName,
