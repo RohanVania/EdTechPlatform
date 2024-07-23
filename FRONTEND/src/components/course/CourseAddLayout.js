@@ -7,11 +7,14 @@ import { useSelector } from 'react-redux';
 import Step2Form from '../stepperForm/Step2Form';
 import Step3Form from "../stepperForm/Step3Form"
 import { FaCheck } from "react-icons/fa";
+import { useParams } from 'react-router-dom';
 
 
 function CourseAddLayout() {
     const { step } = useSelector((state) => state.addcourse);
     const { control } = useForm()
+
+    console.log("Params =>",useParams());
 
     const methods = useForm({
         defaultValues: {
@@ -25,10 +28,10 @@ function CourseAddLayout() {
 
 
     return (
-        <div className='tw-pt-[40px] '>
+        <div className='tw-pt-[40px]  '>
 
             <h1 className='tw-text-3xl tw-text-richblack-5 tw-font-medium tw-mb-14'>Add Course</h1>
-            <div className='tw-flex tw-flex-col lg:tw-flex lg:tw-flex-row lg:tw-justify-between  tw-justify-center tw-items-center lg:tw-items-start tw-gap-y-5 tw-flex-wrap'>
+            <div className='tw-flex tw-flex-col lg:tw-flex lg:tw-flex-row lg:tw-justify-between  tw-justify-center tw-items-center lg:tw-items-start tw-gap-y-5 tw-flex-wrap '>
 
                 <div className=' tw-w-full xl:tw-basis-[580px]  '>
                     <div className='tw-flex tw-items-center 2xs:tw-px-[40px]  tw-mb-10'>

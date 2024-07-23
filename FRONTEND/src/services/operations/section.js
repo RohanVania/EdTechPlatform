@@ -1,19 +1,22 @@
 import toast from "react-hot-toast";
 import { apiCaller } from "../apiconnector"
 import { sectionApi } from "../apiList"
-import { setFormSubmit } from "../../slices/addcourseSlice";
+import { setCourse } from "../../slices/addcourseSlice";
 
 
 export const addSection = async (inputbody,dispatch) => {
     try {
 
-        dispatch(setFormSubmit(true))
+        // dispatch(setFormSubmit(true))
         const res = await apiCaller("POST", sectionApi.ADD_SECTION, inputbody)
 
         if (res?.data.status === "Success") {
             toast.success('Section added  🔥', {
                 id: "Section-1",
             })
+            
+            dispatch(setCourse(res?.data.updatedCourseDetails))
+
         }
 
         if (res?.data.status === "Failed") {
@@ -28,7 +31,7 @@ export const addSection = async (inputbody,dispatch) => {
             })
         }
 
-        dispatch(setFormSubmit(false))
+        // dispatch(setFormSubmit(false))
 
     }
     catch (err) {
@@ -41,7 +44,7 @@ export const addSection = async (inputbody,dispatch) => {
             },
             duration: '120'
         })
-        dispatch(setFormSubmit(false))
+        // dispatch(setFormSubmit(false))
         return err
 
     }

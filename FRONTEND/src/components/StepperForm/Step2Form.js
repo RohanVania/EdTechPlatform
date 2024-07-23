@@ -9,11 +9,14 @@ import Faq from "../faq/Faq"
 import { useFormContext } from 'react-hook-form';
 import {setEditCourse} from "../../slices/addcourseSlice"
 import { addSection } from '../../services/operations/section';
+import { useParams } from 'react-router-dom';
 
 
 function Step2Form() {
 
   const globalCourseState = useSelector((state) => state?.addcourse);
+  console.log("Params =>",useParams());
+
   const dispatch = useDispatch();
 
   const { register, reset, trigger, setValue, getValues, formState: {
@@ -29,22 +32,34 @@ function Step2Form() {
   }
 
   async function createSection(event) {
-    event.preventDefault();
-    setValue('sectionName', getValues('sectionName').trim());
-    const isValid = await trigger(['sectionName']);
-    if (isValid) {
+    try{
+      event.preventDefault();
+      setValue('sectionName', getValues('sectionName').trim());
+      const isValid = await trigger(['sectionName']);
+
+      console.log(isValid);
+      console.log(getValues("sectionName"))
+      
+      if (isValid) {
       const inputBody = {
         sectionName: getValues("sectionName"),
-        courseId: "6628263959b72bafa9e48c67"
+        courseId: "66a00b1f49fc45e3c7209c16"
       }
+      
       const res = await addSection(inputBody, dispatch);
-      reset();
+      
+      // reset();
 
-      setArray((prev) => [...prev, { name: 'Extra' }]);
-
+      // setArray((prev) => [...prev, { name: 'Extra' }]);
+      
     }
+  }
+  catch(err){
+    console.log(err);
 
   }
+
+}
 
   function cancelEdit(){
     setEditSection(false);
@@ -55,7 +70,7 @@ function Step2Form() {
     <>
       <h1 className='tw-font-[400] tw-text-[18px]'>Course Builder</h1>
 
-      <form onSubmit={createSection}>
+      {/* <form onSubmit={createSection}> */}
         <div className='tw-flex tw-flex-col'>
           <label className='tw-mb-3 tw-text-sm tw-text-richblack-5'>Section Name<sup className='tw-text-pink-200 tw-ml-1'>*</sup></label>
           <input type='text' className=' tw-bg-richblack-700 tw-text-[#999DAA] formshadow videobanner:tw-text-[13.1px] ' placeholder='Add a section to build your course'
@@ -99,16 +114,18 @@ function Step2Form() {
 
           }
         </div>
-      </form>
+      {/* </form> */}
 
       {
-        array.length != 0 &&
+        array.length !== 0 &&
         <ul className='tw-bg-richblack-700 tw-py-6    tw-rounded-md tw-space-y-5'>
-          {/* We can a List of sections in a course */}
           {
-            array?.map((el, indx) => {
-              return <Faq key={indx} element={el} />
-            })
+
+            // array?.map((el, indx) => {
+            //   return <Faq key={indx} element={el} />
+            // })
+
+
           }
         </ul>
       }
@@ -139,6 +156,11 @@ function Step2Form() {
           </>
         }
       </div>
+      <p className='tw-text-wrap' >
+        {
+          JSON.stringify(globalCourseState,null,'\t')
+        }
+      </p>
 
     </>
   )

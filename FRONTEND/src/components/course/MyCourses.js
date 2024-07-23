@@ -18,7 +18,7 @@ function MyCourses() {
         staleTime: Infinity,
     })
 
-    console.log("Courses Data", data)
+    // console.log("Courses Data", data)
 
 
     async function deleteCourse(el) {
@@ -57,7 +57,7 @@ function MyCourses() {
                                 You Don't have any courses.
                             </p>
                             :
-                            <table className=" tw-w-full tw-py-3">
+                            <table className=" tw-w-full tw-py-3"  >
                                 <thead className="">
                                     <tr className=" lg:tw-flex-row tw-flex-col tw-flex-wrap tw-text-left tw-gap-x-3 tw-py-4  tw-px-2 tw-hidden xl:tw-flex ">
                                         <td className="tw-flex-1  tw-py-3 tw-px-3  tw-font-[600] tw-text-[20px]">Course</td>
@@ -111,7 +111,7 @@ function MyCourses() {
                                                         Action
                                                     </p>
                                                     <p className="tw-flex-1 tw-text-richblack-300 tw-text-[20px]  tw-flex xl:tw-gap-x-0 tw-gap-x-3 ">
-                                                        <FiEdit2 className=" tw-text-[30px] xl:tw-text-[25px]  tw-p-[2px] xl:tw-flex-1 tw-cursor-pointer hover:tw-scale-[1.2] tw-duration-200" onClick={()=>navigate('/dashboard/edit-course/12345')} />
+                                                        <FiEdit2 className=" tw-text-[30px] xl:tw-text-[25px]  tw-p-[2px] xl:tw-flex-1 tw-cursor-pointer hover:tw-scale-[1.2] tw-duration-200" onClick={()=>navigate(`/dashboard/edit-course/${el._id}`)} />
                                                         <MdDelete className=" tw-text-[30px] xl:tw-text-[25px] tw-p-[2px] xl:tw-flex-1   tw-cursor-pointer hover:tw-scale-[1.2] tw-duration-200" onClick={() => { deleteCourse(el) }} />
                                                     </p>
                                                 </td>

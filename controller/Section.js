@@ -34,6 +34,8 @@ exports.createSection = async (req, resp) => {
             })
         }
 
+        //TODO For that Particular Course check whether it has same section name repeated
+
 
         // entry in section db
         const newSection = await Section.create({ sectionName })
@@ -64,10 +66,12 @@ exports.createSection = async (req, resp) => {
             // })
             .exec()
 
+            //
+
         return resp.status(200).json({
             status: "Success",
             message: "Section created successfully!",
-            updatedCourseDetals: updateCourseDetails
+            updatedCourseDetails: updateCourseDetails
         })
 
 
@@ -151,6 +155,7 @@ exports.deleteSection = async (req, resp) => {
         // We will need courseId if we want to delete section from course Schema
 
         //!! check below 
+
         const updatedCourse=await Course.findByIdAndUpdate(
             { _id: courseId },
             {
