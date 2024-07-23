@@ -29,18 +29,15 @@ exports.createCourse = async (req, resp) => {
         // file for thumbnail
 
         const thumbnail = req.files?.thumbnailImage;
-        
             
         // validation
         if (!courseName || !courseDescription || !whatYouWillLearn || !price  || !thumbnail || !tag || !instructions ) {
-            console.log("hello missing")
             return resp.status(200).json({
                 status: "Failed",
                 msg: "Some fields that are missing are required while creating course !"
             })
         }
 
-        console.log("noi missing")
 
         // Course not yet published
         if (!status || status === undefined) {
@@ -116,7 +113,7 @@ exports.createCourse = async (req, resp) => {
         })
 
         // add course in userSchema of instructor as well
-        const updateUserDetails = await User.findByIdAndUpdate(
+        const updatedUserDetails = await User.findByIdAndUpdate(
             { _id: instructorDetails._id },
             {
                 $push: {
@@ -144,6 +141,7 @@ exports.createCourse = async (req, resp) => {
             success: "Success",
             message: "Course Created Successfully",
             data: newCourse,
+            updatedUserDetails:updatedUserDetails
         });
 
     } catch (error) {

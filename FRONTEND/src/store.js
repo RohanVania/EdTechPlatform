@@ -1,6 +1,5 @@
-import {configureStore} from  "@reduxjs/toolkit"
+import {configureStore,} from  "@reduxjs/toolkit"
 import rootReducers from "./reducer"
-
 
 //* Since we want to create a reset functionality I commented this
 // const store=configureStore({
@@ -10,7 +9,7 @@ import rootReducers from "./reducer"
 const appReducers=rootReducers;
 
 const customRootReducer=(state,action)=>{
-    console.log("Root =>",state,action)
+    // console.log("Root =>",state,action)
     if(action.type==='logout'){
         console.log("Calling Logout",state)
         state=undefined;
@@ -19,7 +18,9 @@ const customRootReducer=(state,action)=>{
 }
 
 const store=configureStore({
-    reducer:customRootReducer
+    reducer:customRootReducer,
+    // devTools:true
+
 })
 
 
