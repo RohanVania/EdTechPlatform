@@ -67,7 +67,9 @@ function Step1Form({ editLayout,setImgPreview,imgpreview }) {
             replaceTags(globalCourseState?.editCourse?.tag);
             replaceInstructions(globalCourseState?.editCourse?.instructions);
             setFileMissing(false);
+            return 
         }
+        setCourseSubmit(false)
     }, [])
 
 
@@ -116,7 +118,6 @@ function Step1Form({ editLayout,setImgPreview,imgpreview }) {
         setImageFile(null);
         setImgPreview(null);
         setFileMissing(true);
-        // setCourseSubmit(true);
     }
 
     function handleOndragOver(event) {
@@ -130,6 +131,8 @@ function Step1Form({ editLayout,setImgPreview,imgpreview }) {
         setImageFile(imagefile);
         setImgPreview(URL.createObjectURL(imagefile));
         setFileMissing(false)
+        setCourseSubmit(true)
+
     }
 
 
@@ -186,12 +189,12 @@ function Step1Form({ editLayout,setImgPreview,imgpreview }) {
             if (courseAddResult?.data?.status === 'Success') {
                 //* This query will update the myCourses as well
                 query.resetQueries({ queryKey: "mycourses" });
+                dispatch(setStep(2));
             }
 
-            dispatch(setStep(2));
 
-            setCourseSubmit(false);
         }
+        setCourseSubmit(false);
 
     }
 
@@ -314,7 +317,7 @@ function Step1Form({ editLayout,setImgPreview,imgpreview }) {
 
 
                 {
-                     CourseSubmitCalled &&
+                     !CourseSubmitCalled &&
                      filemissing &&
                     <p className='tw-text-sm tw-mt-3 tw-ml-1 tw-text-pink-500'>Thumbnail is required<sup className='tw-text-pink-400 tw-ml-1'>*</sup></p>
                 }

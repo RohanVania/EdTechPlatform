@@ -75,6 +75,7 @@ export const EditMyCourse = async (formData, dispatch) => {
             })
 
             dispatch(setEditCourse(result?.data?.updatedCourseData));
+            dispatch(setCourse(result?.data?.updatedCourseData));
         }
 
         if (result?.data?.status == "Failed") {
@@ -108,9 +109,11 @@ export const EditMyCourse = async (formData, dispatch) => {
 
 
 //**  Delete a Particular Course
-export const deleteACourse = async (id) => {
+export const deleteACourse = async (id,userid) => {
     try {
-        const { data } = await apiCaller('DELETE', courseApi.DELETE_PARTICULAR_COURSE(id));
+        const { data } = await apiCaller('DELETE', courseApi.DELETE_PARTICULAR_COURSE(id),{
+            userid:userid
+        });
 
         if (data.data === "Nothing") {
             toast("😁 Already deleted before / dont exists")

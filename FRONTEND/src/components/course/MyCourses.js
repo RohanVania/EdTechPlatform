@@ -6,13 +6,14 @@ import { useQuery, useQueryClient } from "react-query";
 import { fetchMyCourses, deleteACourse } from "../../services/operations/courseFunction";
 import ModalLoader from "../core/ModalLoader";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setEditCourse } from "../../slices/addcourseSlice";
 
 function MyCourses() {
     const query = useQueryClient();
     const navigate=useNavigate();
     const dispatch=useDispatch();
+    const globalProfileState=useSelector((state)=>state.profile);
 
     const { data, isLoading, isFetching } = useQuery({
         queryKey: 'mycourses',
@@ -30,7 +31,8 @@ function MyCourses() {
 
     async function deleteCourse(el) {
         console.log("Delete Course =>", el)
-        const result = await deleteACourse(el._id);
+
+        const result = await deleteACourse(el._id,globalProfileState?.userData?._id);
         console.log(result)
         // if (result.status !== "Success" && result.data !== null) {
             query.invalidateQueries({ queryKey: 'mycourses' });
