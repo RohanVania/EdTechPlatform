@@ -7,7 +7,7 @@ const router=express.Router();
 const{auth,isInstructor, isAdmin}=require("../middlewares/auth");
 
 //* Course Controller
-const {createCourse,getAllCourses, getCourseDetails,getMyCourses,deleteParticularCourse}=require("../controller/Course");
+const {createCourse,getAllCourses, getCourseDetails,getMyCourses,deleteParticularCourse,editParticularCourse}=require("../controller/Course");
 
 //* Category Controller
 const {createCategory,showAllCategories,categoryPageDetails}=require("../controller/Category");
@@ -28,6 +28,7 @@ router.post("/createCourse",auth,isInstructor,createCourse);
 router.get("/getAllCourses",getAllCourses);
 router.post("/getCourseDetails",getCourseDetails)
 router.delete("/deleteCourse/:id",auth,isInstructor,deleteParticularCourse)
+router.put("/editCourseById",auth,isInstructor,editParticularCourse)
 
 //Instructor can Add Section
 router.post('/addSection',auth,isInstructor,createSection);

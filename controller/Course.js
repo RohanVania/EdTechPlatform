@@ -23,15 +23,15 @@ exports.createCourse = async (req, resp) => {
             instructions } = req.body;
 
         // Parsingg back to object
-        tag=JSON.parse(tag);
-        instructions=JSON.parse(instructions);
+        tag = JSON.parse(tag);
+        instructions = JSON.parse(instructions);
 
         // file for thumbnail
 
         const thumbnail = req.files?.thumbnailImage;
-            
+
         // validation
-        if (!courseName || !courseDescription || !whatYouWillLearn || !price  || !thumbnail || !tag || !instructions ) {
+        if (!courseName || !courseDescription || !whatYouWillLearn || !price || !thumbnail || !tag || !instructions) {
             return resp.status(200).json({
                 status: "Failed",
                 msg: "Some fields that are missing are required while creating course !"
@@ -141,7 +141,7 @@ exports.createCourse = async (req, resp) => {
             success: "Success",
             message: "Course Created Successfully",
             data: newCourse,
-            updatedUserDetails:updatedUserDetails
+            updatedUserDetails: updatedUserDetails
         });
 
     } catch (error) {
@@ -288,28 +288,164 @@ exports.deleteParticularCourse = async (req, res) => {
     try {
         const id = req.params.id;
         const response = await Course.findByIdAndDelete(id);
-        if(response===null){
+        if (response === null) {
             return response.status(200).json({
-                status:"Success",
-                data:"Nothing",
-                msg:'Given course is already deleted'
+                status: "Success",
+                data: "Nothing",
+                msg: 'Given course is already deleted'
             })
         }
 
         //* Also delete it course from user table entry in courses
-        
+
 
         return res.status(200).json({
-            status:"Success",
-            msg:"Course deleted successfully",
+            status: "Success",
+            msg: "Course deleted successfully",
         })
     }
     catch (err) {
         console.log(err);
         return res.status(200).json({
-            status:"Failed",
-            msg:"Error while deleting a course",
-            errmsg:err
+            status: "Failed",
+            msg: "Error while deleting a course",
+            errmsg: err
         })
     }
+}
+
+//* Update Course by Id
+
+exports.editParticularCourse = async (req, resp) => {
+    try {
+
+        // const userId = req.user.id;
+        // console.log("User", req.user);
+        // console.log("Body ", req.body)
+        // console.log("Files", req.files)
+        const userid = req?.user?.id;
+
+        let {
+            tag,
+            instructions,
+            courseName,
+            courseDescription,
+            price,
+            category,
+            whatYouWillLearn,
+            courseIdToEdit,
+
+        } = req.body;
+
+        // Parsingg back to object
+        tag = JSON.parse(tag);
+        instructions = JSON.parse(instructions);
+
+        // file for thumbnail
+        const thumbnail = req.files?.thumbnailImage;
+
+        if (!courseIdToEdit) {
+            return resp.status(200).json({
+                status: "Failed",
+                msg: "Id missing for course editing!"
+            })
+        }
+
+        // validation
+        if (!tag || !instructions || !courseName || !courseDescription || !price || !category || !whatYouWillLearn) {
+            return resp.status(200).json({
+                status: "Failed",
+                msg: "Some fields that are missing are required while Edit course !"
+            })
+        }
+
+        // Check for Instructor
+        // the query, filtering the results to only return users with an account type of "Instructor".
+        const instructorDetails = await User.findById(userid,
+            {
+                accountType: "Instructor"
+            }
+        );
+
+        //TODO: Verify that userId and instructorDetails._id  are same or different ? (both are same)
+
+        if (!instructorDetails) {
+            return resp.status(200).json({
+                success: "Failed",
+                message: 'Instructor Details not found !',
+            });
+        }
+        // validate Category also
+        console.log(0);
+        const categoryData = await Category.findOne({ name: category });
+        if (!categoryData) {
+            return resp.status(200).json({
+                status: "Failed",
+                message: "Given Category doesn't exists"
+            })
+        }
+        const categoryDetails = await Category.findById(categoryData._id);
+        if (!categoryDetails) {
+            return resp.status(200).json({
+                status: "Failed",
+                msg: "Category details not found or is Invalid!"
+            })
+        }
+
+        let updateCourseById;
+        // If all good upload file to cloudinary
+        if (req.files !== null) {
+            const thumbnailImage = await imageUploader(thumbnail, process.env.FOLDER_NAME)
+            console.log("ThumbNail Image =>", thumbnailImage);
+            updateCourseById = await Course.findByIdAndUpdate(
+                { _id: courseIdToEdit },
+                {
+                    tag,
+                    instructions,
+                    courseName,
+                    courseDescription,
+                    price,
+                    category: categoryDetails._id,
+                    whatYouWillLearn,
+                    thumbnail: thumbnailImage?.url,
+                },
+                {
+                    new: true
+                }
+            )
+        }
+        else {
+
+            updateCourseById = await Course.findByIdAndUpdate(
+                { _id: courseIdToEdit },
+                {
+                    tag,
+                    instructions,
+                    courseName,
+                    courseDescription,
+                    price,
+                    category: categoryDetails._id,
+                    whatYouWillLearn,
+                },
+                {
+                    new: true
+                }
+            )
+        }
+
+        return resp.status(200).json({
+            status: "Success",
+            message: "Course Edited Successfully",
+            updatedCourseData: updateCourseById,
+        });
+
+    } catch (error) {
+        console.error(error);
+        return resp.status(200).json({
+            status: "Failed",
+            message: 'Failed to Edit Course',
+            error: error.message,
+        })
+    }
+
 }

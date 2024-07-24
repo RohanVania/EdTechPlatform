@@ -6,44 +6,34 @@ import { FiUploadCloud } from "react-icons/fi";
 import { queryClient } from "../../index"
 import { useDispatch, useSelector } from 'react-redux';
 import { setStep } from '../../slices/addcourseSlice';
-import { addMyCourse } from '../../services/operations/courseFunction';
+import { addMyCourse, EditMyCourse } from '../../services/operations/courseFunction';
 import { useQueryClient } from 'react-query';
+import { useParams } from 'react-router-dom';
 
 
-function Step1Form() {
+function Step1Form({ editLayout,setImgPreview,imgpreview }) {
+
     const query = useQueryClient();
     const dispatch = useDispatch();
+    const params = useParams();
 
-    const globalAddCourseState = useSelector((state) => state?.addcourse);
+    const globalCourseState = useSelector((state) => state?.addcourse);
     query.invalidateQueries({ queryKey: "mycourses" })
 
     const { data: categories } = queryClient.getQueryData('categories');
 
-    const [addCourseSubmitCalled, setAddCourseSubmit] = useState(false);
+    const [CourseSubmitCalled, setCourseSubmit] = useState(false);
     const [Taginput, setTagInput] = useState('');  //* Tag Input
     const [requirementinput, setRequirementInput] = useState(""); //* Requirement Input
     const [filemissing, setFileMissing] = useState(true)
     const [imagefile, setImageFile] = useState(null);
-    const [imgpreview, setImgPreview] = useState(null);
 
-    const { register, trigger, control, getValues, setValue, formState: { errors, touchedFields } } = useFormContext();
+    const { register, trigger, control, getValues, setValue, formState: { errors, touchedFields }, reset } = useFormContext();
 
 
-    useEffect(() => {
-        //* For Editting Course
-        if (globalAddCourseState?.editCourse === true) {
-            setValue("courseName", globalAddCourseState?.courseName);
-            setValue("courseDescription", globalAddCourseState?.courseDescription);
-            setValue("price", globalAddCourseState?.price);
-            setValue("whatYouWillLearn", globalAddCourseState?.whatYouWillLearn);
-            setImgPreview(globalAddCourseState?.thumbnail);
-            setTagInput(globalAddCourseState?.tag);
-            setRequirementInput(globalAddCourseState?.instructions);
-        }
-    }, [])
 
     //* For Tag 
-    const { fields, append, remove } = useFieldArray({
+    const { fields: tags, append, remove, replace: replaceTags } = useFieldArray({
         control,
         name: 'tag',
         rules: {
@@ -53,8 +43,9 @@ function Step1Form() {
 
     })
 
+
     //* For Instructions
-    const { fields: instructions, append: add, remove: rem } = useFieldArray({
+    const { fields: instructions, append: addinstructions, remove: reminstructions, replace: replaceInstructions } = useFieldArray({
         control,
         name: 'instructions',
         rules: {
@@ -64,6 +55,22 @@ function Step1Form() {
     })
 
     const inputfile = useRef(null)
+
+    useEffect(() => {
+        //* For Editting Course
+        if (params?.courseId !== null && globalCourseState?.editCourse) {
+            setValue("courseName", globalCourseState?.editCourse?.courseName);
+            setValue("courseDescription", globalCourseState?.editCourse?.courseDescription);
+            setValue("price", globalCourseState?.editCourse?.price);
+            setValue("whatYouWillLearn", globalCourseState?.editCourse?.whatYouWillLearn);
+            setImgPreview(globalCourseState?.editCourse?.thumbnail);
+            replaceTags(globalCourseState?.editCourse?.tag);
+            replaceInstructions(globalCourseState?.editCourse?.instructions);
+            setFileMissing(false);
+        }
+    }, [])
+
+
 
     function handleChange(e) {
         const { value } = e.target;
@@ -87,7 +94,7 @@ function Step1Form() {
             return;
         }
         else {
-            add(trimmedinput);
+            addinstructions(trimmedinput);
             setRequirementInput("")
         }
     }
@@ -105,9 +112,11 @@ function Step1Form() {
     }
 
     function handleImgCancel(e) {
+        console.log("Cancel")
         setImageFile(null);
         setImgPreview(null);
-        setFileMissing(true)
+        setFileMissing(true);
+        // setCourseSubmit(true);
     }
 
     function handleOndragOver(event) {
@@ -122,10 +131,40 @@ function Step1Form() {
         setImgPreview(URL.createObjectURL(imagefile));
         setFileMissing(false)
     }
-    // Test
+
+
+
+    async function EditSaveFormSubmit() {
+        setCourseSubmit(true);
+
+        //* This is for so you enter enter whitespaces and submit
+        setValue('courseName', getValues('courseName').trim());
+        setValue('courseDescription', getValues('courseDescription').trim());
+        setValue('whatYouWillLearn', getValues('whatYouWillLearn').trim());
+
+        //* To tirgger error if any field is missing
+        const isValid = await trigger(['courseName', 'courseDescription', 'price', 'category', 'whatYouWillLearn', 'instructions', 'tag'])
+        console.log("Trigger",isValid);
+        console.log(filemissing);
+        if (filemissing != true && isValid) {
+            const formFields = getValues();
+            const formObject = { ...formFields, tag: JSON.stringify(getValues('tag')), instructions: JSON.stringify(getValues('instructions')), thumbnailImage: imagefile, courseIdToEdit: globalCourseState?.editCourse?._id };
+            console.log("Form Object", formObject)
+            const courseEditResult = await EditMyCourse(formObject, dispatch);
+            if (courseEditResult?.status === 'Success') {
+                //* This query will update the myCourses as well
+                dispatch(setStep(2));
+            }
+
+            setCourseSubmit(false);
+        }
+
+
+    }
 
     async function Step1FormSubmit() {
-        setAddCourseSubmit(true);
+        setCourseSubmit(true);
+
         // console.log("Fields", fields)
         // console.log(getValues('tag'));
         // console.log(getValues('instructions'))
@@ -138,23 +177,23 @@ function Step1Form() {
 
         const isValid = await trigger(['courseName', 'courseDescription', 'price', 'category', 'whatYouWillLearn', 'instructions', 'tag'])
         // console.log(errors)
-
+        console.log(CourseSubmitCalled,filemissing,isValid)
         if (filemissing != true && isValid) {
-            console.log("Go to Step 2 form");
+
             const formFields = getValues();
             const formObject = { ...formFields, tag: JSON.stringify(getValues('tag')), instructions: JSON.stringify(getValues('instructions')), thumbnailImage: imagefile };
             const courseAddResult = await addMyCourse(formObject, dispatch);
-            if (courseAddResult?.data.status === 'Success') {
+            if (courseAddResult?.data?.status === 'Success') {
                 //* This query will update the myCourses as well
                 query.resetQueries({ queryKey: "mycourses" });
-                setAddCourseSubmit(false);
             }
+
             dispatch(setStep(2));
 
+            setCourseSubmit(false);
         }
 
     }
-
 
     return (
         <>
@@ -217,8 +256,9 @@ function Step1Form() {
             <div className='tw-flex tw-flex-col'>
                 <label className='tw-mb-3 tw-text-sm tw-text-richblack-5'>Tags<sup className='tw-text-pink-200 tw-ml-1'>*</sup></label>
                 <div id='tag-area' className='tw-flex tw-flex-wrap tw-mb-2 '>
+
                     {
-                        fields?.map((el, indx) => {
+                        tags?.map((el, indx) => {
                             return <div key={el.id} className='tw-m-1 tw-flex tw-items-center tw-rounded-full tw-bg-yellow-400 tw-px-2 tw-py-1 tw-text-sm tw-text-richblack-5'>
                                 {
                                     (Object.values(el).slice(0, -1)).join("")
@@ -245,8 +285,10 @@ function Step1Form() {
                     onDragOver={handleOndragOver}
                     onDrop={handleOnDrop}
 
+
                 >
-                    {
+                    {   
+                    
                         imgpreview ?
                             <div className='tw-flex tw-flex-col tw-pb-3'>
                                 <img src={imgpreview || `https://images.unsplash.com/photo-1603892853112-a957bfbd6941?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aGVpZ2h0fGVufDB8fDB8fHww`} className='tw-p-3 tw-object-cover tw-w-full tw-h-full' />
@@ -271,7 +313,9 @@ function Step1Form() {
                 </div>
 
 
-                {addCourseSubmitCalled && filemissing &&
+                {
+                     CourseSubmitCalled &&
+                     filemissing &&
                     <p className='tw-text-sm tw-mt-3 tw-ml-1 tw-text-pink-500'>Thumbnail is required<sup className='tw-text-pink-400 tw-ml-1'>*</sup></p>
                 }
 
@@ -298,12 +342,12 @@ function Step1Form() {
                     errors.instructions && <p className='tw-text-sm tw-mt-3 tw-ml-1 tw-text-pink-500'>Atleast one Instruction required<sup className='tw-text-pink-400 tw-ml-1'>*</sup></p>
                 }
 
-                <button type='button' className='tw-mt-3 tw-font-semibold tw-text-yellow-50 tw-p-1 tw-mr-auto' onClick={addRequirement} >Add</button>
+                <button type='button' className='tw-mt-3 tw-font-semibold tw-text-yellow-50 tw-p-1 tw-mr-auto tw-mb-5' onClick={addRequirement} >Add</button>
                 <div id='instructions-area' className='tw-max-w-[500px'>
                     <ul className='tw-flex tw-flex-col tw-gap-y-1  tw-break-all'>
                         {
                             instructions?.map((el, indx) => {
-                                return <li key={indx} className='tw-text-gray-400 tw-ml-1'>{Object.values(el).slice(0, -1).join("")}<button type='button' className='tw-cursor-pointer tw-p-1 tw-ml-2 tw-text-xs tw-text-pure-greys-300' onClick={() => rem(indx)} >clear</button></li>
+                                return <li key={indx} className='tw-text-gray-400 tw-ml-1'>{Object.values(el).slice(0, -1).join("")}<button type='button' className='tw-cursor-pointer tw-p-1 tw-ml-2 tw-text-xs tw-text-pure-greys-300' onClick={() => reminstructions(indx)} >clear</button></li>
 
                             })
 
@@ -312,21 +356,78 @@ function Step1Form() {
                     </ul>
                 </div>
             </div>
-            {
-                !globalAddCourseState?.editCourse ?
-                    <button className='tw-ml-auto  tw-flex tw-items-center tw-bg-yellow-50 tw-cursor-pointer tw-gap-x-2 tw-rounded-md tw-py-2 tw-px-5 tw-font-semibold tw-text-richblack-900 ' onClick={Step1FormSubmit}>
-                        Next
-                        <FaChevronRight />
-                    </button> :
-                    
-                        <button className='tw-ml-auto  tw-flex tw-items-center tw-bg-yellow-50 tw-cursor-pointer tw-gap-x-2 tw-rounded-md tw-py-2 tw-px-5 tw-font-semibold tw-text-richblack-900 ' onClick={Step1FormSubmit}>
-                            Edit
-                            <FaChevronRight />
-                        </button>
 
-            }
+            <div className='tw-flex tw-justify-end'>
+                {
+
+                    editLayout ?
+                        globalCourseState?.editCourse !== null &&
+                        <div className='tw-flex tw-gap-x-4 tw-justify-end'>
+
+                            <button className='tw-ml-aut  tw-flex tw-items-center tw-bg-gray-700 tw-cursor-pointer tw-gap-x-2 tw-rounded-md tw-py-2 tw-px-5 tw-font-semibold tw-text-white ' onClick={() => { dispatch(setStep(2)) }}>
+                                Continue without Saving
+                            </button>
+                            {
+                                 
+                                  <button className='tw-ml-aut  tw-flex tw-items-center tw-bg-yellow-50 tw-cursor-pointer tw-gap-x-2 tw-rounded-md tw-py-2 tw-px-5 tw-font-semibold tw-text-richblack-900 ' onClick={EditSaveFormSubmit}>
+                                  Edit
+                                   <FaChevronRight />
+                               </button>
+
+                            }
+                        </div>
+
+                        :
+                        CourseSubmitCalled ?
+                            <button className='tw-ml-aut  tw-flex tw-items-center tw-bg-yellow-400 tw-cursor-pointer tw-gap-x-2 tw-rounded-md tw-py-2 tw-px-5 tw-font-semibold tw-text-richblack-900 ' >
+                                Next
+                                <FaChevronRight />
+                            </button>
+                            :
+                            <button className='tw-ml-aut  tw-flex tw-items-center tw-bg-yellow-50 tw-cursor-pointer tw-gap-x-2 tw-rounded-md tw-py-2 tw-px-5 tw-font-semibold tw-text-richblack-900 ' onClick={Step1FormSubmit}>
+                                Next
+                                <FaChevronRight />
+                            </button>
+
+
+                }
+            </div >
+
         </>
     )
 }
 
 export default Step1Form
+
+
+// !globalAddCourseState?.editCourse && params.courseId!==null ?
+
+// CourseSubmitCalled ?
+//     <button className='tw-ml-auto  tw-flex tw-items-center tw-bg-yellow-50 tw-cursor-pointer tw-gap-x-2 tw-rounded-md tw-py-2 tw-px-5 tw-font-semibold tw-text-richblack-900 ' onClick={Step1FormSubmit}>
+//         Next
+//         <FaChevronRight />
+//     </button> :
+//     <button className='tw-ml-auto  tw-flex tw-items-center tw-bg-yellow-400 tw-cursor-pointer tw-gap-x-2 tw-rounded-md tw-py-2 tw-px-5 tw-font-semibold tw-text-richblack-900 ' >
+//         Next
+//         <FaChevronRight />
+//     </button>
+
+// :
+// <div className='tw-flex  tw-justify-end tw-gap-x-3'>
+//     <button className='tw-ml-aut  tw-flex tw-items-center tw-bg-gray-600 tw-cursor-pointer tw-gap-x-2 tw-rounded-md tw-py-2 tw-px-5 tw-font-semibold tw-text-white ' onClick={() => dispatch(setStep(2))}>
+//         Continue without Saving
+//     </button>
+//     {
+
+//       !CourseSubmitCalled ?
+//             <button className='tw-ml-aut  tw-flex tw-items-center tw-bg-yellow-50 tw-cursor-pointer tw-gap-x-2 tw-rounded-md tw-py-2 tw-px-5 tw-font-semibold tw-text-richblack-900 ' onClick={EditSaveFormSubmit}>
+//                 Edit
+//                 <FaChevronRight />
+//             </button>
+//             :
+//             <button className='tw-ml-aut  tw-flex tw-items-center tw-bg-yellow-400 tw-cursor-pointer tw-gap-x-2 tw-rounded-md tw-py-2 tw-px-5 tw-font-semibold tw-text-richblack-900 ' >
+//                 Edit
+//                 <FaChevronRight />
+//             </button>
+//     }
+// </div>

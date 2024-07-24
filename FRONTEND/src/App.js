@@ -29,6 +29,7 @@ import MyCourses from "./components/course/MyCourses";
 import Modal from "./components/core/Modal";
 import { Suspense } from "react";
 import CategoryPage from "./pages/CategoryPage";
+import EditCourseLayout from "./components/course/EditCourseLayout";
 
 function App() {
 
@@ -146,7 +147,7 @@ function App() {
                 <Route path="/dashboard/purchase-history" element={<h1 className="tw-text-white">Purschase History</h1>} />
                 <Route path="/dashboard/my-courses" element={<MyCourses />} />
                 <Route path="/dashboard/add-course" element={<CourseAddLayout />} />
-                <Route path="/dashboard/edit-course/:courseId" element={<CourseAddLayout />} />
+                <Route path="/dashboard/edit-course/:courseId" element={<EditCourseLayout />} />
               </>
             </Route>
 
