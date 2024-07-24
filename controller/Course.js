@@ -286,22 +286,55 @@ exports.getMyCourses = async (req, resp) => {
 //* Delete Course by Id
 exports.deleteParticularCourse = async (req, res) => {
     try {
-        const id = req.params.id;
-        const response = await Course.findByIdAndDelete(id);
-        if (response === null) {
-            return response.status(200).json({
+        const courseId = req.params?.id;
+        const userid = req?.user?.id;
+
+        //* Checking user id provided in delete function call and server side auth or instructor id go to route for understanding
+        const validId = userid === req.body?.userid ? true : false;
+        if (validId) {
+
+            // const deleteCourseResult = await Course.findByIdAndDelete(courseId);
+
+            // if (deleteCourseResult === null) {
+            //     return response.status(200).json({
+            //         status: "Success",
+            //         data: "Nothing",
+            //         msg: 'Given course is already deleted'
+            //     })
+            // }
+
+            //* Also delete it course from user table entry in courses
+
+            // const userDetails=await User.findById(userid).populate("courses").exec();
+
+
+            // console.log("hello",userDetails.courses[0]._id);
+            // console.log("hello 1",courseId);
+
+            // const coursesDelete=userDetails?.courses.filter((el)=>console.log(el._id===courseId));
+            // console.log(coursesDelete)
+
+            const userDetailupdate = await User.findByIdAndUpdate(userid,
+                {
+                    $pull: { courses: { _id:courseId } }
+                },
+                {
+                    new:true
+                }
+            )
+
+            console.log(userDetailupdate);
+
+            return res.status(200).json({
                 status: "Success",
-                data: "Nothing",
-                msg: 'Given course is already deleted'
+                msg: "Course deleted successfully",
             })
         }
 
-        //* Also delete it course from user table entry in courses
-
-
         return res.status(200).json({
-            status: "Success",
-            msg: "Course deleted successfully",
+            status: "Failed",
+            data: "User id and server id dont match",
+            msg: 'Something wrong in delete a course'
         })
     }
     catch (err) {
