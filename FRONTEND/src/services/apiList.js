@@ -30,7 +30,8 @@ export const publicApi={
 export const courseApi={
     MY_COURSES:'/course/mycourses',
     DELETE_PARTICULAR_COURSE:(id)=>`/course/deleteCourse/${id}`,
-    ADD_COURSE:'/course/createCourse'
+    ADD_COURSE:'/course/createCourse',
+    EDIT_COURSE:'/course/editCourseById'
 }
 
 //* Sectio API URLS

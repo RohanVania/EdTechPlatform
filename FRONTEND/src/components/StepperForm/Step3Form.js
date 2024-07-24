@@ -1,5 +1,5 @@
 
-function Step3Form(){
+function Step3Form({editLayout}){
     return(
         <div>
             Step 3 Form

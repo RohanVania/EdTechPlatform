@@ -6,10 +6,13 @@ import { useQuery, useQueryClient } from "react-query";
 import { fetchMyCourses, deleteACourse } from "../../services/operations/courseFunction";
 import ModalLoader from "../core/ModalLoader";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setEditCourse } from "../../slices/addcourseSlice";
 
 function MyCourses() {
     const query = useQueryClient();
     const navigate=useNavigate();
+    const dispatch=useDispatch();
 
     const { data, isLoading, isFetching } = useQuery({
         queryKey: 'mycourses',
@@ -19,6 +22,10 @@ function MyCourses() {
     })
 
     // console.log("Courses Data", data)
+    function changeEditCourseAndGoToThatCourse(course){
+        dispatch(setEditCourse(course))
+        navigate(`/dashboard/edit-course/${course._id}`)
+    }
 
 
     async function deleteCourse(el) {
@@ -111,7 +118,7 @@ function MyCourses() {
                                                         Action
                                                     </p>
                                                     <p className="tw-flex-1 tw-text-richblack-300 tw-text-[20px]  tw-flex xl:tw-gap-x-0 tw-gap-x-3 ">
-                                                        <FiEdit2 className=" tw-text-[30px] xl:tw-text-[25px]  tw-p-[2px] xl:tw-flex-1 tw-cursor-pointer hover:tw-scale-[1.2] tw-duration-200" onClick={()=>navigate(`/dashboard/edit-course/${el._id}`)} />
+                                                        <FiEdit2 className=" tw-text-[30px] xl:tw-text-[25px]  tw-p-[2px] xl:tw-flex-1 tw-cursor-pointer hover:tw-scale-[1.2] tw-duration-200" onClick={()=> changeEditCourseAndGoToThatCourse(el)}/>
                                                         <MdDelete className=" tw-text-[30px] xl:tw-text-[25px] tw-p-[2px] xl:tw-flex-1   tw-cursor-pointer hover:tw-scale-[1.2] tw-duration-200" onClick={() => { deleteCourse(el) }} />
                                                     </p>
                                                 </td>

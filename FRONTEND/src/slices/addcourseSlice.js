@@ -2,10 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState={
     step:1,
-    savedcourse:null,
+    // savedcourse:null,
     course:null,
-    editCourse:false,
-    formSubmit:false
+    editCourse:null,
 }
 
 const addcourseSlice=createSlice({
