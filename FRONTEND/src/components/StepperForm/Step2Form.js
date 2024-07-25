@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { LuPlusCircle } from "react-icons/lu";
 import { FaChevronLeft } from "react-icons/fa6";
 import { FaChevronRight } from "react-icons/fa";
@@ -26,6 +26,10 @@ function Step2Form({editLayout}) {
   let [array, setArray] = useState([]);
   const [editSection, setEditSection] = useState(false);
 
+  useEffect(()=>{
+    setArray(globalCourseState?.editCourse?.courseContent)
+  },[])
+
   function GoBack() {
     dispatch(setStep(1))
     // dispatch(setEditCourse())
@@ -37,26 +41,26 @@ function Step2Form({editLayout}) {
       setValue('sectionName', getValues('sectionName').trim());
       const isValid = await trigger(['sectionName']);
 
-      console.log(isValid);
-      console.log(getValues("sectionName"))
+      console.log("Checking value in the input",isValid);
 
       if (isValid) {
         const inputBody = {
           sectionName: getValues("sectionName"),
-          courseId: "66a00b1f49fc45e3c7209c16"
+          courseId: globalCourseState?.course?._id
         }
 
         const res = await addSection(inputBody, dispatch);
+        const courseContentArray=res?.updatedCourseDetails?.courseContent;
+       console.log(courseContentArray);
+        reset();
 
-        // reset();
-
-        // setArray((prev) => [...prev, { name: 'Extra' }]);
+        // setArray((prev) => [...prev, res?.updatedCourseDetails?.courseContent]);
+        console.log(array);
 
       }
     }
     catch (err) {
       console.log(err);
-
     }
 
   }
@@ -69,7 +73,7 @@ function Step2Form({editLayout}) {
   
   return (
     <section>
-      <h1 className='tw-font-[400] tw-text-[18px]'>Course Builder</h1>
+      <h1 className='tw-font-[400] tw-text-[18px] tw-mb-4'>Course Builder</h1>
 
       {/* <form onSubmit={createSection}> */}
       <div className='tw-flex tw-flex-col'>
@@ -119,13 +123,13 @@ function Step2Form({editLayout}) {
 
       {
         array.length !== 0 &&
-        <ul className='tw-bg-richblack-700 tw-py-6    tw-rounded-md tw-space-y-5'>
+        <ul className='tw-bg-richblack-70 tw-py-6   tw-my-6   tw-rounded-md tw-space-y-5'>
           {
+            
+            array?.map((el, indx) => {
 
-            // array?.map((el, indx) => {
-            //   return <Faq key={indx} element={el} />
-            // })
-
+              return <Faq key={indx} element={el} />
+            })
 
           }
         </ul>

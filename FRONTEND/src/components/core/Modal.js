@@ -1,25 +1,7 @@
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+
 
 function Modal({ question,text,btn1,btn2,handleLogout,handleLogoutCancel}) {
-    // const dispatch = useDispatch();
-    // const navigate =useNavigate();
-
-    // async function handleLogout() {
-    //     try {
-    //         const response = await logoutOperation(dispatch);
-    //         if (response?.data?.status === "Success") {
-    //             navigate('/')
-    //         }
-
-    //     } catch (err) {
-    //         console.log(err)
-    //     }
-    // }
-
-    // function handleLogoutCancel() {
-    //     dispatch(setLogout(false))
-    // }
+   
 
     return (
         <>

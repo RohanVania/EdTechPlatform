@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 import { apiCaller } from "../apiconnector"
 import { sectionApi } from "../apiList"
-import { setCourse } from "../../slices/addcourseSlice";
+import { setCourse, setEditCourse } from "../../slices/addcourseSlice";
 
 
 export const addSection = async (inputbody,dispatch) => {
@@ -15,8 +15,9 @@ export const addSection = async (inputbody,dispatch) => {
                 id: "Section-1",
             })
             
-            dispatch(setCourse(res?.data.updatedCourseDetails))
-
+            dispatch(setCourse(res?.data.updatedCourseDetails));
+            dispatch(setEditCourse(res.data.updatedCourseDetails));
+            return res?.data;
         }
 
         if (res?.data.status === "Failed") {

@@ -18,6 +18,8 @@ exports.createSection = async (req, resp) => {
         const { sectionName, courseId } = req.body
 
         // validate
+        console.log(sectionName,courseId)
+
         if (!sectionName || !courseId) {
             return resp.status(200).json({
                 status: "Failed",
@@ -141,20 +143,22 @@ exports.deleteSection = async (req, resp) => {
     try {
 
         const { courseId, sectionId } = req.body
+
+        if(!courseId || !sectionId){
+            return resp.status(200).json({
+                status:"Failed",
+                message:"Missing courseId or section Id"
+            })
+        }
+        
         const deletedDatafromSection = await Section.findByIdAndDelete({ _id: sectionId })
+
         if(!deletedDatafromSection){
             return resp.status(200).json({
                 success: "Failed",
                 message: "Unable to delete Section, or Id not found please try again later",
             });
         }
-
-        //TODO[Testing]: do we need to delete the entry from the course schema ??
-
-        //?? Improved Hw
-        // We will need courseId if we want to delete section from course Schema
-
-        //!! check below 
 
         const updatedCourse=await Course.findByIdAndUpdate(
             { _id: courseId },
@@ -167,6 +171,15 @@ exports.deleteSection = async (req, resp) => {
                 new:true
             }
         )
+
+        //TODO[Testing]: do we need to delete the entry from the course schema ??
+
+        //?? Improved Hw
+        // We will need courseId if we want to delete section from course Schema
+
+        //!! check below 
+
+        
 
         console.log(updatedCourse)
 

@@ -7,7 +7,7 @@ import { fetchMyCourses, deleteACourse } from "../../services/operations/courseF
 import ModalLoader from "../core/ModalLoader";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setEditCourse } from "../../slices/addcourseSlice";
+import { setCourse, setEditCourse } from "../../slices/addcourseSlice";
 
 function MyCourses() {
     const query = useQueryClient();
@@ -24,7 +24,8 @@ function MyCourses() {
 
     // console.log("Courses Data", data)
     function changeEditCourseAndGoToThatCourse(course){
-        dispatch(setEditCourse(course))
+        dispatch(setEditCourse(course));
+        dispatch(setCourse(course));
         navigate(`/dashboard/edit-course/${course._id}`)
     }
 
@@ -46,7 +47,7 @@ function MyCourses() {
             <ModalLoader />
         </div>
     }
-
+    console.log(data.data)
     return (
         <>
             <div>

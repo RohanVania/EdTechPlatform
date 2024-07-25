@@ -3,16 +3,18 @@ import CourseTip from './CourseTip'
 
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import Step1Form from '../stepperForm/Step1Form';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Step2Form from '../stepperForm/Step2Form';
 import Step3Form from "../stepperForm/Step3Form"
 import { useParams } from 'react-router-dom';
 import RenderStep from './RenderStep';
+import { resetStep } from '../../slices/addcourseSlice';
 
 
 function CourseAddLayout() {
     const { step } = useSelector((state) => state.addcourse);
     const { control } = useForm()
+    const dispatch=useDispatch();
 
     const params = useParams();
     const [imgpreview, setImgPreview] = useState(null);
@@ -29,9 +31,9 @@ function CourseAddLayout() {
     })
 
     useEffect(()=>{
-        console.log("hello");
         methods.reset();
-        setImgPreview(null)
+        setImgPreview(null);
+        dispatch(resetStep())
     },[])
 
     return (

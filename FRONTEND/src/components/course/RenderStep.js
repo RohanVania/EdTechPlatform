@@ -37,7 +37,15 @@ function RenderStep() {
             }
             <div className='tw-flex tw-flex-col tw-gap-y-[10px] tw-pt-[40px] tw-px-1'>
                 <div className='tw-flex tw-flex-col  tw-items-center tw-gap-y-2'>
-                    <div className='tw-w-[40px] tw-aspect-square tw-rounded-full  tw-flex tw-justify-center tw-items-center tw-border-[2px] tw-border-richblack-600 tw-bg-richblack-800 tw-text-richblack-300'>2</div>
+                    {
+                        step > 2 ?
+                            <div className='tw-w-[40px] tw-aspect-square tw-rounded-full  tw-flex tw-justify-center tw-items-center tw-border-[2px] tw-border-yellow-100 tw-bg-richblack-800 tw-text-yellow-5'>
+                                <FaCheck />
+                            </div>
+                            :
+                            <div className='tw-w-[40px] tw-aspect-square tw-rounded-full  tw-flex tw-justify-center tw-items-center tw-border-[2px] tw-border-richblack-600 tw-bg-richblack-800 tw-text-richblack-300'>2</div>
+                    }
+
                 </div>
                 {
                     step > 2 ?

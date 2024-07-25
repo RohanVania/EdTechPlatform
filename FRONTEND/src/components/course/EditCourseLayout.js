@@ -3,15 +3,17 @@ import CourseTip from './CourseTip'
 
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import RenderStep from './RenderStep';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FaCheck } from "react-icons/fa";
 import { useParams } from 'react-router-dom';
 import Step1Form from '../stepperForm/Step1Form';
 import Step2Form from '../stepperForm/Step2Form';
 import Step3Form from '../stepperForm/Step3Form';
+import { resetStep } from '../../slices/addcourseSlice';
 
 function EditCourseLayout() {
     const { step } = useSelector((state) => state.addcourse);
+    const dispatch=useDispatch();
     const params=useParams();
     const [editIndicator,setEditIndicator]=useState(true);
     const [imgpreview, setImgPreview] = useState(null);
@@ -28,9 +30,7 @@ function EditCourseLayout() {
     })
 
     useEffect(()=>{
-      if(params.courseId===null){
-        setEditIndicator(false)
-      } 
+        dispatch(resetStep())
     },[])
     return (
         <div className='tw-pt-[40px]'>

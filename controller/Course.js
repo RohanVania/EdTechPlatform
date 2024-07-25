@@ -53,7 +53,6 @@ exports.createCourse = async (req, resp) => {
             }
         );
 
-        console.log("Instructor Details =>", instructorDetails);
 
         //TODO: Verify that userId and instructorDetails._id  are same or different ? (both are same)
 
@@ -97,7 +96,6 @@ exports.createCourse = async (req, resp) => {
 
         // If all good upload file to cloudinary 
         const thumbnailImage = await imageUploader(thumbnail, process.env.FOLDER_NAME)
-        console.log("ThumbNail Image =>", thumbnailImage);
 
         // add Entry in course
         const newCourse = await Course.create({
@@ -139,7 +137,7 @@ exports.createCourse = async (req, resp) => {
         )
 
         return resp.status(200).json({
-            success: "Success",
+            status: "Success",
             message: "Course Created Successfully",
             data: newCourse,
             updatedUserDetails: updatedUserDetails
@@ -263,8 +261,19 @@ exports.getCourseDetails = async (req, resp) => {
 exports.getMyCourses = async (req, resp) => {
     try {
         const { id } = req.user;
-        const mycoursesResult = await User.findById(id, { courses: 1 }).populate('courses')
-        // console.log("Course Details =>",mycoursesResult);
+        const mycoursesResult = await User.findById(id, { courses: 1, courseProgress: 1 }).populate({
+            path: 'courses',
+            populate: {
+                path: 'courseContent',
+                populate: {
+                    path: 'subSection',
+                    model: 'SubSection' // Ensure 'SubSection' is the correct model name
+                }
+            }
+        })
+        .exec();
+        
+        console.log("Course Details =>", mycoursesResult);
 
         return resp.status(200).json({
             status: "Success",
@@ -314,16 +323,16 @@ exports.deleteParticularCourse = async (req, res) => {
 
             // const coursesDelete=userDetails?.courses.filter((el)=>console.log(el._id===courseId));
             // console.log(coursesDelete)
-            
+
             //* Converting String id to object Id
-            const courseobjectId= new mongoose.Types.ObjectId(courseId);
-          
+            const courseobjectId = new mongoose.Types.ObjectId(courseId);
+
             const userDetailupdate = await User.findByIdAndUpdate(userid,
                 {
-                    $pull: { courses: courseobjectId } 
+                    $pull: { courses: courseobjectId }
                 },
                 {
-                    new:true
+                    new: true
                 }
             )
 
@@ -413,7 +422,6 @@ exports.editParticularCourse = async (req, resp) => {
             });
         }
         // validate Category also
-        console.log(0);
         const categoryData = await Category.findOne({ name: category });
         if (!categoryData) {
             return resp.status(200).json({
@@ -432,8 +440,7 @@ exports.editParticularCourse = async (req, resp) => {
         let updateCourseById;
         // If all good upload file to cloudinary
         if (req.files !== null) {
-            const thumbnailImage = await imageUploader(thumbnail, process.env.FOLDER_NAME)
-            console.log("ThumbNail Image =>", thumbnailImage);
+            const thumbnailImage = await imageUploader(thumbnail, process.env.FOLDER_NAME);
             updateCourseById = await Course.findByIdAndUpdate(
                 { _id: courseIdToEdit },
                 {
@@ -467,9 +474,9 @@ exports.editParticularCourse = async (req, resp) => {
                 {
                     new: true
                 }
-            )
+            ).populate("courseContent").exec()
         }
-
+        console.log(updateCourseById)
         return resp.status(200).json({
             status: "Success",
             message: "Course Edited Successfully",
