@@ -12,17 +12,14 @@ import { logoutOperation } from '../../services/operations/authFunctions';
 function SideBar() {
     const dispatch=useDispatch();
     const globalStateProfile = useSelector((state) => state.profile)
-    // const globalStateAuth = useSelector((state) => state.auth)
 
     const location = useLocation();
     const active = location.pathname === '/dashboard/settings' ? 'tw-text-yellow-50 tw-border-b-[3px] md:tw-border-l-[3px] md:tw-border-b-0 tw-border-yellow-50' : 'hover:tw-bg-[#3d2a01] hover:tw-text-white'
 
     function handleLogout(){
-        console.log("Hello")
         //~ To show Logout Model
         dispatch(setLogout(true))
-        // dispatch({type:'logout'})
-        // dispatch(setLogout(true))
+      
     }
 
     return (
@@ -35,7 +32,6 @@ function SideBar() {
                     {
 
                         sidebarLinks.map((el) => {
-                            // console.log(el);
                             if (el.id === 1 || el.type === globalStateProfile.userData?.accountType)
                                 return <SideBarLink key={el.id} linkData={el} />
 

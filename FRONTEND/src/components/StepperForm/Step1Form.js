@@ -179,17 +179,15 @@ function Step1Form({ editLayout,setImgPreview,imgpreview }) {
 
 
         const isValid = await trigger(['courseName', 'courseDescription', 'price', 'category', 'whatYouWillLearn', 'instructions', 'tag'])
-        // console.log(errors)
-        console.log(CourseSubmitCalled,filemissing,isValid)
         if (filemissing != true && isValid) {
 
             const formFields = getValues();
             const formObject = { ...formFields, tag: JSON.stringify(getValues('tag')), instructions: JSON.stringify(getValues('instructions')), thumbnailImage: imagefile };
             const courseAddResult = await addMyCourse(formObject, dispatch);
-            if (courseAddResult?.data?.status === 'Success') {
+            if (courseAddResult.status === 'Success') {
                 //* This query will update the myCourses as well
-                query.resetQueries({ queryKey: "mycourses" });
                 dispatch(setStep(2));
+                query.resetQueries({ queryKey: "mycourses" });
             }
 
 
@@ -315,11 +313,10 @@ function Step1Form({ editLayout,setImgPreview,imgpreview }) {
                     }
                 </div>
 
-
                 {
                      !CourseSubmitCalled &&
                      filemissing &&
-                    <p className='tw-text-sm tw-mt-3 tw-ml-1 tw-text-pink-500'>Thumbnail is required<sup className='tw-text-pink-400 tw-ml-1'>*</sup></p>
+                    <p className='tw-text-sm tw-mt-3 tw-ml-1 tw-text-pink-500'>{}Thumbnail is required<sup className='tw-text-pink-400 tw-ml-1'>*</sup></p>
                 }
 
             </div>

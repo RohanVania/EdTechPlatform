@@ -77,7 +77,8 @@ const userSchema = new mongoose.Schema({
 },
     // Add timestamps for when the document is created and modified
     {
-        timestamps: true
+        timestamps: true,
+        strictPopulate: false 
     }
 )
 

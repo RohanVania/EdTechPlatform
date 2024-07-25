@@ -80,7 +80,6 @@ const courseSchema = new mongoose.Schema({
         enum: ["Draft", "Published"]
     }
 
-
-})
+}, { strictPopulate: false })
 
 module.exports = mongoose.model("Course", courseSchema);

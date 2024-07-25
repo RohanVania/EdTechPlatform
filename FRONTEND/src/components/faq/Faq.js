@@ -10,10 +10,11 @@ import { AnimatePresence, motion } from "framer-motion";
 function Faq({ element }) {
 
     const [subsectionArray, setSubSectionArray] = useState([]);
-
-
     const [open, setOpen] = useState(false);
 
+    function deleteSection(element){
+        console.log("Call delete for element =>",element);
+    }
 
     return (
         <>
@@ -26,13 +27,13 @@ function Faq({ element }) {
                             <GiHamburgerMenu className='tw-text-[19px] tw-self-center' />
                         </div>
                         <p className='btnalign:tw-text-[17px] tw-text-[15px]'>
-                            {element?.name}
+                            {element?.sectionName}
                         </p>
                     </div>
                     <div className=" tw-self-center">
                         <div className='tw-flex  tw-gap-x-2 tw-items-center tw-justify-center    btnalign:tw-text-[19px] tw-text-[19px] tw-px-1 '>
                             <FiEdit2 className=' tw-cursor-pointer' />
-                            <MdDelete className=' tw-cursor-pointer' />
+                            <MdDelete className=' tw-cursor-pointer ' onClick={()=>deleteSection(element)} />
                             <div className=' tw-border-l-[2px] tw-border-richblack-500  tw-pl-2 tw-flex tw-items-center tw-self-center btnalign:tw-block '>
                                 <FaChevronDown className='  tw-self-start tw-cursor-pointer ' onClick={() => setOpen((prev) => !prev)} />
                             </div>
@@ -56,7 +57,7 @@ function Faq({ element }) {
                         >
 
                             {
-                                subsectionArray?.map((el, indx) => {
+                                element?.subSection?.map((el, indx) => {
                                     return <div key={`subsection-${indx}`} className='tw-flex btnalign:tw-gap-x-3 tw-gap-x-1 tw-gap-y-3 tw-flex-wrap tw-w-full tw-border-b-[2px] tw-border-richblack-500 tw-py-3 tw-justify-between'>
                                         <div className="tw-flex tw-gap-x-2">
                                             <div className='tw-flex tw-justify-cente tw-items-center tw-bg-red-40 tw-px-1 tw-gap-x-3'>

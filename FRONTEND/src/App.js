@@ -30,11 +30,14 @@ import Modal from "./components/core/Modal";
 import { Suspense } from "react";
 import CategoryPage from "./pages/CategoryPage";
 import EditCourseLayout from "./components/course/EditCourseLayout";
+import FormModal from "./components/core/FormModal";
 
 function App() {
 
   const dispatch = useDispatch();
   const authGlobalState = useSelector((state) => state.auth);
+  const courseGlobalState = useSelector((state) => state.addcourse);
+
   const navigate = useNavigate();
   // const check = useSelector((state) => state);
   // console.log("Check all states =>",check)
@@ -118,6 +121,13 @@ function App() {
       {authGlobalState?.deleteAccount &&
         <Modal btn1={"Delete"} btn2={"Cancel"} question={"Are You Sure ?"} text={"Your Account will be deleted permanently and all the data will be lost ?"} handleLogout={handleDeleteAccount} handleLogoutCancel={handleDeleteCancel} />
       }
+
+      {!courseGlobalState?.lectureModal &&
+          <FormModal/>
+        // <Modal btn1={"Delete"} btn2={"Cancel"} question={"Are You Sure ?"} text={"Your Account will be deleted permanently and all the data will be lost ?"} handleLogout={handleDeleteAccount} handleLogoutCancel={handleDeleteCancel} />
+      }
+
+
 
       <div className="tw-font-inter tw-bg-richblack-900 tw-h-auto  tw-relative tw-min-h-screen">
         <Toaster position="top-center" toastOptions={toastconfiguration} />

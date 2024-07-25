@@ -5,6 +5,7 @@ const initialState={
     // savedcourse:null,
     course:null,
     editCourse:null,
+    lectureModal:false,
 }
 
 const addcourseSlice=createSlice({
@@ -25,10 +26,16 @@ const addcourseSlice=createSlice({
         },
         setCourse:(state,action)=>{
             state.course=action.payload;
+        },
+        resetStep:(state)=>{
+            state.step=1
+        },
+        setLectureModal:(state,action)=>{
+            state.lectureModal=action.payload
         }
 
     }
 })
 
-export const {setStep,setAddLecture,setFormSubmit,setEditCourse,setCourse}=addcourseSlice.actions
+export const {setStep,setAddLecture,setFormSubmit,setEditCourse,setCourse,resetStep,setLectureModal}=addcourseSlice.actions
 export default addcourseSlice.reducer

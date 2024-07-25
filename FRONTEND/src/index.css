@@ -90,3 +90,59 @@ input[type=number] {
   }
   
 }
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer; /* Ensure the label is clickable */
+
+    /* Optional: Add additional styles to the label */
+    font-size: 14px;
+    color: #333;
+}
+
+.checkbox-input {
+    /* Hide the default checkbox appearance */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    /* Ensure the checkbox remains accessible */
+    width: 1.17rem; /* Adjust size as needed */
+    height: 1.16rem; /* Adjust size as needed */
+    border: 1.3px solid #ccc; /* Border style */
+    border-radius: 0.2rem; /* Rounded corners */
+    outline: none; /* Remove default focus outline */
+    cursor: pointer; /* Show cursor on hover */
+
+    /* Custom checkbox styles */
+    background-color: transparent; /* Transparent background */
+    position: relative; /* Required for pseudo-element positioning */
+}
+
+.checkbox-input:checked {
+    /* Custom styling for checked state */
+    background-color:#E7C009; /* Example: Blue background when checked */
+    border-color: #E7C009; /* Example: Blue border when checked */
+    /* You can add additional styles for the checked state */
+}
+
+.checkbox-input:checked::after {
+  /* Pseudo-element for the checkmark */
+  content: '✔'; /* Required for pseudo-elements */
+  position: absolute;
+  color: black;
+  top: 0;
+  left:0;
+  /* top: 50%; */
+  /* left: 50%; */
+  transform: translate(3%, -90%);
+  width: 1.5rem; /* Adjust size of the checkmark */
+  height: 0.25rem; /* Adjust size of the checkmark */
+  transition: opacity 0.2s ease-in-out; /* Optional: Add transition */
+}
+
+.checkbox-input:checked:hover::after {
+  /* Optional: Hover effect for checkmark */
+  opacity: 0.8;
+}
