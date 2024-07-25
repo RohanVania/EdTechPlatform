@@ -122,9 +122,8 @@ function App() {
         <Modal btn1={"Delete"} btn2={"Cancel"} question={"Are You Sure ?"} text={"Your Account will be deleted permanently and all the data will be lost ?"} handleLogout={handleDeleteAccount} handleLogoutCancel={handleDeleteCancel} />
       }
 
-      {!courseGlobalState?.lectureModal &&
+      {courseGlobalState?.lectureModal &&
           <FormModal/>
-        // <Modal btn1={"Delete"} btn2={"Cancel"} question={"Are You Sure ?"} text={"Your Account will be deleted permanently and all the data will be lost ?"} handleLogout={handleDeleteAccount} handleLogoutCancel={handleDeleteCancel} />
       }
 
 

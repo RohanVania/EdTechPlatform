@@ -6,11 +6,18 @@ import { FaPlus } from "react-icons/fa6";
 import { IoPlay } from "react-icons/io5";
 import { useState } from "react"
 import { AnimatePresence, motion } from "framer-motion";
+import { useDispatch } from "react-redux";
+import { setLectureModal } from "../../slices/addcourseSlice";
 
 function Faq({ element }) {
 
     const [subsectionArray, setSubSectionArray] = useState([]);
     const [open, setOpen] = useState(false);
+    const dispatch=useDispatch();
+
+    function openFormModal(){
+        dispatch(setLectureModal(true))
+    }
 
     function deleteSection(element){
         console.log("Call delete for element =>",element);
@@ -79,7 +86,7 @@ function Faq({ element }) {
                             }
 
                             <div className='tw-bg-red-40 tw-py-2  tw-px-1 tw-bg-red-40'>
-                                <button className=' tw-flex tw-items-center tw-gap-x-3 tw-text-yellow-50  tw-cursor-pointer tw-px-2 tw-py-1' onClick={() => console.log("Call Lecture Modal")}>
+                                <button className=' tw-flex tw-items-center tw-gap-x-3 tw-text-yellow-50  tw-cursor-pointer tw-px-2 tw-py-1' onClick={() => openFormModal()}>
                                     <FaPlus className='tw-font-bold ' />
                                     Add Lecture
                                 </button>
