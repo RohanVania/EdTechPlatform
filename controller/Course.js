@@ -1,7 +1,8 @@
 const User = require("../model/User");
 const Course = require("../model/Course")
 const Category = require("../model/Category");
-const { imageUploader } = require("../utils/imageUploader")
+const { imageUploader } = require("../utils/imageUploader");
+const { default: mongoose } = require("mongoose");
 
 
 //* Create Course
@@ -293,15 +294,15 @@ exports.deleteParticularCourse = async (req, res) => {
         const validId = userid === req.body?.userid ? true : false;
         if (validId) {
 
-            // const deleteCourseResult = await Course.findByIdAndDelete(courseId);
+            const deleteCourseResult = await Course.findByIdAndDelete(courseId);
 
-            // if (deleteCourseResult === null) {
-            //     return response.status(200).json({
-            //         status: "Success",
-            //         data: "Nothing",
-            //         msg: 'Given course is already deleted'
-            //     })
-            // }
+            if (deleteCourseResult === null) {
+                return response.status(200).json({
+                    status: "Success",
+                    data: "Nothing",
+                    msg: 'Given course is already deleted'
+                })
+            }
 
             //* Also delete it course from user table entry in courses
 
@@ -313,10 +314,13 @@ exports.deleteParticularCourse = async (req, res) => {
 
             // const coursesDelete=userDetails?.courses.filter((el)=>console.log(el._id===courseId));
             // console.log(coursesDelete)
-
+            
+            //* Converting String id to object Id
+            const courseobjectId= new mongoose.Types.ObjectId(courseId);
+          
             const userDetailupdate = await User.findByIdAndUpdate(userid,
                 {
-                    $pull: { courses: { _id:courseId } }
+                    $pull: { courses: courseobjectId } 
                 },
                 {
                     new:true
