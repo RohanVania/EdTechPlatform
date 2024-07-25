@@ -1,10 +1,17 @@
 import Step1Form from "../stepperForm/Step1Form";
 import { FiUploadCloud } from "react-icons/fi";
 import { ImCross } from "react-icons/im";
+import { useDispatch } from "react-redux";
+import { setLectureModal } from "../../slices/addcourseSlice";
 
 
 function FormModal({ question, text, btn1, btn2, handleLogout, handleLogoutCancel }) {
 
+    const dispatch=useDispatch();
+
+    function cancelFormModal(){
+        dispatch(setLectureModal(false))
+    }
 
     return (
         <>
@@ -13,7 +20,7 @@ function FormModal({ question, text, btn1, btn2, handleLogout, handleLogoutCance
                 <div className="tw-max-w-[660px] 3xs:tw-w-[660px] tw-bg-richblack-800   tw-mx-[10px] tw-overflow-hidden  tw-text-white tw-flex tw-flex-col tw-p- tw-rounded-lg tw-border tw-border-richblack-400 tw-gap-y-3">
                     <div className="tw-py-5 tw-px-5   tw-flex tw-justify-between tw-items-center tw-font-semibold tw-text-[18px] tw-bg-richblack-700   ">
                         Editing Lecture
-                        <div className=" tw-p-1 tw-text-white">
+                        <div className=" tw-p-1 tw-text-white tw-cursor-pointer" onClick={()=>{cancelFormModal()}} >
                             <ImCross />
                         </div>
                     </div>
@@ -95,7 +102,7 @@ function FormModal({ question, text, btn1, btn2, handleLogout, handleLogoutCance
                 } */}
                             </div>
                             <div className='tw-flex   tw-justify-end tw-gap-x-4'>
-                                <button className='tw-ml-aut  tw-flex tw-items-center tw-bg-gray-700 tw-cursor-pointer tw-gap-x-2 tw-rounded-md tw-py-2 tw-px-5 tw-font-semibold tw-text-white ' >
+                                <button className='tw-ml-aut  tw-flex tw-items-center tw-bg-gray-700 tw-cursor-pointer tw-gap-x-2 tw-rounded-md tw-py-2 tw-px-5 tw-font-semibold tw-text-white ' onClick={()=>{cancelFormModal()}} >
                                     Cancel
                                 </button>
                                 <button className='tw-ml-aut  tw-flex tw-items-center tw-bg-yellow-50 tw-cursor-pointer tw-gap-x-2 tw-rounded-md tw-py-2 tw-px-5 tw-font-semibold tw-text-richblack-900 ' >
