@@ -13,7 +13,7 @@ import { useParams } from 'react-router-dom';
 
 function AddStep1Form() {
     const { register, trigger, control, getValues, setValue, formState: { errors, touchedFields }, reset } = useFormContext();
-    const globalCourseState=useSelector((state)=>state?.addcourse);
+    const globalCourseState = useSelector((state) => state?.addcourse);
     const dispatch = useDispatch();
 
     const query = useQueryClient();                       //* Reqct Query if we add course update in my courses cache using Invalidate Queries
@@ -153,7 +153,42 @@ function AddStep1Form() {
         setSubmitCalled(false)
     }
 
- 
+    async function updateAddContent() {
+        setSubmitCalled(true);
+
+        //* This is for so you enter enter whitespaces and submit
+        setValue('courseName', getValues('courseName').trim());
+        setValue('courseDescription', getValues('courseDescription').trim());
+        setValue('whatYouWillLearn', getValues('whatYouWillLearn').trim());
+
+        console.log(imagefile)
+        console.log(imgpreview)
+        if (!imgpreview) {
+            const isValid = await trigger(['courseName', 'courseDescription', 'price', 'category', 'whatYouWillLearn', 'instructions', 'tag'])
+            setFileError(true)
+            setSubmitCalled(false)
+            return
+        }
+        //* To tirgger error if any field is missing
+        const isValid = await trigger(['courseName', 'courseDescription', 'price', 'category', 'whatYouWillLearn', 'instructions', 'tag'])
+
+        if (isValid) {
+            const formFields = getValues();
+            const formObject = { ...formFields, tag: JSON.stringify(getValues('tag')), instructions: JSON.stringify(getValues('instructions')), thumbnailImage: imagefile, courseIdToEdit: globalCourseState?.course?._id };
+            console.log("Form Object", formObject)
+            const courseEditResult = await EditMyCourse(formObject, dispatch);
+            if (courseEditResult?.status === 'Success') {
+                //* This query will update the myCourses as well
+                dispatch(setStep(2));
+            }
+
+            setSubmitCalled(false);
+        }
+
+
+    }
+
+
 
     return (
         <>
@@ -332,22 +367,35 @@ function AddStep1Form() {
 
                     <div className='tw-flex tw-gap-x-4 tw-justify-end'>
                         {
-                            globalCourseState?.editCourse &&
-                            <button className='tw-ml-aut  tw-flex tw-items-center tw-bg-gray-700 tw-cursor-pointer tw-gap-x-2 tw-rounded-md tw-py-2 tw-px-5 tw-font-semibold tw-text-white ' onClick={() => dispatch(setStep(2))}>
-                                Continue without Saving
-                            </button>
-                        }
-                        {
-                            !SubmitCalled ?
-                                <button className='tw-ml-aut  tw-flex tw-items-center tw-bg-yellow-50 tw-cursor-pointer tw-gap-x-2 tw-rounded-md tw-py-2 tw-px-5 tw-font-semibold tw-text-richblack-900 ' onClick={() => AddformSubmit()}>
-                                    Submit
-                                    <FaChevronRight />
-                                </button>
-                                :
-                                <button className='tw-ml-aut  tw-flex tw-items-center tw-bg-yellow-400 tw-cursor-pointer tw-gap-x-2 tw-rounded-md tw-py-2 tw-px-5 tw-font-semibold tw-text-richblack-900 ' >
-                                    Submit
-                                    <FaChevronRight />
-                                </button>
+                            globalCourseState?.editCourse ?
+                                <>
+                                    <button className='tw-ml-aut  tw-flex tw-items-center tw-bg-gray-700 tw-cursor-pointer tw-gap-x-2 tw-rounded-md tw-py-2 tw-px-5 tw-font-semibold tw-text-white ' onClick={() => dispatch(setStep(2))}>
+                                        Continue without Saving
+                                    </button>
+
+                                    {!SubmitCalled ?
+                                        <button className='tw-ml-aut  tw-flex tw-items-center tw-bg-yellow-50 tw-cursor-pointer tw-gap-x-2 tw-rounded-md tw-py-2 tw-px-5 tw-font-semibold tw-text-richblack-900 ' onClick={() => updateAddContent()}>
+                                            Update
+                                            <FaChevronRight />
+                                        </button>
+                                        :
+                                        <button className='tw-ml-aut  tw-flex tw-items-center tw-bg-yellow-400 tw-cursor-pointer tw-gap-x-2 tw-rounded-md tw-py-2 tw-px-5 tw-font-semibold tw-text-richblack-900 ' >
+                                            Update
+                                            <FaChevronRight />
+                                        </button>
+                                    }
+                                </>
+
+                                : !SubmitCalled ?
+                                    <button className='tw-ml-aut  tw-flex tw-items-center tw-bg-yellow-50 tw-cursor-pointer tw-gap-x-2 tw-rounded-md tw-py-2 tw-px-5 tw-font-semibold tw-text-richblack-900 ' onClick={() => AddformSubmit()}>
+                                        Submit
+                                        <FaChevronRight />
+                                    </button>
+                                    :
+                                    <button className='tw-ml-aut  tw-flex tw-items-center tw-bg-yellow-400 tw-cursor-pointer tw-gap-x-2 tw-rounded-md tw-py-2 tw-px-5 tw-font-semibold tw-text-richblack-900 ' >
+                                        Submit
+                                        <FaChevronRight />
+                                    </button>
                         }
                     </div>
                 </div >
