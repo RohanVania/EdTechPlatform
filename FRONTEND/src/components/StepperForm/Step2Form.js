@@ -12,7 +12,7 @@ import { addSection } from '../../services/operations/section';
 import { useParams } from 'react-router-dom';
 
 
-function Step2Form({editLayout}) {
+function Step2Form({ editLayout }) {
 
   const globalCourseState = useSelector((state) => state?.addcourse);
   const params = useParams();
@@ -26,13 +26,13 @@ function Step2Form({editLayout}) {
   let [array, setArray] = useState([]);
   const [editSection, setEditSection] = useState(false);
 
-  useEffect(()=>{
-    setArray(globalCourseState?.editCourse?.courseContent)
-  },[])
+  useEffect(() => {
+    setArray(globalCourseState?.course?.courseContent)
+  }, [])
 
   function GoBack() {
     dispatch(setStep(1))
-    // dispatch(setEditCourse())
+    dispatch(setEditCourse(true))
   }
 
   async function createSection(event) {
@@ -41,8 +41,6 @@ function Step2Form({editLayout}) {
       setValue('sectionName', getValues('sectionName').trim());
       const isValid = await trigger(['sectionName']);
 
-      console.log("Checking value in the input",isValid);
-
       if (isValid) {
         const inputBody = {
           sectionName: getValues("sectionName"),
@@ -50,13 +48,14 @@ function Step2Form({editLayout}) {
         }
 
         const res = await addSection(inputBody, dispatch);
-        const courseContentArray=res?.updatedCourseDetails?.courseContent;
-       console.log(courseContentArray);
+        console.log(res)
+        // const courseContentArray = res?.updatedCourseDetails?.courseContent;
+        // const latestSectionDetail = courseContentArray[courseContentArray.length - 1];
         reset();
 
-        // setArray((prev) => [...prev, res?.updatedCourseDetails?.courseContent]);
-        console.log(array);
-
+        // setArray((prev) => {
+        //   prev.length>1?[...prev,latestSectionDetail]:[]
+        // })
       }
     }
     catch (err) {
@@ -70,7 +69,10 @@ function Step2Form({editLayout}) {
     setValue("sectionName", "");
   }
 
-  
+  function gotToPublishSection(){
+    console.log(getValues())
+  }
+
   return (
     <section>
       <h1 className='tw-font-[400] tw-text-[18px] tw-mb-4'>Course Builder</h1>
@@ -122,10 +124,10 @@ function Step2Form({editLayout}) {
       {/* </form> */}
 
       {
-        array.length !== 0 &&
+        array?.length !== 0 &&
         <ul className='tw-bg-richblack-70 tw-py-6   tw-my-6   tw-rounded-md tw-space-y-5'>
           {
-            
+
             array?.map((el, indx) => {
 
               return <Faq key={indx} element={el} />
@@ -143,7 +145,7 @@ function Step2Form({editLayout}) {
               <FaChevronLeft className='tw-text-[13px]' />
               Back
             </button>
-            <button className='tw-cursor-pointer tw-font-semibold tw-px-[24px] tw-py-[12px] tw-rounded-[8px] tw-text-center tw-flex tw-justify-center tw-items-center tw-gap-x-2 tw-bg-yellow-50 tw-text-richblack-900'>
+            <button className='tw-cursor-pointer tw-font-semibold tw-px-[24px] tw-py-[12px] tw-rounded-[8px] tw-text-center tw-flex tw-justify-center tw-items-center tw-gap-x-2 tw-bg-yellow-50 tw-text-richblack-900' onClick={()=>{gotToPublishSection()}}>
               Next
               <FaChevronRight className='tw-text-[13px]' />
             </button>

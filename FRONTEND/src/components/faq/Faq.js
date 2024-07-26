@@ -15,8 +15,12 @@ function Faq({ element }) {
     const [open, setOpen] = useState(false);
     const dispatch=useDispatch();
 
-    function openFormModal(){
-        dispatch(setLectureModal(true))
+    function openFormModal(el){
+        console.log(el)
+        dispatch(setLectureModal({
+            element:element,
+            status:true
+        }))
     }
 
     function deleteSection(element){
@@ -86,7 +90,7 @@ function Faq({ element }) {
                             }
 
                             <div className='tw-bg-red-40 tw-py-2  tw-px-1 tw-bg-red-40'>
-                                <button className=' tw-flex tw-items-center tw-gap-x-3 tw-text-yellow-50  tw-cursor-pointer tw-px-2 tw-py-1' onClick={() => openFormModal()}>
+                                <button className=' tw-flex tw-items-center tw-gap-x-3 tw-text-yellow-50  tw-cursor-pointer tw-px-2 tw-py-1' onClick={() => openFormModal(element)}>
                                     <FaPlus className='tw-font-bold ' />
                                     Add Lecture
                                 </button>
