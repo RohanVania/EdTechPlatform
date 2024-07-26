@@ -24,7 +24,7 @@ function MyCourses() {
 
     // console.log("Courses Data", data)
     function changeEditCourseAndGoToThatCourse(course){
-        dispatch(setEditCourse(course));
+        dispatch(setEditCourse(true));
         dispatch(setCourse(course));
         navigate(`/dashboard/edit-course/${course._id}`)
     }

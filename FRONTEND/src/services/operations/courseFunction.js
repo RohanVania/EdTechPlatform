@@ -74,7 +74,8 @@ export const EditMyCourse = async (formData, dispatch) => {
                 id: "edit-1",
             })
 
-            dispatch(setEditCourse(result?.data?.updatedCourseData));
+            // dispatch(setEditCourse(result?.data?.updatedCourseData));
+            dispatch(setEditCourse(true));
             dispatch(setCourse(result?.data?.updatedCourseData));
         }
 

@@ -15,8 +15,7 @@ function EditCourseLayout() {
     const { step } = useSelector((state) => state.addcourse);
     const dispatch=useDispatch();
     const params=useParams();
-    const [editIndicator,setEditIndicator]=useState(true);
-    const [imgpreview, setImgPreview] = useState(null);
+   
 
 
     const methods = useForm({
@@ -43,9 +42,9 @@ function EditCourseLayout() {
 
                     <FormProvider {...methods} className>
                         <form id='editcourse' className='tw-flex tw-flex-col tw-gap-y-7 tw-rounded-md tw-border-[1px] tw-border-richblack-700 tw-bg-[#161d29] tw-p-5' onSubmit={(event) => { event.preventDefault() }} >
-                            {step === 1 && <Step1Form imgpreview={imgpreview} setImgPreview={setImgPreview}  editLayout={editIndicator}/>}
-                            {step === 2 && <Step2Form editLayout={editIndicator}/>}
-                            {step === 3 && <Step3Form editLayout={editIndicator}/>}
+                            {step === 1 && <Step1Form   />}
+                            {step === 2 && <Step2Form />}
+                            {step === 3 && <Step3Form />}
 
                         </form>
                     </FormProvider>

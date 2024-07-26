@@ -16,7 +16,7 @@ export const addSection = async (inputbody,dispatch) => {
             })
             
             dispatch(setCourse(res?.data.updatedCourseDetails));
-            dispatch(setEditCourse(res.data.updatedCourseDetails));
+            // dispatch(setEditCourse(res.data.updatedCourseDetails));
             return res?.data;
         }
 
@@ -32,7 +32,6 @@ export const addSection = async (inputbody,dispatch) => {
             })
         }
 
-        // dispatch(setFormSubmit(false))
 
     }
     catch (err) {
@@ -45,7 +44,6 @@ export const addSection = async (inputbody,dispatch) => {
             },
             duration: '120'
         })
-        // dispatch(setFormSubmit(false))
         return err
 
     }
