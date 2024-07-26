@@ -5,7 +5,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "nodemon index",
-        "frontend":"cd FRONTEND && npm start",
+        "frontend": "cd FRONTEND && npm start",
         "start:both": "concurrently --names FrontEnd,BackEnd -c \"bgBlue.bold,bgMagenta.bold\" \" npm run frontend\" \"npm start\""
     },
     "dependencies": {
@@ -23,7 +23,8 @@
         "nodemailer": "^6.9.3",
         "nodemon": "^2.0.22",
         "otp-generator": "^4.0.1",
-        "razorpay": "^2.8.6"
+        "razorpay": "^2.8.6",
+        "video-react": "^0.16.0"
     },
     "keywords": [],
     "author": "",
