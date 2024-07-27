@@ -7,20 +7,29 @@ const { imageUploader } = require("../utils/imageUploader");
 // create a new sub-section for a given section
 exports.createSubSection = async (req, resp) => {
     try {
-        // extract necessary information from request body
+        //* extract necessary information from request body
         const { sectionId, title, description } = req.body;
+        console.log(req.body)
+        console.log(req.files);
         const video = req.files.video;
 
-        // Check if necessaru fields are provided
+        if(!video){
+            return resp.status(200).json({
+                status:'Failed',
+                message:'video file missing'
+            })
+        }
+
+        //* Check if necessary fields are provided
         if (!sectionId || !title || !description) {
             return resp.status(200).json(
                 {
                     status: "Failed",
-                    msg: "All Fields are required"
+                    message: "All Fields are required"
                 }
             )
         }
-        console.log(video);
+        
 
         // Upload video file to cloudinary
         const uploadDetails = await imageUploader(
@@ -51,16 +60,21 @@ exports.createSubSection = async (req, resp) => {
             }
         ).populate("subSection");
 
+        console.log("UpdateSection =>",updateSection);
+
+        
+
+
         return resp.status(200).json(
             {
                 status: "Success",
-                msg: "Sub section created successfully",
+                message: "Sub section created successfully",
                 data: updateSection
             }
         )
 
     } catch (error) {
-        console.log(error);
+        console.log("Create Sub section error",error);
         return resp.status(200).json(
             {
                 status: "Failed",
@@ -132,6 +146,8 @@ exports.deleteSubSection = async (req, resp) => {
                 $pull: {
                     subSection: subSectionId,
                 },
+            },{
+                new:true
             }
         )
 
@@ -140,15 +156,17 @@ exports.deleteSubSection = async (req, resp) => {
             .status(200)
             .json({ status: "Failed", message: "Section not found" })
         }
-
-
+        
         const subSection = await SubSection.findByIdAndDelete({ _id: subSectionId })
 
         if (!subSection) {
             return resp
                 .status(200)
-                .json({ status: "Failed", message: "SubSection not found" })
+                .json({ status: "Failed", message: "Sub section not found" })
         }
+        
+
+
 
         return resp.status(200).json({
             status: "Success",

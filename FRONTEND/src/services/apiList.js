@@ -34,9 +34,15 @@ export const courseApi={
     EDIT_COURSE:'/course/editCourseById'
 }
 
-//* Sectio API URLS
+//* Section API URLS
 
 export const sectionApi={
     ADD_SECTION:`/course/addSection`,
-    
+}
+
+
+//*SubSection API URLS
+
+export const subSectionApi={
+    ADD_SUB_SECTION:`/course/addSubSection`
 }

@@ -2,15 +2,13 @@ import React, { useState, useRef, useEffect } from 'react'
 import CourseTip from './CourseTip'
 
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
-// import Step1Form from '../stepperForm/Step1Form';
 import { useDispatch, useSelector } from 'react-redux';
-// import Step2Form from '../stepperForm/Step2Form';
 import { useParams } from 'react-router-dom';
 import RenderStep from './RenderStep';
 import { resetStep, setEditCourse } from '../../slices/addcourseSlice';
-import AddStep1Form from "../StepperForm/AddStep1Form"
-import Step2Form from "../StepperForm/Step2Form"
-import Step3Form from "../StepperForm/Step3Form"
+import AddStep1Form from "../stepperForm/AddStep1Form"
+import Step2Form from "../stepperForm/Step2Form"
+import Step3Form from "../stepperForm/Step3Form"
 
 
 function CourseAddLayout() {
