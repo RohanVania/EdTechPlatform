@@ -1,4 +1,4 @@
-import Step1Form from "../stepperForm/Step1Form";
+import Step1Form from "../StepperForm/Step1Form"
 import { useRef, useState } from "react";
 import { FiUploadCloud } from "react-icons/fi";
 import { ImCross } from "react-icons/im";
@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { Player } from 'video-react';
 
 
-function FormModal({ question, text, btn1, btn2, handleLogout, handleLogoutCancel }) {
+function FormModal({ element }) {
 
     const dispatch = useDispatch();
     const { register, setValue, getValues } = useForm();
@@ -72,7 +72,7 @@ function FormModal({ question, text, btn1, btn2, handleLogout, handleLogoutCance
                         <div className="tw-flex tw-flex-col tw-gap-y-6 tw-mt-4  tw-pb-10 tw-px-2 md:tw-px-4">
 
                             <div className='tw-fex tw-flex-col'>
-                                <label className='tw-text-sm tw-text-richblack-5'>Lecture Video<sup className='tw-text-pink-200 tw-ml-1'>*</sup></label>
+                                <label className='tw-text-sm tw-text-richblack-5 '>Lecture Video<sup className='tw-text-pink-200 tw-ml-1'>*</sup></label>
 
                                 <div id='filebox' className='tw-mt-5 tw-bg-richblack-700  tw-flex tw-min-h-[250px] tw-cursor-pointer tw-items-center tw-justify-center tw-rounded-md tw-border-2 tw-border-dotted tw-border-richblack-500'
                                     onClick={InvokeFileUpload}
@@ -83,14 +83,26 @@ function FormModal({ question, text, btn1, btn2, handleLogout, handleLogoutCance
                                     {
 
                                         true ?
-                                        <div className='tw-flex tw-justify-center tw-flex-col tw-items-center tw-bg-red-400  tw-flex-1 tw-h-full'>
-                                               
-                                                d
-                                                
-                                                
+                                            <div className='tw-flex tw-justify-center tw-flex-col tw-items-cente tw-bg-red-400 tw-w-full tw-h-full tw-content-stretch'>
+                                                <input type='file' className='tw-hidden'
+                                                    accept="video/*"
+                                                    ref={inputfileRef}
+                                                    onChange={handleFileChange}
+                                                />
+                                                <div className='tw-w-14 tw-grid tw-place-items-center tw-rounded-full tw-bg-pure-greys-800 tw-aspect-square'>
+                                                    <FiUploadCloud className='tw-text-2xl tw-text-yellow-50' />
+                                                </div>
+                                                <div className='tw-max-w-[200px] tw-text-center tw-text-sm tw-text-richblack-200 tw-mt-2'>
+                                                    <h1>Drag and drop an Video, or</h1>
+                                                    <p>click to <span className='tw-font-semibold tw-text-yellow-50'>Browse</span> a file</p>
+                                                </div>
+                                                <ul className='tw-text-xs tw-mt-10 tw-flex tw-flex-col tw-gap-y-[7px]  xs:tw-flex-row  xs:tw-items-center xs:tw-gap-x-[25px] tw-list-inside tw-list-disc tw-text-[#999DAA]'>
+                                                    <li >Aspect ratio 16:9</li>
+                                                    <li>Recommended size 1024x576</li>
+                                                </ul>
                                             </div>
                                             // <div className='tw-flex tw-flex-col tw-pb-3'>
-                                                
+
                                             //     <Player aspectRatio="16:9" src={'http://localhost:3002/73bb88a9-1c22-435f-9a00-3c704b9b6685'} >
                                             //     </Player>
                                             //     {/* <video controls >
@@ -142,7 +154,9 @@ function FormModal({ question, text, btn1, btn2, handleLogout, handleLogoutCance
                                     Upload
                                 </button>
                             </div>
-
+                            {
+                                JSON.stringify(element, '/t')
+                            }
 
                         </div>
                     </div>
