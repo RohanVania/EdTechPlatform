@@ -30,6 +30,7 @@ import Modal from "./components/core/Modal";
 import CategoryPage from "./pages/CategoryPage";
 import EditCourseLayout from "./components/course/EditCourseLayout";
 import FormModal from "./components/core/FormModal";
+import VideoPlayerModal from "./components/core/VideoPlayerModal";
 
 function App() {
 
@@ -123,6 +124,11 @@ function App() {
 
             {courseGlobalState?.lectureModal &&
                 <FormModal element={courseGlobalState?.lectureModal?.element} />
+            }
+
+  
+            {courseGlobalState?.videoPlayModal &&
+                <VideoPlayerModal element={courseGlobalState?.videoPlayModal?.lecture} />
             }
 
 
