@@ -27,147 +27,146 @@ import { deleteOperation } from "./services/operations/userFunctions";
 import CourseAddLayout from "./components/course/CourseAddLayout";
 import MyCourses from "./components/course/MyCourses";
 import Modal from "./components/core/Modal";
-import { Suspense } from "react";
 import CategoryPage from "./pages/CategoryPage";
 import EditCourseLayout from "./components/course/EditCourseLayout";
 import FormModal from "./components/core/FormModal";
 
 function App() {
 
-  const dispatch = useDispatch();
-  const authGlobalState = useSelector((state) => state.auth);
-  const courseGlobalState = useSelector((state) => state.addcourse);
+    const dispatch = useDispatch();
+    const authGlobalState = useSelector((state) => state.auth);
+    const courseGlobalState = useSelector((state) => state.addcourse);
 
-  const navigate = useNavigate();
-  // const check = useSelector((state) => state);
-  // console.log("Check all states =>",check)
-  const categoryDataresult = useQuery({
-    queryKey: ['categories'],
-    // staleTime: Infinity,
-    queryFn: getAllCategories,
+    const navigate = useNavigate();
+    // const check = useSelector((state) => state);
+    // console.log("Check all states =>",check)
+    const categoryDataresult = useQuery({
+        queryKey: ['categories'],
+        // staleTime: Infinity,
+        queryFn: getAllCategories,
 
-    refetchOnMount: true,
-    refetchOnWindowFocus: false
-  })
+        refetchOnMount: true,
+        refetchOnWindowFocus: false
+    })
 
-  const alreadyLoggedIn = useQuery({
-    queryKey: ['alreadyLoggedIn'],
-    queryFn: () => {
-      checkAuthenticated(dispatch, authGlobalState.token)
-    },
-    staleTime: Infinity,
-  })
+    const alreadyLoggedIn = useQuery({
+        queryKey: ['alreadyLoggedIn'],
+        queryFn: () => {
+            checkAuthenticated(dispatch, authGlobalState.token)
+        },
+        staleTime: Infinity,
+    })
 
 
 
-  if (categoryDataresult.isLoading || alreadyLoggedIn.isLoading) {
-    return <div className="tw-bg-richblack-900 tw-min-h-[100vh] tw-flex tw-justify-center tw-items-center tw-text-white tw-relative">
-      <ModalLoader />
-    </div>
-  }
-
-  if (categoryDataresult.isError) {
-    return <div>
-      Error
-    </div>
-  }
-
-  const toastconfiguration = {
-    position: 'top-center',
-  }
-
-  //* LOGOUT AND DELET ACCOUNT FUNCTIONALITY 
-
-  function handleLogoutCancel() {
-    dispatch(setLogout(false))
-  }
-
-  async function handleLogout() {
-    try {
-      const response = await logoutOperation(dispatch);
-      if (response?.data?.status === "Success") {
-        navigate('/')
-      }
-
-    } catch (err) {
-      console.log(err)
+    if (categoryDataresult.isLoading || alreadyLoggedIn.isLoading) {
+        return <div className="tw-bg-richblack-900 tw-min-h-[100vh] tw-flex tw-justify-center tw-items-center tw-text-white tw-relative">
+            <ModalLoader />
+        </div>
     }
-  }
 
-  async function handleDeleteAccount() {
-    try {
-      const response = await deleteOperation(dispatch);
-      if (response?.data?.status === "Success") {
-        navigate('/')
-      }
-    } catch (err) {
-      console.log(err);
+    if (categoryDataresult.isError) {
+        return <div>
+            Error
+        </div>
     }
-  }
 
-  function handleDeleteCancel() {
-    dispatch(setdeleteAccount(false))
-  }
+    const toastconfiguration = {
+        position: 'top-center',
+    }
+
+    //* LOGOUT AND DELET ACCOUNT FUNCTIONALITY 
+
+    function handleLogoutCancel() {
+        dispatch(setLogout(false))
+    }
+
+    async function handleLogout() {
+        try {
+            const response = await logoutOperation(dispatch);
+            if (response?.data?.status === "Success") {
+                navigate('/')
+            }
+
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    async function handleDeleteAccount() {
+        try {
+            const response = await deleteOperation(dispatch);
+            if (response?.data?.status === "Success") {
+                navigate('/')
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    function handleDeleteCancel() {
+        dispatch(setdeleteAccount(false))
+    }
 
 
-  return (
-    <>
+    return (
+        <>
 
 
-      {authGlobalState?.logout &&
-        <Modal btn1={"Logout"} btn2={"Cancel"} question={"Are You Sure ?"} text={"You will be logged out of your account"} handleLogout={handleLogout} handleLogoutCancel={handleLogoutCancel} />
-      }
+            {authGlobalState?.logout &&
+                <Modal btn1={"Logout"} btn2={"Cancel"} question={"Are You Sure ?"} text={"You will be logged out of your account"} handleLogout={handleLogout} handleLogoutCancel={handleLogoutCancel} />
+            }
 
-      {authGlobalState?.deleteAccount &&
-        <Modal btn1={"Delete"} btn2={"Cancel"} question={"Are You Sure ?"} text={"Your Account will be deleted permanently and all the data will be lost ?"} handleLogout={handleDeleteAccount} handleLogoutCancel={handleDeleteCancel} />
-      }
+            {authGlobalState?.deleteAccount &&
+                <Modal btn1={"Delete"} btn2={"Cancel"} question={"Are You Sure ?"} text={"Your Account will be deleted permanently and all the data will be lost ?"} handleLogout={handleDeleteAccount} handleLogoutCancel={handleDeleteCancel} />
+            }
 
-      {courseGlobalState?.lectureModal &&
-          <FormModal/>
-      }
+            {courseGlobalState?.lectureModal &&
+                <FormModal element={courseGlobalState?.lectureModal?.element} />
+            }
 
 
 
-      <div className="tw-font-inter tw-bg-richblack-900 tw-h-auto  tw-relative tw-min-h-screen">
-        <Toaster position="top-center" toastOptions={toastconfiguration} />
-        <Navbar categoryData={categoryDataresult.data.data} />
-        <ScrollToTop />
+            <div className="tw-font-inter tw-bg-richblack-900 tw-h-auto  tw-relative tw-min-h-screen">
+                <Toaster position="top-center" toastOptions={toastconfiguration} />
+                <Navbar categoryData={categoryDataresult.data.data} />
+                <ScrollToTop />
 
-        <Routes>
-          <Route path='/' element={<HomePage />} />
+                <Routes>
+                    <Route path='/' element={<HomePage />} />
 
-          <Route path='/courses' element={<CoursePage />} />
-          <Route path='/about' element={<AboutUsPage />} />
-          <Route path='/login' element={<LoginPage />} />
-          <Route path='/signup' element={<SignUpPage />} />
-          <Route path='/contact' element={<ContactPage />} />
-          <Route path='/forgotpassword' element={<ForgotPasswordPage />} />
-          <Route path='/reset-password/:resetToken' element={<ResetPasswordPage />} />
-          <Route path='/catalog/:catalogname' element={<CategoryPage />} />
-          <Route element={<VerifyEmailPage />} path="/verify-email" />
+                    <Route path='/courses' element={<CoursePage />} />
+                    <Route path='/about' element={<AboutUsPage />} />
+                    <Route path='/login' element={<LoginPage />} />
+                    <Route path='/signup' element={<SignUpPage />} />
+                    <Route path='/contact' element={<ContactPage />} />
+                    <Route path='/forgotpassword' element={<ForgotPasswordPage />} />
+                    <Route path='/reset-password/:resetToken' element={<ResetPasswordPage />} />
+                    <Route path='/catalog/:catalogname' element={<CategoryPage />} />
+                    <Route element={<VerifyEmailPage />} path="/verify-email" />
 
-          <Route element={<ProtectedRoute />}>
-            <Route element={<DashBoardPage />}  >
-              <Route path="/dashboard/my-profile" element={<MyProfile />} />
-              <Route path="/dashboard/settings" element={<Settings />} />
-              {/* THIS ROUTES make sure to protect them later to instructor only */}
-              <>
-                <Route path="/dashboard/enrolled-courses" element={<h1 className="tw-text-white">Enrolled Courses</h1>} />
-                <Route path="/dashboard/purchase-history" element={<h1 className="tw-text-white">Purschase History</h1>} />
-                <Route path="/dashboard/my-courses" element={<MyCourses />} />
-                <Route path="/dashboard/add-course" element={<CourseAddLayout />} />
-                <Route path="/dashboard/edit-course/:courseId" element={<EditCourseLayout />} />
-              </>
-            </Route>
+                    <Route element={<ProtectedRoute />}>
+                        <Route element={<DashBoardPage />}  >
+                            <Route path="/dashboard/my-profile" element={<MyProfile />} />
+                            <Route path="/dashboard/settings" element={<Settings />} />
+                            {/* THIS ROUTES make sure to protect them later to instructor only */}
+                            <>
+                                <Route path="/dashboard/enrolled-courses" element={<h1 className="tw-text-white">Enrolled Courses</h1>} />
+                                <Route path="/dashboard/purchase-history" element={<h1 className="tw-text-white">Purschase History</h1>} />
+                                <Route path="/dashboard/my-courses" element={<MyCourses />} />
+                                <Route path="/dashboard/add-course" element={<CourseAddLayout />} />
+                                <Route path="/dashboard/edit-course/:courseId" element={<EditCourseLayout />} />
+                            </>
+                        </Route>
 
-            <Route element={<Test />} path="/test" />
-          </Route>
+                        <Route element={<Test />} path="/test" />
+                    </Route>
 
-          <Route path="*" element={<div className="tw-text-white tw-mt-[90px]">Not Found</div>} />
-        </Routes>
-      </div >
-    </>
-  );
+                    <Route path="*" element={<div className="tw-text-white tw-mt-[90px]">Not Found</div>} />
+                </Routes>
+            </div >
+        </>
+    );
 }
 
 export default App;

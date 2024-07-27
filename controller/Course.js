@@ -58,7 +58,7 @@ exports.createCourse = async (req, resp) => {
 
         if (!instructorDetails) {
             return resp.status(200).json({
-                success: "Failed",
+                status: "Failed",
                 message: 'Instructor Details not found !',
             });
         }
@@ -146,7 +146,7 @@ exports.createCourse = async (req, resp) => {
     } catch (error) {
         console.error(error);
         return resp.status(200).json({
-            success: "Failed",
+            status: "Failed",
             message: 'Failed to create Course',
             error: error.message,
         })
@@ -271,8 +271,8 @@ exports.getMyCourses = async (req, resp) => {
                 }
             }
         })
-        .exec();
-        
+            .exec();
+
         console.log("Course Details =>", mycoursesResult);
 
         return resp.status(200).json({

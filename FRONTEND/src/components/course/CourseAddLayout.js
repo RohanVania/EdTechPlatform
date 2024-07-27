@@ -2,14 +2,15 @@ import React, { useState, useRef, useEffect } from 'react'
 import CourseTip from './CourseTip'
 
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
-import Step1Form from '../stepperForm/Step1Form';
+// import Step1Form from '../stepperForm/Step1Form';
 import { useDispatch, useSelector } from 'react-redux';
-import Step2Form from '../stepperForm/Step2Form';
-import Step3Form from "../stepperForm/Step3Form"
+// import Step2Form from '../stepperForm/Step2Form';
 import { useParams } from 'react-router-dom';
 import RenderStep from './RenderStep';
 import { resetStep, setEditCourse } from '../../slices/addcourseSlice';
-import AddStep1Form from '../stepperForm/AddStep1Form';
+import AddStep1Form from "../StepperForm/AddStep1Form"
+import Step2Form from "../StepperForm/Step2Form"
+import Step3Form from "../StepperForm/Step3Form"
 
 
 function CourseAddLayout() {
@@ -19,7 +20,7 @@ function CourseAddLayout() {
     const params = useParams();
     const [imgpreview, setImgPreview] = useState(null);
 
-  
+
 
     const methods = useForm({
         // defaultValues: {
@@ -37,7 +38,7 @@ function CourseAddLayout() {
         dispatch(setEditCourse(false));
         dispatch(resetStep());
         // return () => { methods.reset() }
-    },[])
+    }, [])
 
     return (
         <div className='tw-pt-[40px]'>
@@ -54,7 +55,7 @@ function CourseAddLayout() {
                         <form id='addcourse' className='tw-flex tw-flex-col tw-gap-y-7 tw-rounded-md tw-border-[1px] tw-border-richblack-700 tw-bg-[#161d29] tw-p-5' onSubmit={(event) => { event.preventDefault() }} >
                             {/* {step === 1 && <Step1Form imgpreview={imgpreview} setImgPreview={setImgPreview} />} */}
 
-                            {step === 1 && <AddStep1Form/>}
+                            {step === 1 && <AddStep1Form />}
                             {step === 2 && <Step2Form />}
                             {step === 3 && <Step3Form />}
 

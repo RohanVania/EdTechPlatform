@@ -23,8 +23,8 @@ export const addMyCourse = async (formData, dispatch) => {
         const result = await apiCaller("POST", courseApi.ADD_COURSE, formData, {
             'Content-Type': 'multipart/form-data'
         });
-
-        if (result?.data?.status != "Failed") {
+        console.log(result.data);
+        if (result?.data?.status !== "Failed") {
             toast.success('Course added  🔥', {
                 id: "course-1",
             })
@@ -33,8 +33,8 @@ export const addMyCourse = async (formData, dispatch) => {
             dispatch(updateUser(result?.data?.updatedUserDetails))
         }
 
-        if (result?.data?.status == "Failed") {
-            toast.error(`${result.data.message} 😪`, {
+        if (result?.data?.status === "Failed") {
+            toast.error(`${result.data.error} 😪`, {
                 id: "courseAdd-error1",
                 style: {
                     minWidth: '185px',
@@ -110,10 +110,10 @@ export const EditMyCourse = async (formData, dispatch) => {
 
 
 //**  Delete a Particular Course
-export const deleteACourse = async (id,userid) => {
+export const deleteACourse = async (id, userid) => {
     try {
-        const { data } = await apiCaller('DELETE', courseApi.DELETE_PARTICULAR_COURSE(id),{
-            userid:userid
+        const { data } = await apiCaller('DELETE', courseApi.DELETE_PARTICULAR_COURSE(id), {
+            userid: userid
         });
 
         if (data.data === "Nothing") {

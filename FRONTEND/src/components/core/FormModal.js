@@ -1,4 +1,4 @@
-import Step1Form from "../stepperForm/Step1Form";
+import Step1Form from "../StepperForm/Step1Form"
 import { useRef, useState } from "react";
 import { FiUploadCloud } from "react-icons/fi";
 import { ImCross } from "react-icons/im";
@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { BigPlayButton, Player } from 'video-react';
 
 
-function FormModal({ question, text, btn1, btn2, handleLogout, handleLogoutCancel }) {
+function FormModal({ element }) {
 
     const dispatch = useDispatch();
     const { register, setValue, getValues } = useForm();
@@ -72,7 +72,7 @@ function FormModal({ question, text, btn1, btn2, handleLogout, handleLogoutCance
                         <div className="tw-flex tw-flex-col tw-gap-y-6 tw-mt-4  tw-pb-10 tw-px-2 md:tw-px-4">
 
                             <div className='tw-fex tw-flex-col'>
-                                <label className='tw-text-sm tw-text-richblack-5'>Lecture Video<sup className='tw-text-pink-200 tw-ml-1'>*</sup></label>
+                                <label className='tw-text-sm tw-text-richblack-5 '>Lecture Video<sup className='tw-text-pink-200 tw-ml-1'>*</sup></label>
 
                                 <div id='filebox' className='tw-mt-5 tw-bg-richblack-700  tw-flex tw-flex-col tw-min-h-[310px] tw-cursor-pointer tw-items-center tw-justify-center tw-rounded-md tw-border-2 tw-border-dotted tw-border-richblack-500'
                                     onClick={InvokeFileUpload}
@@ -149,7 +149,9 @@ errors.whatYouWillLearn && errors.whatYouWillLearn.type === 'required' &&
                                     Upload
                                 </button>
                             </div>
-
+                            {
+                                JSON.stringify(element, '/t')
+                            }
 
                         </div>
                     </div>
