@@ -9,13 +9,11 @@ import Faq from "../faq/Faq"
 import { useFormContext } from 'react-hook-form';
 import { setEditCourse } from "../../slices/addcourseSlice"
 import { addSection } from '../../services/operations/section';
-import { useParams } from 'react-router-dom';
 
 
 function Step2Form({ editLayout }) {
 
     const globalCourseState = useSelector((state) => state?.addcourse);
-    const params = useParams();
 
     const dispatch = useDispatch();
 
@@ -28,7 +26,7 @@ function Step2Form({ editLayout }) {
 
     useEffect(() => {
         setArray(globalCourseState?.course?.courseContent)
-    }, [])
+    })
 
     function GoBack() {
         dispatch(setStep(1))
@@ -55,8 +53,6 @@ function Step2Form({ editLayout }) {
                 console.log(latestSectionDetail);
                 reset();
                 setArray((prev) => [...prev, latestSectionDetail]);
-
-
             }
         }
         catch (err) {

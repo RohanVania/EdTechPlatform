@@ -19,8 +19,8 @@ export const addSubSectionApiCall = async (formObject, dispatch) => {
                 },
                 duration: '120'
             })
-            return 
-            
+            return
+
         }
 
         toast.success('Lecture added  🔥', {
@@ -45,4 +45,42 @@ export const addSubSectionApiCall = async (formObject, dispatch) => {
         })
     }
 
+}
+
+//**  Delete a Particular Course
+export const deleteSubSectionApiCall = async (data) => {
+    try {
+        console.log(data)
+        const apiResult = await apiCaller('DELETE', subSectionApi.DELETE_SUB_SECTION, data);
+
+        if (apiResult.data.status !== 'Success') {
+            toast.error(`${apiResult.data.message} 😪`, {
+                id: "delete-lectur-error",
+                style: {
+                    minWidth: '185px',
+                    color: 'red',
+                    fontSize: '14px'
+                },
+                duration: '120'
+            })
+            return apiResult.data
+        }
+
+        toast.success('Lecture Deleted  🔥', {
+            id: "delete-lecture-1",
+        })
+
+        return apiResult.data
+    }
+    catch (err) {
+        console.log(err)
+        toast.error("Something went while deleting lecture 😪", {
+            id: "lecture-delete-error",
+            style: {
+                minWidth: '145px',
+                color: 'red',
+            },
+            duration: '120'
+        })
+    }
 }

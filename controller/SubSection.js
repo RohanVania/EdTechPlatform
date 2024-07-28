@@ -13,10 +13,10 @@ exports.createSubSection = async (req, resp) => {
         console.log(req.files);
         const video = req.files.video;
 
-        if(!video){
+        if (!video) {
             return resp.status(200).json({
-                status:'Failed',
-                message:'video file missing'
+                status: 'Failed',
+                message: 'video file missing'
             })
         }
 
@@ -29,7 +29,7 @@ exports.createSubSection = async (req, resp) => {
                 }
             )
         }
-        
+
 
         // Upload video file to cloudinary
         const uploadDetails = await imageUploader(
@@ -60,9 +60,9 @@ exports.createSubSection = async (req, resp) => {
             }
         ).populate("subSection");
 
-        console.log("UpdateSection =>",updateSection);
+        console.log("UpdateSection =>", updateSection);
 
-        
+
 
 
         return resp.status(200).json(
@@ -74,7 +74,7 @@ exports.createSubSection = async (req, resp) => {
         )
 
     } catch (error) {
-        console.log("Create Sub section error",error);
+        console.log("Create Sub section error", error);
         return resp.status(200).json(
             {
                 status: "Failed",
@@ -136,27 +136,33 @@ exports.updateSubSection = async (req, resp) => {
     }
 }
 
-// delete a sub section
+//* Delete a sub section
 exports.deleteSubSection = async (req, resp) => {
     try {
         const { subSectionId, sectionId } = req.body
+        if (!subSectionId || !sectionId) {
+            return resp
+                .status(200)
+                .json({ status: "Failed", message: "Some fields are missing" })
+        }
+
         const sectionUpdate = await Section.findByIdAndUpdate(
             { _id: sectionId },
             {
                 $pull: {
                     subSection: subSectionId,
                 },
-            },{
-                new:true
-            }
+            }, {
+            new: true
+        }
         )
 
-        if(!sectionUpdate){
+        if (!sectionUpdate) {
             return resp
-            .status(200)
-            .json({ status: "Failed", message: "Section not found" })
+                .status(200)
+                .json({ status: "Failed", message: "Section is not updated / Sub section missing" })
         }
-        
+
         const subSection = await SubSection.findByIdAndDelete({ _id: subSectionId })
 
         if (!subSection) {
@@ -164,13 +170,12 @@ exports.deleteSubSection = async (req, resp) => {
                 .status(200)
                 .json({ status: "Failed", message: "Sub section not found" })
         }
-        
-
 
 
         return resp.status(200).json({
             status: "Success",
             message: "SubSection deleted successfully",
+            updatedSection: sectionUpdate
         })
 
     } catch (error) {
@@ -178,6 +183,7 @@ exports.deleteSubSection = async (req, resp) => {
         return resp.status(200).json({
             status: "Failed",
             message: "An error occurred while deleting the SubSection",
+            error: error
         })
     }
 }

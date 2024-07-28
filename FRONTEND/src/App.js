@@ -31,6 +31,7 @@ import CategoryPage from "./pages/CategoryPage";
 import EditCourseLayout from "./components/course/EditCourseLayout";
 import FormModal from "./components/core/FormModal";
 import VideoPlayerModal from "./components/core/VideoPlayerModal";
+import DeleteConfirmationModal from "./components/core/DeleteConfirmationModal";
 
 function App() {
 
@@ -126,10 +127,19 @@ function App() {
                 <FormModal element={courseGlobalState?.lectureModal?.element} />
             }
 
-  
+
             {courseGlobalState?.videoPlayModal &&
                 <VideoPlayerModal element={courseGlobalState?.videoPlayModal?.lecture} />
             }
+
+            {courseGlobalState?.deleteConfirmationModal?.status && courseGlobalState?.deleteConfirmationModal?.lecture &&
+                <DeleteConfirmationModal element={courseGlobalState?.deleteConfirmationModal?.lecture} />
+            }
+
+            {courseGlobalState?.deleteConfirmationModal?.status && courseGlobalState?.deleteConfirmationModal?.section &&
+                <DeleteConfirmationModal element={courseGlobalState?.deleteConfirmationModal?.section} />
+            }
+
 
 
 
