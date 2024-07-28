@@ -6,37 +6,47 @@ import { FaPlus } from "react-icons/fa6";
 import { IoPlay } from "react-icons/io5";
 import { useState } from "react"
 import { AnimatePresence, motion } from "framer-motion";
-import { useDispatch } from "react-redux";
-import { setLectureModal, setVideoPlayModal } from "../../slices/addcourseSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setDeleteConfirmationModal, setLectureModal, setVideoPlayModal } from "../../slices/addcourseSlice";
 
 function Faq({ element }) {
 
-    const [subsectionArray, setSubSectionArray] = useState([]);
-    const [open, setOpen] = useState(false);
-    const dispatch=useDispatch();
+    const globalCourseState = useSelector((state) => state.addcourse);
 
-    function openFormModal(el){
+    const [open, setOpen] = useState(false);
+    const dispatch = useDispatch();
+
+    function openFormModal(el) {
         console.log(el)
         dispatch(setLectureModal({
-            element:element,
-            status:true
+            element: element,
+            status: true
         }))
     }
 
-    function deleteSection(element){
-        console.log("Call delete for element =>",element);
+    function deleteSection(element) {
+        console.log("Call delete for element =>");
+
+        dispatch(setDeleteConfirmationModal({
+            status: true,
+            section: element
+        }))
+
     }
 
-    function openVideoPlayerModal(lecture){
+    function openVideoPlayerModal(lecture) {
         dispatch(setVideoPlayModal({
-            lecture:lecture,
-            status:true
+            lecture: lecture,
+            status: true
         }))
-    }   
+    }
 
-    function deletParticularLecture(lecture){
-        console.log("Delete lecture =>",lecture?._id)
-        
+    function deletParticularLecture(lecture) {
+        dispatch(setDeleteConfirmationModal({
+            status: true,
+            lecture: lecture,
+            sectionId: element?._id
+        }))
     }
 
     return (
@@ -56,7 +66,7 @@ function Faq({ element }) {
                     <div className=" tw-self-center">
                         <div className='tw-flex  tw-gap-x-2 tw-items-center tw-justify-center    btnalign:tw-text-[19px] tw-text-[19px] tw-px-1 '>
                             <FiEdit2 className=' tw-cursor-pointer hover:tw-text-[#067Cf7]' />
-                            <MdDelete className=' tw-cursor-pointer  hover:tw-text-red-500 ' onClick={()=>deleteSection(element)} />
+                            <MdDelete className=' tw-cursor-pointer  hover:tw-text-red-500 ' onClick={() => deleteSection(element)} />
                             <div className=' tw-border-l-[2px] tw-border-richblack-500  tw-pl-2 tw-flex tw-items-center tw-self-center btnalign:tw-block '>
                                 <FaChevronDown className='  tw-self-start tw-cursor-pointer ' onClick={() => setOpen((prev) => !prev)} />
                             </div>
@@ -84,7 +94,7 @@ function Faq({ element }) {
                                     return <div key={`subsection-${indx}`} className='tw-flex btnalign:tw-gap-x-3 tw-gap-x-1 tw-gap-y-3 tw-flex-wrap tw-w-full tw-border-b-[2px] tw-border-richblack-500 tw-py-3 tw-justify-between'>
                                         <div className="tw-flex tw-gap-x-2">
                                             <div className='tw-flex tw-justify-cente tw-items-center tw-bg-red-40 tw-px-1 tw-gap-x-3 '>
-                                                <IoPlay className='tw-self-center tw-text-[19px] tw-cursor-pointer' onClick={()=>{openVideoPlayerModal(el)}} />
+                                                <IoPlay className='tw-self-center tw-text-[19px] tw-cursor-pointer' onClick={() => { openVideoPlayerModal(el) }} />
                                             </div>
                                             <p className='btnalign:tw-text-[17px] tw-text-[15px]'>
                                                 {el?.title}
@@ -93,7 +103,7 @@ function Faq({ element }) {
                                         <div className=" tw-self-center">
                                             <div className='tw-flex  tw-gap-x-2 tw-items-center tw-justify-center    btnalign:tw-text-[19px] tw-text-[19px] tw-px-1 '>
                                                 <FiEdit2 className=' tw-cursor-pointer hover:tw-text-[#067Cf7]' />
-                                                <MdDelete className=' tw-cursor-pointer   hover:tw-text-red-500' onClick={()=>{deletParticularLecture(el)}}/>
+                                                <MdDelete className=' tw-cursor-pointer   hover:tw-text-red-500' onClick={() => { deletParticularLecture(el) }} />
                                             </div>
                                         </div>
                                     </div>

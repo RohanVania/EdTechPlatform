@@ -257,7 +257,6 @@ exports.getCourseDetails = async (req, resp) => {
 }
 
 //* Get MyCourses
-
 exports.getMyCourses = async (req, resp) => {
     try {
         const { id } = req.user;
@@ -337,6 +336,8 @@ exports.deleteParticularCourse = async (req, res) => {
             )
 
             console.log(userDetailupdate);
+
+            //TODO We also have to clean all section and subsections while deleting a course *IMP
 
             return res.status(200).json({
                 status: "Success",
