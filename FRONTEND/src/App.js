@@ -140,6 +140,9 @@ function App() {
                 <DeleteConfirmationModal element={courseGlobalState?.deleteConfirmationModal?.section} />
             }
 
+            {courseGlobalState?.deleteConfirmationModal?.status && courseGlobalState?.deleteConfirmationModal?.course &&
+                <DeleteConfirmationModal element={courseGlobalState?.deleteConfirmationModal?.course} />
+            }
 
 
 

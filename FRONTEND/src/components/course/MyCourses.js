@@ -7,13 +7,11 @@ import { fetchMyCourses, deleteACourse } from "../../services/operations/courseF
 import ModalLoader from "../core/ModalLoader";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setCourse, setEditCourse } from "../../slices/addcourseSlice";
+import { setCourse, setDeleteConfirmationModal, setEditCourse } from "../../slices/addcourseSlice";
 
 function MyCourses() {
-    const query = useQueryClient();
-    const navigate=useNavigate();
-    const dispatch=useDispatch();
-    const globalProfileState=useSelector((state)=>state.profile);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const { data, isLoading, isFetching } = useQuery({
         queryKey: 'mycourses',
@@ -23,7 +21,7 @@ function MyCourses() {
     })
 
     // console.log("Courses Data", data)
-    function changeEditCourseAndGoToThatCourse(course){
+    function changeEditCourseAndGoToThatCourse(course) {
         dispatch(setEditCourse(true));
         dispatch(setCourse(course));
         navigate(`/dashboard/edit-course/${course._id}`)
@@ -31,14 +29,11 @@ function MyCourses() {
 
 
     async function deleteCourse(el) {
-        console.log("Delete Course =>", el)
-
-        const result = await deleteACourse(el._id,globalProfileState?.userData?._id);
-        console.log(result)
-        // if (result.status !== "Success" && result.data !== null) {
-            query.invalidateQueries({ queryKey: 'mycourses' });
-        // }
-        // console.log(result);
+        dispatch(setDeleteConfirmationModal({
+            status: true,
+            course: el
+        }
+        ))
     }
 
 
@@ -54,7 +49,7 @@ function MyCourses() {
 
                 <div className='tw-pt-[40px] tw-flex tw-bg-red-40 tw-flex-wrap  tw-justify-between tw-items-center tw-gap-y-4 '>
                     <h1 className='tw-text-3xl  tw-text-richblack-5 tw-font-medium  videobanner:tw-text-xl'>My Courses</h1>
-                    <button className=' tw-flex tw-gap-x-2 tw-px-4 videobanner:tw-px-4 tw-py-3  videobanner:tw-text-[14px] tw-font-semibold tw-text-yellow-50 hover:tw-text-black hover:tw-bg-yellow-50 tw-duration-100  tw-items-center tw-rounded-lg tw-border-yellow-50 tw-border-[1px]' onClick={()=>navigate('/dashboard/add-course')} >
+                    <button className=' tw-flex tw-gap-x-2 tw-px-4 videobanner:tw-px-4 tw-py-3  videobanner:tw-text-[14px] tw-font-semibold tw-text-yellow-50 hover:tw-text-black hover:tw-bg-yellow-50 tw-duration-100  tw-items-center tw-rounded-lg tw-border-yellow-50 tw-border-[1px]' onClick={() => navigate('/dashboard/add-course')} >
                         Add Course
                         <LuPlusCircle className='tw-text-[21px] videobanner:tw-text-[16px]  tw-font-semibold' />
                     </button>
@@ -121,8 +116,8 @@ function MyCourses() {
                                                         Action
                                                     </p>
                                                     <p className="tw-flex-1 tw-text-richblack-300 tw-text-[20px]  tw-flex xl:tw-gap-x-0 tw-gap-x-3 ">
-                                                        <FiEdit2 className=" tw-text-[30px] xl:tw-text-[25px]  tw-p-[2px] xl:tw-flex-1 tw-cursor-pointer hover:tw-scale-[1.2] tw-duration-200" onClick={()=> changeEditCourseAndGoToThatCourse(el)}/>
-                                                        <MdDelete className=" tw-text-[30px] xl:tw-text-[25px] tw-p-[2px] xl:tw-flex-1   tw-cursor-pointer hover:tw-scale-[1.2] tw-duration-200" onClick={() => { deleteCourse(el) }} />
+                                                        <FiEdit2 className=" tw-text-[30px] xl:tw-text-[25px]  tw-p-[2px] xl:tw-flex-1 tw-cursor-pointer hover:tw-scale-[1.2] tw-duration-200 hover:tw-text-[#3B71CA]" onClick={() => changeEditCourseAndGoToThatCourse(el)} />
+                                                        <MdDelete className=" tw-text-[30px] xl:tw-text-[25px] tw-p-[2px] xl:tw-flex-1   tw-cursor-pointer hover:tw-scale-[1.2] tw-duration-200 hover:tw-text-red-600" onClick={() => { deleteCourse(el) }} />
                                                     </p>
                                                 </td>
 

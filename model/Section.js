@@ -16,6 +16,6 @@ const sectionSchema = new mongoose.Schema({
             ref: "SubSection",
         }
     ]
-})
+},{ strictPopulate: false })
 
 module.exports = mongoose.model("Section", sectionSchema)
