@@ -14,6 +14,8 @@ const subSectionSchema = new mongoose.Schema({
     videoUrl: {
         type: String
     }
-})
+},
+    { strictPopulate: false }
+)
 
 module.exports = mongoose.model("SubSection", subSectionSchema)

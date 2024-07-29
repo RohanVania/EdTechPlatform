@@ -127,5 +127,6 @@ export const deleteACourse = async (id, userid) => {
     }
     catch (err) {
         console.log(err)
+        return err;
     }
 }

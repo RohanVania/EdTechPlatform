@@ -1,5 +1,7 @@
 const User = require("../model/User");
 const Course = require("../model/Course")
+const Section=require("../model/Section");
+const SubSection=require("../model/SubSection");
 const Category = require("../model/Category");
 const { imageUploader } = require("../utils/imageUploader");
 const { default: mongoose } = require("mongoose");
@@ -272,7 +274,7 @@ exports.getMyCourses = async (req, resp) => {
         })
             .exec();
 
-        console.log("Course Details =>", mycoursesResult);
+        // console.log("Course Details =>", mycoursesResult);
 
         return resp.status(200).json({
             status: "Success",
@@ -302,6 +304,51 @@ exports.deleteParticularCourse = async (req, res) => {
         const validId = userid === req.body?.userid ? true : false;
         if (validId) {
 
+            //* lets find the course first
+            const particularCourse = await Course.findById(courseId).populate(
+                {
+                    path: 'courseContent',
+                    populate: {
+                        path: "subSection",
+                        model: 'SubSection'
+                    }
+                }
+            ).exec();
+
+            console.log("particular course =>", particularCourse);
+
+            if (!particularCourse) {
+                return response.status(200).json({
+                    status: 'Success',
+                    message: 'Course does not exist'
+                })
+            }
+
+            //* Cleaning Database
+
+            const allSectionIdArray = particularCourse.courseContent.map((el)=>el._id);
+            const allSubSectionIdArray = particularCourse.courseContent.flatMap((el)=>el.subSection.map(el=>el._id));
+
+            const deleteAllRelatedSection=await Section.deleteMany({
+                _id:{
+                    $in:allSectionIdArray
+                }
+            })
+
+            const deleteAllRelatedSubSection=await SubSection.deleteMany({
+                _id:{
+                    $in:allSubSectionIdArray
+                }
+            }
+            )
+
+            // console.log(allSubSectionIdArray);
+
+
+            // return res.status(200).json({
+            //     particularCourse:particularCourse
+            // })
+
             const deleteCourseResult = await Course.findByIdAndDelete(courseId);
 
             if (deleteCourseResult === null) {
@@ -311,6 +358,7 @@ exports.deleteParticularCourse = async (req, res) => {
                     msg: 'Given course is already deleted'
                 })
             }
+
 
             //* Also delete it course from user table entry in courses
 
