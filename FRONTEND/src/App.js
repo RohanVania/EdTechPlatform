@@ -46,7 +46,6 @@ function App() {
         queryKey: ['categories'],
         // staleTime: Infinity,
         queryFn: getAllCategories,
-
         refetchOnMount: true,
         refetchOnWindowFocus: false
     })
@@ -68,7 +67,7 @@ function App() {
     }
 
     if (categoryDataresult.isError) {
-        return <div>
+        return <div className="tw-bg-red-400 tw-w-full tw-h-full">
             Error
         </div>
     }
@@ -77,7 +76,7 @@ function App() {
         position: 'top-center',
     }
 
-    //* LOGOUT AND DELET ACCOUNT FUNCTIONALITY 
+    //* LOGOUT AND DELETE ACCOUNT FUNCTIONALITY 
 
     function handleLogoutCancel() {
         dispatch(setLogout(false))

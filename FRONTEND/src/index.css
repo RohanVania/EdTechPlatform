@@ -6,7 +6,7 @@
 body{
   scroll-behavior: smooth;
   /* overflow-y: hidden; */
-  background-color: black;
+  /* background-color: black; */
 }
 
 input:-webkit-autofill,
